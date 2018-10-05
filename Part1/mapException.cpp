@@ -4,6 +4,6 @@
 
 #include "mapException.h"
 
-const char *MapException::what() const {
+const char *MapException::what() const noexcept{
     return message;
 }

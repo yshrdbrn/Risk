@@ -35,7 +35,7 @@ void Map::addContinent(std::string name) {
     if (findContinent(name) != nullptr)
         throw MapException("Continent already exists");
 
-    continents.push_back(std::make_shared(new Continent(name)));
+    continents.push_back(std::make_shared<Continent>(name));
 }
 
 void Map::addCountry(std::string name, std::string continent, std::vector<std::string> adj) {
@@ -43,21 +43,21 @@ void Map::addCountry(std::string name, std::string continent, std::vector<std::s
     continent_ptr cnt = findContinent(continent);
     if (cnt == nullptr) {
         char buffer[100];
-        sprintf(buffer, "Continent %s is not found for country %s.", continent, name);
+        sprintf(buffer, "Continent %s is not found for country %s.", continent.data(), name.data());
         throw MapException(buffer);
     }
 
     // Find or create the Country object
     country_ptr ptr = findCountry(name);
     if (ptr == nullptr)
-        ptr = std::make_shared(new Country(name));
+        ptr = std::make_shared<Country>(name);
 
     // Create Country vector of adjacent countries
     std::vector<country_ptr> adjCountries;
     for (const std::string &adjName: adj) {
         country_ptr adjPtr = findCountry(adjName);
         if (adjPtr == nullptr)
-            adjPtr = std::make_shared(new Country(adjName));
+            adjPtr = std::make_shared<Country>(adjName);
         adjCountries.push_back(adjPtr);
     }
 

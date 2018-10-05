@@ -14,7 +14,7 @@ private:
 public:
     explicit MapException(const char *msg): message(msg) {};
 
-    const char *what() const override;
+    const char *what() const noexcept override;
 };
 
 
