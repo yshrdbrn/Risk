@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+
+Assignment_1_part5.vcxproj
+Assignment_1_part5.vcxproj.filters
+Assignment_1_part5.vcxproj.user
+Debug/
+
