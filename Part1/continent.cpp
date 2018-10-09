@@ -33,15 +33,15 @@ int Continent::numberOfCountriesWithName(std::string name) {
 }
 
 
-bool Continent::isConnected(std::unordered_map<country_ptr, std::vector<country_ptr> > &adjList) {
-    std::unordered_map<country_ptr, bool> mark;
-    for (const country_ptr countryPtr: countries)
-        mark[countryPtr] = true;
+bool Continent::isConnected(std::unordered_map<std::string, std::vector<std::string> > &adjList) {
+    std::unordered_map<std::string, bool> mark;
+    for (const country_ptr &countryPtr: countries)
+        mark[countryPtr->getName()] = false;
 
-    dfs(countries[0], mark, adjList);
+    dfs(countries[0]->getName(), mark, adjList);
 
-    for (auto it = mark.begin(); it != mark.end() ; it++) {
-        if (!it->second) {
+    for (auto &it : mark) {
+        if (!it.second) {
             return false;
         }
     }
@@ -49,10 +49,10 @@ bool Continent::isConnected(std::unordered_map<country_ptr, std::vector<country_
     return true;
 }
 
-void Continent::dfs(const country_ptr &node, std::unordered_map<country_ptr, bool> &mark,
-        std::unordered_map<country_ptr, std::vector<country_ptr> > &adjList) {
+void Continent::dfs(std::string node, std::unordered_map<std::string, bool> &mark,
+        std::unordered_map<std::string, std::vector<std::string> > &adjList) {
     mark[node] = true;
-    std::vector<country_ptr> adj = adjList[node];
+    std::vector<std::string> &adj = adjList[node];
 
     for (const auto &t: adj) {
         if (contains(t) and !mark[t])
@@ -60,9 +60,9 @@ void Continent::dfs(const country_ptr &node, std::unordered_map<country_ptr, boo
     }
 }
 
-bool Continent::contains(const country_ptr &countryPtr) {
-    for (auto ptr: countries)
-        if (ptr->getName() == countryPtr->getName())
+bool Continent::contains(std::string countryName) {
+    for (const country_ptr &ptr: countries)
+        if (ptr->getName() == countryName)
             return true;
 
     return false;

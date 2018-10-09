@@ -11,7 +11,7 @@ typedef std::shared_ptr<Continent> continent_ptr;
 
 class Map {
 private:
-    std::unordered_map<country_ptr, std::vector<country_ptr> > adjList;
+    std::unordered_map<std::string, std::vector<std::string> > adjList;
 
     std::vector<country_ptr> countries;
 
@@ -21,7 +21,7 @@ private:
 
     bool isMapConnected();
 
-    void dfs(const country_ptr &node, std::unordered_map<country_ptr, bool> &mark);
+    void dfs(std::string node, std::unordered_map<std::string, bool> &mark);
 
     bool isConnectedForContinent(continent_ptr continent);
 

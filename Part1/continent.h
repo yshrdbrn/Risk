@@ -17,10 +17,10 @@ private:
 
     std::string name;
 
-    void dfs(const country_ptr &node, std::unordered_map<country_ptr, bool> &mark,
-            std::unordered_map<country_ptr, std::vector<country_ptr> > &adjList);
+    void dfs(std::string node, std::unordered_map<std::string, bool> &mark,
+            std::unordered_map<std::string, std::vector<std::string> > &adjList);
 
-    bool contains(const country_ptr &countryPtr);
+    bool contains(std::string countryName);
 
 public:
     explicit Continent(const std::string &name);
@@ -35,7 +35,7 @@ public:
 
     int numberOfCountriesWithName(std::string name);
 
-    bool isConnected(std::unordered_map<country_ptr, std::vector<country_ptr> > &adjList);
+    bool isConnected(std::unordered_map<std::string, std::vector<std::string> > &adjList);
 };
 
 

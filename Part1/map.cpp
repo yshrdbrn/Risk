@@ -2,6 +2,7 @@
 // Created by Yashar Dabiran on 2018-10-04.
 //
 
+#include <iostream>
 #include <unordered_map>
 #include "map.h"
 
@@ -19,11 +20,11 @@ bool Map::isEachCountryInOneContinent() {
 }
 
 bool Map::isMapConnected() {
-    std::unordered_map<country_ptr, bool> mark;
+    std::unordered_map<std::string, bool> mark;
     for (const country_ptr &countryPtr: countries)
-        mark[countryPtr] = true;
+        mark[countryPtr->getName()] = false;
 
-    dfs(countries[0], mark);
+    dfs(countries[0]->getName(), mark);
 
     for (auto &it : mark) {
         if (!it.second) {
@@ -75,17 +76,8 @@ void Map::addCountry(std::string name, std::string continent, std::vector<std::s
     if (ptr == nullptr)
         ptr = std::make_shared<Country>(name);
 
-    // Create Country vector of adjacent countries
-    std::vector<country_ptr> adjCountries;
-    for (const std::string &adjName: adj) {
-        country_ptr adjPtr = findCountry(adjName);
-        if (adjPtr == nullptr)
-            adjPtr = std::make_shared<Country>(adjName);
-        adjCountries.push_back(adjPtr);
-    }
-
     // Update map properties
-    adjList[ptr] = adjCountries;
+    adjList[ptr->getName()] = adj;
     cnt->addCountry(ptr);
     countries.push_back(ptr);
 }
@@ -113,9 +105,9 @@ country_ptr Map::findCountry(const std::string &name) {
     return found;
 }
 
-void Map::dfs(const country_ptr &node, std::unordered_map<country_ptr, bool> &mark) {
+void Map::dfs(std::string node, std::unordered_map<std::string, bool> &mark) {
     mark[node] = true;
-    std::vector<country_ptr> adj = adjList[node];
+    std::vector<std::string> &adj = adjList[node];
 
     for (const auto &t: adj) {
         if (!mark[t])
