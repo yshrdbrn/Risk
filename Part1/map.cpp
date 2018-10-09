@@ -2,33 +2,56 @@
 // Created by Yashar Dabiran on 2018-10-04.
 //
 
+#include <unordered_map>
 #include "map.h"
 
 bool Map::isEachCountryInOneContinent() {
-    // TODO
-    return false;
+    for (const country_ptr &countryPtr: countries) {
+        int counter = 0;
+        for (const continent_ptr &continentPtr: continents)
+            counter += continentPtr->numberOfCountriesWithName(countryPtr->getName());
+
+        if (counter != 1)
+            return false;
+    }
+
+    return true;
 }
 
 bool Map::isMapConnected() {
-    // TODO
-    return false;
+    std::unordered_map<country_ptr, bool> mark;
+    for (const country_ptr &countryPtr: countries)
+        mark[countryPtr] = true;
+
+    dfs(countries[0], mark);
+
+    for (auto &it : mark) {
+        if (!it.second) {
+            throw MapException("Map is not connected");
+        }
+    }
+
+    return true;
 }
 
 bool Map::isConnectedForContinent(continent_ptr continent) {
-    // TODO
-    return false;
+    return continent->isConnected(adjList);
+}
+
+bool Map::areAllContinentsConnected() {
+    for(const continent_ptr &continentPtr: continents)
+        if (!isConnectedForContinent(continentPtr))
+            return false;
+
+    return true;
 }
 
 bool Map::isMapValid() {
     if (!isEachCountryInOneContinent()) throw MapException("one country belongs to more than one continent.");
     if (!isMapConnected()) throw MapException("Map is not connected");
-    for (const continent_ptr &continent: continents) {
-        if (!continent->isConnected())
-            throw MapException("One of the continents not connected.");
-    }
+    if (!areAllContinentsConnected()) throw MapException("One of the continents not connected.");
 
-    // TODO
-    return false;
+    return true;
 }
 
 void Map::addContinent(std::string name) {
@@ -88,5 +111,15 @@ country_ptr Map::findCountry(const std::string &name) {
         }
 
     return found;
+}
+
+void Map::dfs(const country_ptr &node, std::unordered_map<country_ptr, bool> &mark) {
+    mark[node] = true;
+    std::vector<country_ptr> adj = adjList[node];
+
+    for (const auto &t: adj) {
+        if (!mark[t])
+            dfs(t, mark);
+    }
 }
 

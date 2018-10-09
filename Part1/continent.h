@@ -6,6 +6,7 @@
 #define RISKGAME_CONTINENT_H
 
 #include <vector>
+#include <unordered_map>
 #include "country.h"
 
 typedef std::shared_ptr<Country> country_ptr;
@@ -15,6 +16,11 @@ private:
     std::vector<country_ptr> countries;
 
     std::string name;
+
+    void dfs(const country_ptr &node, std::unordered_map<country_ptr, bool> &mark,
+            std::unordered_map<country_ptr, std::vector<country_ptr> > &adjList);
+
+    bool contains(const country_ptr &countryPtr);
 
 public:
     explicit Continent(const std::string &name);
@@ -29,7 +35,7 @@ public:
 
     int numberOfCountriesWithName(std::string name);
 
-    bool isConnected();
+    bool isConnected(std::unordered_map<country_ptr, std::vector<country_ptr> > &adjList);
 };
 
 

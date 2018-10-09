@@ -21,7 +21,11 @@ private:
 
     bool isMapConnected();
 
+    void dfs(const country_ptr &node, std::unordered_map<country_ptr, bool> &mark);
+
     bool isConnectedForContinent(continent_ptr continent);
+
+    bool areAllContinentsConnected();
 
     continent_ptr findContinent(const std::string &name);
 
