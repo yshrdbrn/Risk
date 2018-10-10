@@ -47,12 +47,10 @@ bool Map::areAllContinentsConnected() {
     return true;
 }
 
-bool Map::isMapValid() {
+void Map::checkIfMapIsValid() {
     if (!isEachCountryInOneContinent()) throw RiskException("one country belongs to more than one continent.");
     if (!isMapConnected()) throw RiskException("Map is not connected");
     if (!areAllContinentsConnected()) throw RiskException("One of the continents not connected.");
-
-    return true;
 }
 
 void Map::addContinent(std::string name) {
@@ -113,5 +111,10 @@ void Map::dfs(std::string node, std::unordered_map<std::string, bool> &mark) {
         if (!mark[t])
             dfs(t, mark);
     }
+}
+
+
+int Map::numberOfCountries() {
+    return countries.size();
 }
 

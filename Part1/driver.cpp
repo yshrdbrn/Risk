@@ -16,7 +16,7 @@ int main() {
     map1.addCountry("sample", "America", x);
     map1.addCountry("sample", "Europe", y);
     try {
-        map1.isMapValid();
+        map1.checkIfMapIsValid();
         std::cout << "First map is valid." << std::endl;
     } catch (RiskException &e) {
         std::cout << "Error on first map:" << std::endl;
@@ -37,7 +37,7 @@ int main() {
     map2.addCountry("city2", "Europe", y);
     map2.addCountry("city3", "Europe", z);
     try {
-        map2.isMapValid();
+        map2.checkIfMapIsValid();
         std::cout << "Second map is valid." << std::endl;
     } catch (RiskException &e) {
         std::cout << "Error on second map:" << std::endl;
@@ -62,7 +62,7 @@ int main() {
     map3.addCountry("city2", "Europe", y);
     map3.addCountry("city3", "Europe", z);
     try {
-        map3.isMapValid();
+        map3.checkIfMapIsValid();
         std::cout << "Third map is valid." << std::endl;
     } catch (RiskException &e) {
         std::cout << "Error on third map:" << std::endl;
@@ -86,7 +86,7 @@ int main() {
     map4.addCountry("city2", "Europe", y);
     map4.addCountry("city3", "Europe", z);
     try {
-        map4.isMapValid();
+        map4.checkIfMapIsValid();
         std::cout << "Forth map is valid." << std::endl;
     } catch (RiskException &e) {
         std::cout << "Error on forth map:" << std::endl;

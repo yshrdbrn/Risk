@@ -36,7 +36,9 @@ public:
 
     void addCountry(std::string name, std::string continent, std::vector<std::string> adj);
 
-    bool isMapValid();
+    void checkIfMapIsValid();
+
+    int numberOfCountries();
 };
 
 
