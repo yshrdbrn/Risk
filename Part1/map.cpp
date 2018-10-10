@@ -26,6 +26,12 @@ bool Map::isMapConnected() {
 
     dfs(countries[0]->getName(), mark);
 
+    for (auto &it : mark) {
+        if (!it.second) {
+            throw RiskException("Map is not connected");
+        }
+    }
+
     return true;
 }
 
