@@ -5,7 +5,7 @@
 #include <unordered_map>
 #include "country.h"
 #include "continent.h"
-#include "mapException.h"
+#include "riskException.h"
 
 typedef std::shared_ptr<Continent> continent_ptr;
 
@@ -36,7 +36,9 @@ public:
 
     void addCountry(std::string name, std::string continent, std::vector<std::string> adj);
 
-    bool isMapValid();
+    void checkIfMapIsValid();
+
+    int numberOfCountries();
 };
 
 
