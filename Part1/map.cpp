@@ -28,7 +28,7 @@ bool Map::isMapConnected() {
 
     for (auto &it : mark) {
         if (!it.second) {
-            throw MapException("Map is not connected");
+            throw RiskException("Map is not connected");
         }
     }
 
@@ -48,16 +48,16 @@ bool Map::areAllContinentsConnected() {
 }
 
 bool Map::isMapValid() {
-    if (!isEachCountryInOneContinent()) throw MapException("one country belongs to more than one continent.");
-    if (!isMapConnected()) throw MapException("Map is not connected");
-    if (!areAllContinentsConnected()) throw MapException("One of the continents not connected.");
+    if (!isEachCountryInOneContinent()) throw RiskException("one country belongs to more than one continent.");
+    if (!isMapConnected()) throw RiskException("Map is not connected");
+    if (!areAllContinentsConnected()) throw RiskException("One of the continents not connected.");
 
     return true;
 }
 
 void Map::addContinent(std::string name) {
     if (findContinent(name) != nullptr)
-        throw MapException("Continent already exists");
+        throw RiskException("Continent already exists");
 
     continents.push_back(std::make_shared<Continent>(name));
 }
@@ -68,7 +68,7 @@ void Map::addCountry(std::string name, std::string continent, std::vector<std::s
     if (cnt == nullptr) {
         char buffer[100];
         sprintf(buffer, "Continent %s is not found for country %s.", continent.data(), name.data());
-        throw MapException(buffer);
+        throw RiskException(buffer);
     }
 
     // Find or create the Country object
