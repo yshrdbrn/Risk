@@ -18,7 +18,7 @@ map_ptr MapLoader::createMapWithFileName(const std::string &fileName) {
 
     // Reading the file content
     for (const std::string line: fileContent) {
-        if (line.size() == 1)
+        if (line.size() == 0)
             continue;
 
         // Changing the state
@@ -42,7 +42,6 @@ map_ptr MapLoader::createMapWithFileName(const std::string &fileName) {
         }
     }
 
-    std::cerr << mapPtr->numberOfCountries() << std::endl;
     if (mapPtr->numberOfCountries() == 0)
         throw RiskException("There are no countries in the map file.");
     mapPtr->checkIfMapIsValid();
@@ -56,7 +55,7 @@ std::vector<std::string> MapLoader::loadFileWithName(const std::string &fileName
     std::ifstream file(fileName);
     std::string line;
     while(std::getline(file, line)) {
-        fileContent.push_back(line);
+        fileContent.push_back(line.substr(0, line.size() - 1));
     }
 
     return fileContent;
