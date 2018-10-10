@@ -2,7 +2,6 @@
 // Created by Yashar Dabiran on 2018-10-04.
 //
 
-#include <iostream>
 #include <unordered_map>
 #include "map.h"
 

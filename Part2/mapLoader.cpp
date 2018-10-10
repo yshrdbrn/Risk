@@ -2,7 +2,6 @@
 // Created by Yashar Dabiran on 2018-10-10.
 //
 
-#include <iostream>
 #include <fstream>
 #include <sstream>
 #include "mapLoader.h"
