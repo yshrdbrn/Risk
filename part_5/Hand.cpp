@@ -62,49 +62,95 @@ void Hand::totalCardsIncrement(int totalCards) {
 	this->totalCards += totalCards;
 }
 //-------------------------------------------------------exchange_method
-void Hand::exchange(string type) {
+void Hand::exchange() {
 	bool checker = false;
-	if ((type == "infantry" || type == "Infantry" || type == "artillery" || type == "Artillery" ||
-		type == "cavalery" || type == "Cavalery") == checker) {
-		while (checker==false)
-		{
-			cout << "Invalid type:: Please re enter the type you would like to exchange" << endl;
-			cin >> type;
-			if ((type == "infantry" || type == "Infantry" || type == "artillery" || type == "Artillery" ||
-				type == "cavalery" || type == "Cavalery") == true) {
-				checker = true;
-			}
+	string type;
+	string yes;
 
+	cout << "Do you wish to exchange 3 cards of the same type?(yes/no):";
+	cin >> yes;
+
+	if ((yes == "yes" || yes == "Yes") == false && (yes == "no" || yes == "No") == false) {      //looks if the user entered a valid (yes/no)
+		while (checker == false) {
+			cout << "you did not enter yes/no, please try again:";
+			cin >> yes;
+			if ((yes == "yes" || yes == "Yes") == true || (yes == "no" || yes == "No") == true){
+			checker = true;
 }
-	}
-	
-	if (type=="infantry"|| type=="Infantry") {
-		if (this->infantry >= 3) {
-			this->infantry -= 3;
-			this->exchangeCounter += 5;
-			this->armies += this->exchangeCounter;
 		}
-		else
-			cout << "You do not have enough cards to proceed to the exchange" << endl;
 	}
-	else
-		if (type == "artillery" || type == "Artillery") {
-			if (this->artillery >= 3) {
-				this->artillery -= 3;
+	checker = false;
+	
+	if (yes == "yes" || yes == "Yes") {                                 //if the answer is yes, proceeds to ask which type it is
+		cout << "Please enter the type of the cards you wish to exchange" << endl;
+		cin >> type;
+		if ((type == "infantry" || type == "Infantry" || type == "artillery" || type == "Artillery" ||
+			type == "cavalery" || type == "Cavalery") == checker) {           //if the type is not one of these, please re enter
+			while (checker == false)
+			{
+				cout << "Invalid type:: Please re enter the type you would like to exchange" << endl;
+				cin >> type;
+				if ((type == "infantry" || type == "Infantry" || type == "artillery" || type == "Artillery" ||
+					type == "cavalery" || type == "Cavalery") == true) {
+					checker = true;
+				}
+
+			}
+		}
+
+		if (type == "infantry" || type == "Infantry") {       //if the type is infantry
+			if (this->infantry >= 3) {                      //if there is at least 3 infantries in the deck
+				this->infantry -= 3;
 				this->exchangeCounter += 5;
 				this->armies += this->exchangeCounter;
+				
+				
 			}
 			else
 				cout << "You do not have enough cards to proceed to the exchange" << endl;
 		}
 		else
-			if (type == "cavalery" || type == "Cavalery") {
-				if (this->cavalery >= 3) {
-					this->cavalery -= 3;
+			if (type == "artillery" || type == "Artillery") {    //if the type is artillery
+				if (this->artillery >= 3) {                       //if there is at least 3 artillery in the deck
+					this->artillery -= 3;
 					this->exchangeCounter += 5;
 					this->armies += this->exchangeCounter;
+					
+					
 				}
 				else
-					cout<<"You do not have enough Cards to proceed to the exchange"<<endl;
+					cout << "You do not have enough cards to proceed to the exchange" << endl;
 			}
+			else
+				if (type == "cavalery" || type == "Cavalery") {     //if type is cavalery
+					if (this->cavalery >= 3) {                      //if there is at least 3 cavalery in the deck
+						this->cavalery -= 3;
+						this->exchangeCounter += 5;
+						this->armies += this->exchangeCounter;
+						
+						
+					}
+					else
+						cout << "You do not have enough Cards to proceed to the exchange" << endl;
+				}
+	}
+
+	else {
+		cout << "\nproceeding to exchange one card of each type" << endl;  //if the answer to the initial question was "no"
+		if (this->infantry>=1 &&this->artillery>=1 &&this->cavalery>=1) {
+			this->infantry--;
+			this->artillery--;
+			this->cavalery--;
+			this->exchangeCounter += 5;
+			this->armies += this->exchangeCounter;
+			
+			
+			
+		}
+		
+		else {
+			cout << "You do not have one card of each type, cannot proceed to the exchange" << endl;
+		}
+		
+	}
 }

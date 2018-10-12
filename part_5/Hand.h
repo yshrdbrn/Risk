@@ -24,7 +24,7 @@ public:
 	void CavaleryIncrement(int increment);
 	void totalCardsIncrement(int increment);
 	
-	void exchange(string type);
+	void exchange();
 private:
 	int artillery = 0;
 	int infantry = 0;

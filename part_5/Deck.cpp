@@ -133,32 +133,32 @@ void Deck::Draw(Hand& myHand) {
 	auto random_integer = uni(rng); 
 	
 	if (this->totalCards == 0) {
-		 cout << "The deck is empty" << endl;
+		 cout << "The deck is empty" << endl;   //1= Artillery__ 2=cavalery__3=infantry
 }
 	else {
 		while ((random_integer == 1 && this->artillery == 0) || (random_integer == 2 && this->cavalery == 0)
 			|| (random_integer == 3 && this->infantry == 0))
 		{
-			if (random_integer == 1 && this->artillery == 0) {
+			if (random_integer == 1 && this->artillery == 0) {  //if random int=1 but artillery is 0, reroll
 				while (random_integer == 1) {
 					random_integer = uni(rng);
 				}
 			}
 			else
-				if (random_integer == 2 && this->cavalery == 0) {
+				if (random_integer == 2 && this->cavalery == 0) {  //if random in=2 but cavalery=0, reroll
 					while (random_integer == 2) {
 						random_integer = uni(rng);
 					}
 				}
 				else
-					if (random_integer == 3 && this->infantry == 0) {
+					if (random_integer == 3 && this->infantry == 0) { //if random int=3 but infantry= 0, reroll
 						while (random_integer == 3) {
 							random_integer = uni(rng);
 						}
 
 					}
 		}
-		if (random_integer == 1 & this->artillery != 0) {
+		if (random_integer == 1 & this->artillery != 0) {     
 				this->artillery -= 1;
 				this->totalCards -= 1;
 				myHand.ArtilleryIncrement(1);
