@@ -51,6 +51,7 @@ map_ptr MapLoader::createMapWithFileName(const std::string &fileName) {
 std::vector<std::string> MapLoader::loadFileWithName(const std::string &fileName) {
     std::vector<std::string> fileContent;
 
+    // Read each line from the file
     std::ifstream file(fileName);
     std::string line;
     while(std::getline(file, line)) {
@@ -71,6 +72,7 @@ void MapLoader::addContinentToMap(map_ptr &mapPtr, std::string line) {
 void MapLoader::addCountryToMap(map_ptr &mapPtr, std::string info) {
     std::vector<std::string> dividedInfo;
 
+    // Separate each string using delimiter ','
     std::istringstream ss(info);
     std::string token;
     while (std::getline(ss, token, ','))
