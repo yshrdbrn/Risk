@@ -5,13 +5,13 @@
 
 Player::Player(){};
 
-/*Hand Player::getHand(){
+Hand Player::getHand(){
     return hand ; 
 }
 
 void Player::setHand(Hand h){
     hand = h;
-}*/
+}
 
 /*Dice Player::getDice(){
     return dice;

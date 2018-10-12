@@ -12,7 +12,7 @@ class Player{
 
      
         std::vector<Country*> countries;
-        /*Hand hand;
+        Hand hand;
         /*Dice dice;*/
 
     public:
