@@ -5,7 +5,7 @@
 #include <string>
 #include "../Part1/country.h"
 #include "../part_5/Hand.h"
-/*#include "Dice.h"*/
+#include "Dice.h"
 
 class Player{
     private:
@@ -13,7 +13,7 @@ class Player{
      
         std::vector<Country*> countries;
         Hand hand;
-        /*Dice dice;*/
+        Dice dice;
 
     public:
         Player();

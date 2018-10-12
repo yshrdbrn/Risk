@@ -13,13 +13,13 @@ void Player::setHand(Hand h){
     hand = h;
 }
 
-/*Dice Player::getDice(){
+Dice Player::getDice(){
     return dice;
-}*/
+}
 
-/*void Player::setDice(Dice d){
+void Player::setDice(Dice d){
     dice = d;
-}*/
+}
 
 std::vector<Country *> Player::getCountries(){
     return countries;
