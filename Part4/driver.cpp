@@ -10,11 +10,13 @@ int main()
     std::vector<Country*> c = {c1,c2, c3};
     Player p1;
     p1.setCountries(c);
-   /* p1.reinforce();*/
+    p1.reinforce();
 
+   Hand h;
+    p1.setHand(h);
+	p1.attack();
+	p1.fortify();
 
-   /* Hand h;
-    p1.setHand(h);*/
     return 0;
 }
 

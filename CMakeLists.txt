@@ -9,6 +9,6 @@ add_executable(part2 Part1/map.cpp Part1/map.h Part1/continent.cpp Part1/contine
 
 add_executable(part3 Part3_Dice/Dice_Roll.cpp Part3_Dice/Dice_Roll.h Part3_Dice/Driver.cpp)
 
-add_executable(part4 Part4/driver.cpp Part4/Player.cpp Part4/Player.h part_5/Deck.cpp part_5/Deck.h part_5/Hand.h part_5/Hand.cpp Part1/country.h Part1/country.cpp)
+add_executable(part4 Part4/driver.cpp Part4/Player.cpp Part4/Player.h part_5/Deck.cpp part_5/Deck.h part_5/Hand.h part_5/Hand.cpp Part1/country.h Part1/country.cpp Part3_Dice/Dice_Roll.h Part3_Dice/Dice_Roll.cpp)
 
 add_executable(part5 part_5/Deck.h part_5/Deck.cpp part_5/Hand.cpp part_5/Hand.h part_5/main.cpp)

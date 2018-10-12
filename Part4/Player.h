@@ -5,7 +5,7 @@
 #include <string>
 #include "../Part1/country.h"
 #include "../part_5/Hand.h"
-#include "Dice.h"
+#include "../Part3_Dice/Dice_Roll.h"
 
 class Player{
     private:
@@ -20,8 +20,8 @@ class Player{
         Hand getHand();
         void setHand(Hand hand);
 
-       /* Dice getDice();
-        void setDice(Dice d);*/
+       Dice getDice();
+        void setDice(Dice d);
 
         void setCountries(std::vector<Country*> c);
 
