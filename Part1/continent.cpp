@@ -23,6 +23,7 @@ const std::string &Continent::getName() const {
     return name;
 }
 
+// Returns the number of countries in the countries list with the same name as the input
 int Continent::numberOfCountriesWithName(std::string name) {
     int counter = 0;
     for (const country_ptr &country: countries)
@@ -33,6 +34,7 @@ int Continent::numberOfCountriesWithName(std::string name) {
 }
 
 
+// Returns if this continent is connected
 bool Continent::isConnected(std::unordered_map<std::string, std::vector<std::string> > &adjList) {
     std::unordered_map<std::string, bool> mark;
     for (const country_ptr &countryPtr: countries)
@@ -49,13 +51,14 @@ bool Continent::isConnected(std::unordered_map<std::string, std::vector<std::str
     return true;
 }
 
+// DFS to traverse the continent graph
 void Continent::dfs(std::string node, std::unordered_map<std::string, bool> &mark,
         std::unordered_map<std::string, std::vector<std::string> > &adjList) {
     mark[node] = true;
     std::vector<std::string> &adj = adjList[node];
 
     for (const auto &t: adj) {
-        if (contains(t) and !mark[t])
+        if (contains(t) && !mark[t])
             dfs(t, mark, adjList);
     }
 }

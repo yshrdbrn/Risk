@@ -11,6 +11,7 @@ bool Map::isEachCountryInOneContinent() {
         for (const continent_ptr &continentPtr: continents)
             counter += continentPtr->numberOfCountriesWithName(countryPtr->getName());
 
+        // This country either not exists in any continent or exists in more than one continent
         if (counter != 1)
             return false;
     }
@@ -25,6 +26,7 @@ bool Map::isMapConnected() {
 
     dfs(countries[0]->getName(), mark);
 
+    // Check if dfs traversed all the countries
     for (auto &it : mark) {
         if (!it.second) {
             throw RiskException("Map is not connected");
