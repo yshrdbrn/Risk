@@ -2,7 +2,6 @@
 #include <iostream>
 #include <string>
 #include "Hand.h"
-#include "common.h"
 
 using namespace std;
 
