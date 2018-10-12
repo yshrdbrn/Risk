@@ -55,7 +55,7 @@ void Continent::dfs(std::string node, std::unordered_map<std::string, bool> &mar
     std::vector<std::string> &adj = adjList[node];
 
     for (const auto &t: adj) {
-        if (contains(t) and !mark[t])
+        if (contains(t) && !mark[t])
             dfs(t, mark, adjList);
     }
 }
