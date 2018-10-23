@@ -3,9 +3,9 @@
 
 #include <vector>
 #include <string>
-#include "../Part1/country.h"
-#include "../part_5/Hand.h"
-#include "../Part3_Dice/Dice_Roll.h"
+#include "../Map/country.h"
+#include "../Cards/Hand.h"
+#include "../Dice/Dice_Roll.h"
 
 class Player{
     private:

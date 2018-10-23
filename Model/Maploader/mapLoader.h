@@ -7,7 +7,7 @@
 
 #include <vector>
 #include <string>
-#include "../Part1/map.h"
+#include "../Model/Map/map.h"
 
 typedef std::unique_ptr<Map> map_ptr;
 

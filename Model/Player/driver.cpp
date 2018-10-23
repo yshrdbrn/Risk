@@ -1,5 +1,5 @@
 #include "Player.h"
-#include "../Part1/country.h"
+#include "../Map/country.h"
 
 int main()
 {

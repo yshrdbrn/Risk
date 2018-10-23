@@ -5,7 +5,7 @@
 #include <fstream>
 #include <sstream>
 #include "mapLoader.h"
-#include "../Part1/riskException.h"
+#include "../Map/riskException.h"
 
 map_ptr MapLoader::createMapWithFileName(const std::string &fileName) {
     auto fileContent = loadFileWithName(fileName);
@@ -55,7 +55,7 @@ std::vector<std::string> MapLoader::loadFileWithName(const std::string &fileName
     std::ifstream file(fileName);
     std::string line;
     while(std::getline(file, line)) {
-        fileContent.push_back(line.substr(0, line.size() - 1));
+        fileContent.push_back(line.substr(0, line.size()));
     }
 
     return fileContent;

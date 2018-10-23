@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include "mapLoader.h"
-#include "../Part1/riskException.h"
+#include "../Map/riskException.h"
 #include "map"
 
 int main() {
