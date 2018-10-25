@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <unordered_map>
+#include <memory>
 #include "country.h"
 
 typedef std::shared_ptr<Country> country_ptr;
@@ -17,10 +18,9 @@ private:
 
     std::string name;
 
-    void dfs(std::string node, std::unordered_map<std::string, bool> &mark,
-            std::unordered_map<std::string, std::vector<std::string> > &adjList);
+    void dfs(country_ptr node, std::unordered_map<std::string, bool> &mark);
 
-    bool contains(std::string countryName);
+    bool containsCountry(std::string countryName);
 
 public:
     explicit Continent(const std::string &name);
@@ -35,7 +35,7 @@ public:
 
     int numberOfCountriesWithName(std::string name);
 
-    bool isConnected(std::unordered_map<std::string, std::vector<std::string> > &adjList);
+    bool isConnected();
 };
 
 

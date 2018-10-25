@@ -17,3 +17,15 @@ bool Country::operator!=(const Country &other) const {
 const std::string &Country::getName() const {
     return name;
 }
+
+void Country::addNeighbor(const std::shared_ptr<Country> &countryPtr) {
+    neighbors.push_back(countryPtr);
+}
+
+void Country::setContinent(const std::shared_ptr<Continent> &cont) {
+    this->continent = cont;
+}
+
+std::vector<std::shared_ptr<Country>> Country::getNeighbors() {
+    return neighbors;
+}

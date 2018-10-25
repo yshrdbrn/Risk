@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <unordered_map>
+#include <memory>
 #include "country.h"
 #include "continent.h"
 #include "riskException.h"
@@ -11,8 +12,6 @@ typedef std::shared_ptr<Continent> continent_ptr;
 
 class Map {
 private:
-    std::unordered_map<std::string, std::vector<std::string> > adjList;
-
     std::vector<country_ptr> countries;
 
     std::vector<continent_ptr> continents;
@@ -21,7 +20,7 @@ private:
 
     bool isMapConnected();
 
-    void dfs(std::string node, std::unordered_map<std::string, bool> &mark);
+    void dfs(country_ptr node, std::unordered_map<std::string, bool> &mark);
 
     bool isConnectedForContinent(continent_ptr continent);
 

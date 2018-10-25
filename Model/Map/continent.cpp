@@ -35,12 +35,12 @@ int Continent::numberOfCountriesWithName(std::string name) {
 
 
 // Returns if this continent is connected
-bool Continent::isConnected(std::unordered_map<std::string, std::vector<std::string> > &adjList) {
+bool Continent::isConnected() {
     std::unordered_map<std::string, bool> mark;
     for (const country_ptr &countryPtr: countries)
         mark[countryPtr->getName()] = false;
 
-    dfs(countries[0]->getName(), mark, adjList);
+    dfs(countries[0], mark);
 
     for (auto &it : mark) {
         if (!it.second) {
@@ -52,18 +52,16 @@ bool Continent::isConnected(std::unordered_map<std::string, std::vector<std::str
 }
 
 // DFS to traverse the continent graph
-void Continent::dfs(std::string node, std::unordered_map<std::string, bool> &mark,
-        std::unordered_map<std::string, std::vector<std::string> > &adjList) {
-    mark[node] = true;
-    std::vector<std::string> &adj = adjList[node];
+void Continent::dfs(country_ptr node, std::unordered_map<std::string, bool> &mark) {
+    mark[node->getName()] = true;
 
-    for (const auto &t: adj) {
-        if (contains(t) && !mark[t])
-            dfs(t, mark, adjList);
+    for (const auto &t: node->getNeighbors()) {
+        if (containsCountry(t->getName()) && !mark[t->getName()])
+            dfs(t, mark);
     }
 }
 
-bool Continent::contains(std::string countryName) {
+bool Continent::containsCountry(std::string countryName) {
     for (const country_ptr &ptr: countries)
         if (ptr->getName() == countryName)
             return true;
