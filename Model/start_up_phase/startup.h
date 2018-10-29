@@ -3,17 +3,18 @@
 #include <string>
 #include <iostream>
 
+using namespace std;
+
 
 
 
 class startup {
 public:
-	string order_play(string a, string b);
-	string order_play(string a, string b, string c);
-	string order_play(string a, string b, string c);
-	string order_play(string a, string b, string c, string d);
-	string order_play(string a, string b, string c, string d, string e);
-	string order_play(string a, string b, string c, string d, string e, string f);
+	static string order_play(string a, string b);
+	static string order_play(string a, string b, string c);
+	static string order_play(string a, string b, string c, string d);
+	static string order_play(string a, string b, string c, string d, string e);
+	static string order_play(string a, string b, string c, string d, string e, string f);
 
 
 };
