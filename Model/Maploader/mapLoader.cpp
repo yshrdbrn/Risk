@@ -84,3 +84,8 @@ void MapLoader::addCountryToMap(map_ptr &mapPtr, std::string info) {
     std::vector<std::string> adjList(dividedInfo.begin() + 4, dividedInfo.end());
     mapPtr->addCountry(dividedInfo[0], dividedInfo[3], adjList);
 }
+
+std::vector<std::string> MapLoader::getListOfAllMapFiles() {
+    // TODO
+    return std::vector<std::string>();
+}

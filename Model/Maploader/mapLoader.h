@@ -42,6 +42,8 @@ public:
      * @throw RiskException() if the map file is not valid
      */
     map_ptr createMapWithFileName(const std::string &fileName);
+
+    std::vector<std::string> getListOfAllMapFiles();
 };
 
 
