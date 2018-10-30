@@ -1,7 +1,6 @@
 #include "startup.h"
 #include <iostream>
 #include <string>
-#include "Player.h"
 
 using namespace std;
 
@@ -14,9 +13,10 @@ int main() {
 	string player6;
 
 	cout << "Please enter the names of each Player, one by one:" << endl;
-	cin >> player1 >> player2 >> player3 >> player4 >> player5 >> player6 >> endl;
+	cin >> player1 >> player2 >> player3 >> player4 >> player5 >> player6;
 
 	cout << startup::order_play(player1, player2, player3, player4, player5, player6) << endl;
+	cin.get();
 	cin.get();
 	return 0;
 }
