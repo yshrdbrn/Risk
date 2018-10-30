@@ -12,9 +12,11 @@ class GameSetupView {
 private:
 
 public:
-    std::string promptUserToChooseMapFile(std::vector<std::string> fileNames);
+    void showError(std::string error);
 
-    int promptUserToChooseNumberOfPlayers();
+    int promptUserToChooseMapFile(std::vector<std::string> fileNames);
+
+    int promptUserToChooseNumberOfPlayers(int minPlayers, int maxPlayers);
 };
 
 

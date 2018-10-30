@@ -89,3 +89,5 @@ std::vector<std::string> MapLoader::getListOfAllMapFiles() {
     // TODO
     return std::vector<std::string>();
 }
+
+MapLoader::MapLoader(): MapsDirPath("Model/Maploader/Maps/") {}

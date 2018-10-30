@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.8)
 project(riskGame)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 
 add_executable(part1 Model/Map/map.cpp Model/Map/map.h Model/Map/continent.cpp Model/Map/continent.h Model/Map/country.cpp Model/Map/country.h Model/Map/driver.cpp Model/Map/riskException.cpp Model/Map/riskException.h)
 

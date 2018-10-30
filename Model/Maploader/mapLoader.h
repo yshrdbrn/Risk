@@ -13,6 +13,8 @@ typedef std::unique_ptr<Map> map_ptr;
 
 class MapLoader {
 private:
+    const std::string MapsDirPath;
+
     /**
      * Loads the map with the given file name
      * @param fileName the name of map file
@@ -35,6 +37,8 @@ private:
     void addCountryToMap(map_ptr &mapPtr, std::string info);
 
 public:
+    MapLoader();
+
     /**
      * Creates a map object out of the map file with the name given
      * @param fileName the name of the map file
