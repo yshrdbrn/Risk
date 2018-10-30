@@ -42,5 +42,5 @@ int GameSetupView::promptUserToChooseNumberOfPlayers(int minPlayers, int maxPlay
 }
 
 void GameSetupView::showError(std::string error) {
-
+    std::cout << "Error: " + error << std::endl;
 }

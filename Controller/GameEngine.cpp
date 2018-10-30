@@ -18,7 +18,7 @@ void GameEngine::startGame() {
             map = mapLoader.createMapWithFileName(mapNames[mapNumber]);
             break;
         } catch (RiskException &e) {
-            gameSetupView.showError("Invalid Map File.");
+            gameSetupView.showError(e.what());
         }
     }
 
