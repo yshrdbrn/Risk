@@ -19,6 +19,8 @@ private:
     std::vector<Player *> players;
     Deck *deck;
 
+    void initGame();
+
 public:
     ~GameEngine();
 

@@ -8,6 +8,27 @@
 #include "../Model/Map/riskException.h"
 
 void GameEngine::startGame() {
+    initGame();
+}
+
+GameEngine::~GameEngine() {
+    for (auto &player : players)
+        delete player;
+}
+
+int GameEngine::getNumberOfPlayers() {
+    return players.size();
+}
+
+int GameEngine::getNumberOfCardsInDeck() {
+    return deck->getTotalCards();
+}
+
+int GameEngine::getNumberOfCountriesInMap() {
+    return map->numberOfCountries();
+}
+
+void GameEngine::initGame() {
     MapLoader mapLoader;
     GameSetupView gameSetupView;
     std::vector<std::string> mapNames = mapLoader.getListOfAllMapFiles();
@@ -30,21 +51,4 @@ void GameEngine::startGame() {
 
     for (int i = 0; i < numberOfPlayers; i++)
         players.push_back(new Player());
-}
-
-GameEngine::~GameEngine() {
-    for (auto &player : players)
-        delete player;
-}
-
-int GameEngine::getNumberOfPlayers() {
-    return players.size();
-}
-
-int GameEngine::getNumberOfCardsInDeck() {
-    return deck->getTotalCards();
-}
-
-int GameEngine::getNumberOfCountriesInMap() {
-    return map->numberOfCountries();
 }
