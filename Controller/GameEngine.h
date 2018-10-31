@@ -8,6 +8,7 @@
 #include <vector>
 #include "../Model/Maploader/mapLoader.h"
 #include "../Model/Player/Player.h"
+#include "../Model/Cards/Deck.h"
 
 const int MIN_PLAYERS = 2;
 const int MAX_PLAYERS = 6;
@@ -16,11 +17,15 @@ class GameEngine {
 private:
     map_ptr map;
     std::vector<Player *> players;
+    Deck *deck;
 
 public:
     ~GameEngine();
 
     void startGame();
+    int getNumberOfPlayers();
+    int getNumberOfCardsInDeck();
+    int getNumberOfCountriesInMap();
 };
 
 
