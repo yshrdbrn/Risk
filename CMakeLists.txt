@@ -17,7 +17,7 @@ add_executable(part2 Model/Maploader/Driver2.cpp ${MAP} ${MAPLOADER})
 
 add_executable(part3 Model/Dice/Driver.cpp ${DICE})
 
-add_executable(part4 Model/Player/driver.cpp Model/Player/Player.cpp Model/Map/country.h Model/Map/country.cpp ${PLAYER} ${CARDS} ${DICE})
+add_executable(part4 Model/Player/driver.cpp Model/Map/country.h Model/Map/country.cpp ${PLAYER} ${CARDS} ${DICE})
 
 add_executable(part5 Model/Cards/main.cpp ${CARDS})
 
