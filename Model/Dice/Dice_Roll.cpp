@@ -4,10 +4,10 @@ COMP 345 Assignment 1: Part 3 (Dice Roll)
 Team Members: Mehdi, Youssef, Yashar. 
 */
 
-#include <iostream>;
-#include <random>;
+#include <iostream>
+#include <random>
 #include <ctime>
-#include "Dice_Roll.h";
+#include "Dice_Roll.h"
 
 using namespace std;
 
@@ -30,7 +30,7 @@ void  Dice::diceRoll( int numberOfDice){
 	//Used in method to return value of the dice in order
 	int diceValue;
 
-	/* Loop which rolls number of dices bsed on user input
+	/* Loop which rolls number of dices based on user input
 	diceValue uses the method singleRoll() in order to 
 	randomly compute a value between 1-6 for each dice roll.
 	*/
