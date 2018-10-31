@@ -19,12 +19,19 @@ private:
     std::vector<Player *> players;
     Deck *deck;
 
+    /**
+     * Initializes the game: Assignment 2 Part 1
+     */
     void initGame();
 
 public:
     ~GameEngine();
 
+    /**
+     * Call this function if you want to start the game
+     */
     void startGame();
+
     int getNumberOfPlayers();
     int getNumberOfCardsInDeck();
     int getNumberOfCountriesInMap();
