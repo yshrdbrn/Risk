@@ -1,5 +1,6 @@
-#include "Player.h"
+#include"Player.h"
 #include "../Map/country.h"
+#include <vector>
 
 
 
@@ -40,5 +41,17 @@ void Player::fortify(){
 
 void Player:: reinforce(){
     std::cout << "begin reinforcing phase... " << endl;
+}
+
+string Player::getName() {
+	return this->name;
+}
+
+void Player::setName(string name) {
+	this->name = name;
+}
+
+void Player::addCountries(country_ptr object) {
+	countries.push_back(object);
 }
 

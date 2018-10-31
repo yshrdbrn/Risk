@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include "../Map/country.h"
+#include "../Map/continent.h"
 #include "../Cards/Hand.h"
 #include "../Dice/Dice_Roll.h"
 
@@ -11,9 +12,10 @@ class Player{
     private:
 
      
-        std::vector<Country*> countries;
+        std::vector<country_ptr> countries;
         Hand hand;
         Dice dice;
+		string name;
 
     public:
         Player();
@@ -24,12 +26,18 @@ class Player{
         void setDice(Dice d);
 
         void setCountries(std::vector<Country*> c);
+		void addCountries(country_ptr object);
 
         std::vector<Country *> getCountries();
 
         void reinforce();
         void attack();
         void fortify();
+
+		string getName();
+		void  setName(string name);
+
+		
 
 };
 

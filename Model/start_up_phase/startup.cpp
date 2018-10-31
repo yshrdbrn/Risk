@@ -1,196 +1,222 @@
-#include "startup.h"
 #include <iostream>
 #include <string>
 #include <vector>
 #include "random"
+#include "startup.h"
+#include "../Player/Player.h"
+#include "../Map/country.h"
+#include "../Map/continent.h"
+#include "../Cards/Hand.h"
+#include "../Dice/Dice_Roll.h"
+
+
 
 using namespace std;
 //------------------------------------------------------------------------------------------------------
-string startup::order_play(string a, string b) {
+vector<Player> startup::order_play(vector <Player*> array) {
 	
-	std::random_device rd;     // only used once to initialise (seed) engine
-	std::mt19937 rng(rd());    // random-number engine used (Mersenne-Twister in this case)
-	std::uniform_int_distribution<int> uni(1, 2); // guaranteed unbiased
+	vector <Player> newArray(array.size());
+	
+	if (array.size() == 2) {
+		std::random_device rd;     // only used once to initialise (seed) engine
+		std::mt19937 rng(rd());    // random-number engine used (Mersenne-Twister in this case)
+		std::uniform_int_distribution<int> uni(0, 1); // guaranteed unbiased
 
-	auto random_integer = uni(rng);
+		auto random_integer = uni(rng);
 
-	if (random_integer == 1) {
-		return a + " is first, " + b + " is second";
+		if (random_integer == 0) {
+			newArray[0] = array[0];
+			newArray[1] = array[1];
+			return newArray;
+		}
+
+		else
+		{
+			newArray[0] = array[1];
+			newArray[1] = array[0];
+			return newArray;
+		}
 	}
 
 	else
-		return b + " is first, " + a +" is second";
+       if (array.size() == 3) {
+		std::random_device rd;     // only used once to initialise (seed) engine
+		std::mt19937 rng(rd());    // random-number engine used (Mersenne-Twister in this case)
+		std::uniform_int_distribution<int> uni(0, 2); // guaranteed unbiased
 
-}
-//------------------------------------------------------------------------------------------------------
-string startup::order_play(string A, string B, string C) {
-	
-	string array [3];
-	string newArray[3];
 
-	array[0] = A;
-	array[1] = B;
-	array[2] = C;
+		auto random_integer = uni(rng);
 
-	std::random_device rd;     // only used once to initialise (seed) engine
-	std::mt19937 rng(rd());    // random-number engine used (Mersenne-Twister in this case)
-	std::uniform_int_distribution<int> uni(0, 2); // guaranteed unbiased
+		newArray[0] = array[random_integer];
 
-	
-	auto random_integer = uni(rng);
+		auto random2 = uni(rng);
+		while (random2 == random_integer) {
+			random2 = uni(rng);
+		}
 
-	newArray[0] = array[random_integer];
+		newArray[1] = array[random2];
 
-	auto random2 = uni(rng);
-	while (random2 == random_integer) {
-		random2 = uni(rng);
+		auto random3 = uni(rng);
+		while (random3 == random2 || random3 == random_integer) {
+			random3 = uni(rng);
+		}
+
+		newArray[2] = array[random3];
+
+		return newArray;
 	}
 
-	newArray[1] = array[random2];
+	else
+		if (array.size() == 4) {
 
-	auto random3 = uni(rng);
-	while (random3 == random2 || random3 == random_integer) {
-		random3 = uni(rng);
-	}
+			std::random_device rd;     // only used once to initialise (seed) engine
+			std::mt19937 rng(rd());    // random-number engine used (Mersenne-Twister in this case)
+			std::uniform_int_distribution<int> uni(0, 3); // guaranteed unbiased
 
-	newArray[2] = array[random3];
+			auto random_integer = uni(rng);
 
-	return newArray[0] + " is first, " + newArray[1] + " is second, " + newArray[2] + " is third.";
-}
-//-----------------------------------------------------------------------------------------------------------
-string startup::order_play(string a, string b, string c, string d) {
-	string array[4] = { a,b,c,d };
-	string newArray[4];
+			newArray[0] = array[random_integer];
 
-	std::random_device rd;     // only used once to initialise (seed) engine
-	std::mt19937 rng(rd());    // random-number engine used (Mersenne-Twister in this case)
-	std::uniform_int_distribution<int> uni(0, 3); // guaranteed unbiased
+			auto random2 = uni(rng);
+			while (random2 == random_integer) {
+				random2 = uni(rng);
+			}
 
-	auto random_integer = uni(rng);
+			newArray[1] = array[random2];
 
-    newArray[0] = array[random_integer];
+			auto random3 = uni(rng);
+			while (random3 == random_integer || random3 == random2) {
+				random3 = uni(rng);
+			}
 
-	auto random2 = uni(rng);
-	while (random2 == random_integer) {
-		random2 = uni(rng);
-	}
+			newArray[2] = array[random3];
 
-	newArray[1] = array[random2];
+			auto random4 = uni(rng);
+			while (random4 == random_integer || random4 == random2 || random4 == random3) {
+				random4 = uni(rng);
+			}
 
-	auto random3 = uni(rng);
-	while (random3 == random_integer || random3 == random2) {
-		random3 = uni(rng);
-	}
+			newArray[3] = array[random4];
 
-	newArray[2] = array[random3];
+			return newArray;
 
-	auto random4 = uni(rng);
-	while (random4 == random_integer || random4 == random2 || random4 == random3) {
-		random4 = uni(rng);
-	}
+		}
+		else
+			if (array.size() == 5) {
+				
+				std::random_device rd;     // only used once to initialise (seed) engine
+				std::mt19937 rng(rd());    // random-number engine used (Mersenne-Twister in this case)
+				std::uniform_int_distribution<int> uni(0, 4); // guaranteed unbiased
 
-	newArray[3] = array[random4];
+				auto random_integer = uni(rng);
 
-	return newArray[0] + " is first, " + newArray[1] + " is second, " + newArray[2] + " is third and " + newArray[3] + " is fourth";
+				newArray[0] = array[random_integer];
 
-	
-}
-//---------------------------------------------------------------------------------------------------------------------------------
-string startup::order_play(string a, string b, string c, string d, string e) {
-	string array[5] = { a,b,c,d,e };
-	string newArray[5];
+				auto random2 = uni(rng);
+				while (random2 == random_integer) {
+					random2 = uni(rng);
+				}
 
-	std::random_device rd;     // only used once to initialise (seed) engine
-	std::mt19937 rng(rd());    // random-number engine used (Mersenne-Twister in this case)
-	std::uniform_int_distribution<int> uni(0, 4); // guaranteed unbiased
+				newArray[1] = array[random2];
 
-	auto random_integer = uni(rng);
+				auto random3 = uni(rng);
+				while (random3 == random_integer || random3 == random2) {
+					random3 = uni(rng);
+				}
 
-    newArray[0] = array[random_integer];
+				newArray[2] = array[random3];
 
-	auto random2 = uni(rng);
-	while (random2 == random_integer) {
-		random2 = uni(rng);
-	}
+				auto random4 = uni(rng);
+				while (random4 == random_integer || random4 == random2 || random4 == random3) {
+					random4 = uni(rng);
+				}
 
-	newArray[1] = array[random2];
+				newArray[3] = array[random4];
 
-	auto random3 = uni(rng);
-	while (random3 == random_integer || random3 == random2) {
-		random3 = uni(rng);
-	}
+				auto random5 = uni(rng);
+				while (random5 == random_integer || random5 == random2 || random5 == random3 || random5 == random4) {
+					random5 = uni(rng);
+				}
 
-	newArray[2] = array[random3];
+				newArray[4] = array[random5];
 
-	auto random4 = uni(rng);
-	while (random4 == random_integer || random4 == random2 || random4 == random3) {
-		random4 = uni(rng);
-	}
+				return newArray;
 
-	newArray[3] = array[random4];
+			}
 
-	auto random5 = uni(rng);
-	while (random5 == random_integer || random5 == random2 || random5 == random3 || random5 == random4) {
-		random5 = uni(rng);
-	}
+			else
+				if (array.size() == 6) {
 
-	newArray[4] = array[random5];
+					std::random_device rd;     // only used once to initialise (seed) engine
+					std::mt19937 rng(rd());    // random-number engine used (Mersenne-Twister in this case)
+					std::uniform_int_distribution<int> uni(0, 5); // guaranteed unbiased
 
-	return newArray[0] + " is first, " + newArray[1] + " is second, " + newArray[2] + " is third " + newArray[3] +
-		" is fourth and " + newArray[4] + " is fifth";
+					auto random_integer = uni(rng);
+
+					newArray[0] = array[random_integer];
+
+					auto random2 = uni(rng);
+					while (random2 == random_integer) {
+						random2 = uni(rng);
+					}
+
+					newArray[1] = array[random2];
+
+					auto random3 = uni(rng);
+					while (random3 == random_integer || random3 == random2) {
+						random3 = uni(rng);
+					}
+
+					newArray[2] = array[random3];
+
+					auto random4 = uni(rng);
+					while (random4 == random_integer || random4 == random2 || random4 == random3) {
+						random4 = uni(rng);
+					}
+
+					newArray[3] = array[random4];
+
+					auto random5 = uni(rng);
+					while (random5 == random_integer || random5 == random2 || random5 == random3 || random5 == random4) {
+						random5 = uni(rng);
+					}
+
+					newArray[4] = array[random5];
+
+					auto random6 = uni(rng);
+					while (random6 == random_integer || random6 == random2 || random6 == random3 || random6 == random4 || random6 == random5) {
+						random6 = uni(rng);
+					}
+
+					newArray[5] = array[random6];
+
+					return newArray;
+				}
+
+			}
 
 
-}
-//--------------------------------------------------------------------------------------------------------------------
-string startup::order_play(string a, string b, string c, string d, string e, string f) {
-	string array[6] = { a,b,c,d,e,f };
-	string newArray[6];
+			static void distributing_countries(vector <country_ptr> array, vector<Player *> ordered_turns) {
+				for (int i = 0; i < array.size();i++) {
+					
+					int a = 0;
+					
+					ordered_turns[a]->addCountries(array[i]);
+					if (a == ordered_turns.size()) {
+						a = 0;
+					} 
+					
+					a++;
+				}
+			}
 
-	std::random_device rd;     // only used once to initialise (seed) engine
-	std::mt19937 rng(rd());    // random-number engine used (Mersenne-Twister in this case)
-	std::uniform_int_distribution<int> uni(0, 5); // guaranteed unbiased
+			static void distributing_armies(vector<Player> ordered_turns) {
 
-	auto random_integer = uni(rng);
+			}
 
-    newArray[0] = array[random_integer];
 
-	auto random2 = uni(rng);
-	while (random2 == random_integer) {
-		random2 = uni(rng);
-	}
 
-	newArray[1] = array[random2];
 
-	auto random3 = uni(rng);
-	while (random3 == random_integer || random3 == random2) {
-		random3 = uni(rng);
-	}
 
-	newArray[2] = array[random3];
-
-	auto random4 = uni(rng);
-	while (random4 == random_integer || random4 == random2 || random4 == random3) {
-		random4 = uni(rng);
-	}
-
-	newArray[3] = array[random4];
-
-	auto random5 = uni(rng);
-	while (random5 == random_integer || random5 == random2 || random5 == random3 || random5 == random4) {
-		random5 = uni(rng);
-	}
-
-	newArray[4] = array[random5];
-
-	auto random6 = uni(rng);
-	while (random6 == random_integer || random6 == random2 || random6 == random3 || random6 == random4 || random6 == random5) {
-		random6 = uni(rng);
-	}
-
-	newArray[5] = array[random6];
-
-	return newArray[0] + " is first, " + newArray[1] + " is second, " + newArray[2] + " is third " + newArray[3] +
-		" is fourth " + newArray[4] + " is fifth and "+ newArray[5]+" is sixth";
-}
 
 

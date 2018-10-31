@@ -1,6 +1,9 @@
 #pragma once
 #include <string>
+#include <vector>
 #include <iostream>
+#include "../Player/Player.h"
+
 
 using namespace std;
 
@@ -9,11 +12,8 @@ using namespace std;
 
 class startup {
 public:
-	static string order_play(string a, string b);
-	static string order_play(string a, string b, string c);
-	static string order_play(string a, string b, string c, string d);
-	static string order_play(string a, string b, string c, string d, string e);
-	static string order_play(string a, string b, string c, string d, string e, string f);
-
-
+	static vector<Player> order_play(vector <Player*> array);
+	static void distributing_countries(vector <country_ptr> array, vector<Player*> ordered_turns);
+	static void distibuting_armies(vector<Player*> ordered_turns);
+	
 };

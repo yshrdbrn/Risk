@@ -1,21 +1,48 @@
 #include "startup.h"
 #include <iostream>
 #include <string>
+#include "../Player/Player.h"
+#include <vector>
+
+
 
 using namespace std;
 
 int main() {
-	string player1;
-	string player2;
-	string player3;
-	string player4;
-	string player5;
-	string player6;
+	int numberPlayers = 4;
+	vector <Player> initial_array;
+	vector<Player> order_array;
+	
+	Player p1;
+	Player p2;
+	Player p3;
+	Player p4;
+	string name;
 
-	cout << "Please enter the names of each Player, one by one:" << endl;
-	cin >> player1 >> player2 >> player3 >> player4 >> player5 >> player6;
+	initial_array.push_back(p1);
+	initial_array.push_back(p2);
+	initial_array.push_back(p3);
+	initial_array.push_back(p4);
 
-	cout << startup::order_play(player1, player2, player3, player4, player5, player6) << endl;
+	
+
+	cout << "Please enter the names of every player" << endl;
+
+	for (int i = 0; i<numberPlayers; i++) {
+		cin >> name;
+		initial_array[i].setName(name);
+	}
+
+	order_array=startup::order_play(initial_array);
+	int initialSize = order_array.size();
+
+	cout << "The order of play of the players is the following: " << endl;
+	for (int i = 0; i<numberPlayers; i++) {
+		cout << order_array[i].getName() << endl;
+	}
+
+	
+
 	cin.get();
 	cin.get();
 	return 0;
