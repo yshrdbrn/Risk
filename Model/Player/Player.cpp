@@ -5,6 +5,8 @@
 
 Player::Player(){};
 
+Player::Player(int playerId): id(playerId) {}
+
 Hand Player::getHand(){
     return hand ; 
 }
@@ -40,5 +42,13 @@ void Player::fortify(){
 
 void Player:: reinforce(){
     std::cout << "begin reinforcing phase... " << endl;
+}
+
+int Player::getId() const {
+    return id;
+}
+
+void Player::setId(int id) {
+    Player::id = id;
 }
 

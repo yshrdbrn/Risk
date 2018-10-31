@@ -32,6 +32,12 @@ public:
      */
     void startGame();
 
+    // TODO: For next assignment put it as a private function
+    /**
+     * It will execute the main loop of the game
+     */
+    void mainLoop();
+
     int getNumberOfPlayers();
     int getNumberOfCardsInDeck();
     int getNumberOfCountriesInMap();

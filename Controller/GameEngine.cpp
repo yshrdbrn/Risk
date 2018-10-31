@@ -5,10 +5,12 @@
 #include <vector>
 #include "GameEngine.h"
 #include "../View/GameSetupView.h"
+#include "../View/GameFinishView.h"
 #include "../Model/Map/riskException.h"
 
 void GameEngine::startGame() {
     initGame();
+    mainLoop();
 }
 
 GameEngine::~GameEngine() {
@@ -50,5 +52,18 @@ void GameEngine::initGame() {
     int numberOfPlayers = gameSetupView.promptUserToChooseNumberOfPlayers(MIN_PLAYERS, MAX_PLAYERS);
 
     for (int i = 0; i < numberOfPlayers; i++)
-        players.push_back(new Player());
+        players.push_back(new Player(i + 1));
+}
+
+void GameEngine::mainLoop() {
+    while(map->ownerOfAllCountries() == nullptr) {
+        for(Player* &player: players) {
+            player->reinforce();
+            player->attack();
+            player->fortify();
+        }
+    }
+
+    GameFinishView gameFinishView;
+    gameFinishView.announceWinner(map->ownerOfAllCountries());
 }

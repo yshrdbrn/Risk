@@ -23,4 +23,4 @@ add_executable(part5 Model/Cards/main.cpp ${CARDS})
 
 add_executable(a2_part1 Controller/GameEngine.cpp Controller/GameEngine.h View/GameSetupView.cpp View/GameSetupView.h Controller/DriverA2Part1.cpp ${MODEL})
 
-add_executable(a2_part3 Controller/GameEngine.cpp Controller/GameEngine.h View/GameSetupView.cpp View/GameSetupView.h ${MODEL} Controller/DriverA2Part3.cpp)
+add_executable(a2_part3 Controller/GameEngine.cpp Controller/GameEngine.h View/GameSetupView.cpp View/GameSetupView.h ${MODEL} Controller/DriverA2Part3.cpp View/GameFinishView.cpp View/GameFinishView.h)
