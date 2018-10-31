@@ -3,14 +3,22 @@ project(riskGame)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(part1 Model/Map/map.cpp Model/Map/map.h Model/Map/continent.cpp Model/Map/continent.h Model/Map/country.cpp Model/Map/country.h Model/Map/driver.cpp Model/Map/riskException.cpp Model/Map/riskException.h)
+set(MAP Model/Map/map.cpp Model/Map/map.h Model/Map/continent.cpp Model/Map/continent.h Model/Map/country.cpp Model/Map/country.h Model/Map/riskException.cpp Model/Map/riskException.h)
+set(MAPLOADER Model/Maploader/mapLoader.cpp Model/Maploader/mapLoader.h)
+set(PLAYER Model/Player/Player.cpp Model/Player/Player.h)
+set(DICE Model/Dice/Dice_Roll.cpp Model/Dice/Dice_Roll.h)
+set(CARDS Model/Cards/Deck.h Model/Cards/Deck.cpp Model/Cards/Hand.cpp Model/Cards/Hand.h)
 
-add_executable(part2 Model/Map/map.cpp Model/Map/map.h Model/Map/continent.cpp Model/Map/continent.h Model/Map/country.cpp Model/Map/country.h Model/Maploader/mapLoader.cpp Model/Maploader/mapLoader.h Model/Map/riskException.cpp Model/Map/riskException.h Model/Maploader/Driver2.cpp)
+set(MODEL ${MAP} ${MAPLOADER} ${PLAYER} ${DICE} ${CARDS})
 
-add_executable(part3 Model/Dice/Dice_Roll.cpp Model/Dice/Dice_Roll.h Model/Dice/Driver.cpp)
+add_executable(part1 Model/Map/driver.cpp ${MAP})
 
-add_executable(part4 Model/Player/driver.cpp Model/Player/Player.cpp Model/Player/Player.h Model/Cards/Deck.cpp Model/Cards/Deck.h Model/Cards/Hand.h Model/Cards/Hand.cpp Model/Map/country.h Model/Map/country.cpp Model/Dice/Dice_Roll.h Model/Dice/Dice_Roll.cpp)
+add_executable(part2 Model/Maploader/Driver2.cpp ${MAP} ${MAPLOADER})
 
-add_executable(part5 Model/Cards/Deck.h Model/Cards/Deck.cpp Model/Cards/Hand.cpp Model/Cards/Hand.h Model/Cards/main.cpp)
+add_executable(part3 Model/Dice/Driver.cpp ${DICE})
 
-add_executable(a2_part1 Controller/GameEngine.cpp Controller/GameEngine.h View/GameSetupView.cpp View/GameSetupView.h Model/Map/map.cpp Model/Map/map.h Model/Map/continent.cpp Model/Map/continent.h Model/Map/country.cpp Model/Map/country.h Model/Maploader/mapLoader.cpp Model/Maploader/mapLoader.h Model/Map/riskException.cpp Model/Map/riskException.h Model/Player/Player.cpp Model/Player/Player.h Model/Cards/Deck.cpp Model/Cards/Deck.h Model/Cards/Hand.h Model/Cards/Hand.cpp Model/Dice/Dice_Roll.h Model/Dice/Dice_Roll.cpp Controller/DriverA2Part1.cpp)
+add_executable(part4 Model/Player/driver.cpp Model/Player/Player.cpp Model/Map/country.h Model/Map/country.cpp ${PLAYER} ${CARDS} ${DICE})
+
+add_executable(part5 Model/Cards/main.cpp ${CARDS})
+
+add_executable(a2_part1 Controller/GameEngine.cpp Controller/GameEngine.h View/GameSetupView.cpp View/GameSetupView.h Controller/DriverA2Part1.cpp ${MODEL})
