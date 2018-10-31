@@ -8,6 +8,8 @@ class Hand {
 public:
 	Hand();
 
+	Hand(int , int , int);
+
 	int getArtillery();
 	int getInfantry();
 	int getCavalery();
@@ -24,7 +26,7 @@ public:
 	void CavaleryIncrement(int increment);
 	void totalCardsIncrement(int increment);
 	
-	void exchange();
+	void exchange(int&);
 private:
 	int artillery = 0;
 	int infantry = 0;
