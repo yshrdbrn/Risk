@@ -22,11 +22,11 @@ void Player::setDice(Dice d){
     dice = d;
 }
 
-std::vector<Country *> Player::getCountries(){
+std::vector<country_ptr> Player::getCountries(){
     return countries;
 }
 
-void Player::setCountries(std::vector<Country*> c){
+void Player::setCountries(std::vector<country_ptr> c){
     countries = c;
 }
 

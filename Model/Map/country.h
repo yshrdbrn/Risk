@@ -7,6 +7,7 @@
 
 #include <string>
 #include <vector>
+#include "../Player/Player.h"
 
 class Continent;
 
@@ -20,6 +21,8 @@ private:
 
     // The continent this country belongs to
     std::shared_ptr<Continent> continent;
+
+	Player* player;
 
 public:
     explicit Country(const std::string &name);

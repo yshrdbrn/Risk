@@ -13,9 +13,9 @@
 
 using namespace std;
 //------------------------------------------------------------------------------------------------------
-vector<Player> startup::order_play(vector <Player*> array) {
+vector<Player*> startup::order_play(vector <Player*> array) {
 	
-	vector <Player> newArray(array.size());
+	vector <Player*> newArray(array.size());
 	
 	if (array.size() == 2) {
 		std::random_device rd;     // only used once to initialise (seed) engine
@@ -197,21 +197,42 @@ vector<Player> startup::order_play(vector <Player*> array) {
 
 
 			static void distributing_countries(vector <country_ptr> array, vector<Player *> ordered_turns) {
+				int a = 0;
 				for (int i = 0; i < array.size();i++) {
-					
-					int a = 0;
-					
 					ordered_turns[a]->addCountries(array[i]);
+					a++;
 					if (a == ordered_turns.size()) {
 						a = 0;
 					} 
-					
-					a++;
 				}
 			}
 
-			static void distributing_armies(vector<Player> ordered_turns) {
-
+			static void distributing_armies(vector<Player*> ordered_turns) {
+				if (ordered_turns.size() == 2) {
+					for (int i = 0;i < ordered_turns.size();i++) {
+						ordered_turns[i]->getHand().setArmies(40);
+					}
+				}
+				else if (ordered_turns.size() == 3) {
+					for (int i = 0;i < ordered_turns.size();i++) {
+						ordered_turns[i]->getHand().setArmies(35);
+					}
+				}
+				else if (ordered_turns.size() == 4) {
+					for (int i = 0;i < ordered_turns.size();i++) {
+						ordered_turns[i]->getHand().setArmies(30);
+					}
+				}
+				else if (ordered_turns.size() == 5) {
+					for (int i = 0;i < ordered_turns.size();i++) {
+						ordered_turns[i]->getHand().setArmies(25);
+					}
+				}
+				else if (ordered_turns.size() == 6) {
+					for (int i = 0;i < ordered_turns.size();i++) {
+						ordered_turns[i]->getHand().setArmies(20);
+					}
+				}
 			}
 
 

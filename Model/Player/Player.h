@@ -25,10 +25,10 @@ class Player{
        Dice getDice();
         void setDice(Dice d);
 
-        void setCountries(std::vector<Country*> c);
+        void setCountries(std::vector<country_ptr> c);
 		void addCountries(country_ptr object);
 
-        std::vector<Country *> getCountries();
+        std::vector<country_ptr> getCountries();
 
         void reinforce();
         void attack();

@@ -45,6 +45,10 @@ void Hand::setTotalCards(int totalCards) {
 	this->totalCards = totalCards;
 }
 
+void Hand::setArmies(int armies) {
+	this->armies = armies;
+}
+
 //----------------------------------------------------Increment methods
 void Hand::ArtilleryIncrement(int increment) {
 	this->artillery += increment;
