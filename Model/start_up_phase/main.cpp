@@ -14,9 +14,9 @@ int main() {
 	vector<Player*> order_array;
 	vector<country_ptr> countries;
 
-	Country* a = new Country("usa");
+	country_ptr a = std::make_shared<Country>("usa");
 
-	countries.push_back(&a);
+	countries.push_back(a);
 	
 	Player p1;
 	Player p2;

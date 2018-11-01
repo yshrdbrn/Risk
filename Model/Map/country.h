@@ -7,9 +7,10 @@
 
 #include <string>
 #include <vector>
-#include "../Player/Player.h"
 
 class Continent;
+
+class Player;
 
 class Country {
 private:
