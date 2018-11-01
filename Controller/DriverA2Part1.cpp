@@ -10,7 +10,7 @@
 
 int main() {
     GameEngine gameEngine;
-    gameEngine.startGame();
+    gameEngine.initGame();
 
     // Check Number of Players and Cards and Countries
     std::cout << "Number of players: " << gameEngine.getNumberOfPlayers() << std::endl;

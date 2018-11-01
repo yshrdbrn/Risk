@@ -19,13 +19,13 @@ private:
     std::vector<Player *> players;
     Deck *deck;
 
+public:
+    ~GameEngine();
+
     /**
      * Initializes the game: Assignment 2 Part 1
      */
     void initGame();
-
-public:
-    ~GameEngine();
 
     /**
      * Call this function if you want to start the game
@@ -36,11 +36,23 @@ public:
     /**
      * It will execute the main loop of the game
      */
-    void mainLoop();
+    void mainLoop(int numberOfIterations);
 
     int getNumberOfPlayers();
     int getNumberOfCardsInDeck();
     int getNumberOfCountriesInMap();
+
+    /**
+     * TEST ONLY
+     * Gives all of the countries to player 1
+     */
+    void setOwnershipOfCountriesToOnePlayer();
+
+    /**
+     * TEST ONLY
+     * Gives all the countries to random players
+     */
+    void setOwnershipOfCountriesToRandomPlayers();
 };
 
 

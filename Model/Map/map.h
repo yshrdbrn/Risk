@@ -106,6 +106,8 @@ public:
      * @return a pointer to player owning all the countries if there is one
      */
     Player *ownerOfAllCountries();
+
+    const vector<country_ptr> &getCountries() const;
 };
 
 

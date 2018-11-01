@@ -10,6 +10,8 @@ set(DICE Model/Dice/Dice_Roll.cpp Model/Dice/Dice_Roll.h)
 set(CARDS Model/Cards/Deck.h Model/Cards/Deck.cpp Model/Cards/Hand.cpp Model/Cards/Hand.h)
 
 set(MODEL ${MAP} ${MAPLOADER} ${PLAYER} ${DICE} ${CARDS})
+set(VIEW View/GameSetupView.cpp View/GameSetupView.h View/GameFinishView.cpp View/GameFinishView.h)
+set(CONTROLLER Controller/GameEngine.cpp Controller/GameEngine.h)
 
 add_executable(part1 Model/Map/driver.cpp ${MAP})
 
@@ -21,6 +23,6 @@ add_executable(part4 Model/Player/driver.cpp Model/Map/country.h Model/Map/count
 
 add_executable(part5 Model/Cards/main.cpp ${CARDS})
 
-add_executable(a2_part1 Controller/GameEngine.cpp Controller/GameEngine.h View/GameSetupView.cpp View/GameSetupView.h Controller/DriverA2Part1.cpp ${MODEL})
+add_executable(a2_part1 Controller/DriverA2Part1.cpp ${MODEL} ${VIEW} ${CONTROLLER})
 
-add_executable(a2_part3 Controller/GameEngine.cpp Controller/GameEngine.h View/GameSetupView.cpp View/GameSetupView.h ${MODEL} Controller/DriverA2Part3.cpp View/GameFinishView.cpp View/GameFinishView.h)
+add_executable(a2_part3 Controller/DriverA2Part3.cpp ${MODEL} ${VIEW} ${CONTROLLER})

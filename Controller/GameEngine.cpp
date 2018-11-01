@@ -3,6 +3,8 @@
 //
 
 #include <vector>
+#include <iostream>
+#include <string>
 #include "GameEngine.h"
 #include "../View/GameSetupView.h"
 #include "../View/GameFinishView.h"
@@ -10,7 +12,7 @@
 
 void GameEngine::startGame() {
     initGame();
-    mainLoop();
+    mainLoop(5);
 }
 
 GameEngine::~GameEngine() {
@@ -55,15 +57,32 @@ void GameEngine::initGame() {
         players.push_back(new Player(i + 1));
 }
 
-void GameEngine::mainLoop() {
-    while(map->ownerOfAllCountries() == nullptr) {
+void GameEngine::mainLoop(int numberOfIterations) {
+    while(numberOfIterations > 0 && map->ownerOfAllCountries() == nullptr) {
         for(Player* &player: players) {
+            std::cout << "Player " << to_string(player->getId()) << "'s turn." << std::endl;
             player->reinforce();
             player->attack();
             player->fortify();
         }
+
+        numberOfIterations--;
     }
 
     GameFinishView gameFinishView;
-    gameFinishView.announceWinner(map->ownerOfAllCountries());
+    if (map->ownerOfAllCountries() != nullptr)
+        gameFinishView.announceWinner(map->ownerOfAllCountries());
+}
+
+void GameEngine::setOwnershipOfCountriesToOnePlayer() {
+    for(auto &country: map->getCountries()) {
+        country->setOwner(players[0]);
+    }
+}
+
+void GameEngine::setOwnershipOfCountriesToRandomPlayers() {
+    std::vector<country_ptr> countries = map->getCountries();
+    for (int i = 0; i < countries.size() - 1; i++)
+        countries[i]->setOwner(players[0]);
+    countries[countries.size() - 1]->setOwner(players[1]);
 }
