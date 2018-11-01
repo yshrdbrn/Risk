@@ -38,8 +38,7 @@ vector<Player*> startup::order_play(vector <Player*> array) {
 		}
 	}
 
-	else
-       if (array.size() == 3) {
+	else if (array.size() == 3) {
 		std::random_device rd;     // only used once to initialise (seed) engine
 		std::mt19937 rng(rd());    // random-number engine used (Mersenne-Twister in this case)
 		std::uniform_int_distribution<int> uni(0, 2); // guaranteed unbiased
@@ -66,8 +65,7 @@ vector<Player*> startup::order_play(vector <Player*> array) {
 		return newArray;
 	}
 
-	else
-		if (array.size() == 4) {
+	else if (array.size() == 4) {
 
 			std::random_device rd;     // only used once to initialise (seed) engine
 			std::mt19937 rng(rd());    // random-number engine used (Mersenne-Twister in this case)
@@ -101,8 +99,7 @@ vector<Player*> startup::order_play(vector <Player*> array) {
 			return newArray;
 
 		}
-		else
-			if (array.size() == 5) {
+		else if (array.size() == 5) {
 				
 				std::random_device rd;     // only used once to initialise (seed) engine
 				std::mt19937 rng(rd());    // random-number engine used (Mersenne-Twister in this case)
@@ -144,8 +141,7 @@ vector<Player*> startup::order_play(vector <Player*> array) {
 
 			}
 
-			else
-				if (array.size() == 6) {
+			else if (array.size() == 6) {
 
 					std::random_device rd;     // only used once to initialise (seed) engine
 					std::mt19937 rng(rd());    // random-number engine used (Mersenne-Twister in this case)
@@ -196,7 +192,7 @@ vector<Player*> startup::order_play(vector <Player*> array) {
 			}
 
 
-			static void distributing_countries(vector <country_ptr> array, vector<Player *> ordered_turns) {
+		    void startup::distributing_countries(vector <country_ptr> array, vector<Player *> ordered_turns) {
 				int a = 0;
 				for (int i = 0; i < array.size();i++) {
 					ordered_turns[a]->addCountries(array[i]);
@@ -207,27 +203,33 @@ vector<Player*> startup::order_play(vector <Player*> array) {
 				}
 			}
 
-			static void distributing_armies(vector<Player*> ordered_turns) {
+			
+		    void startup::distributing_armies(vector<Player*> ordered_turns) {
+				
 				if (ordered_turns.size() == 2) {
 					for (int i = 0;i < ordered_turns.size();i++) {
 						ordered_turns[i]->getHand().setArmies(40);
 					}
 				}
+				
 				else if (ordered_turns.size() == 3) {
 					for (int i = 0;i < ordered_turns.size();i++) {
 						ordered_turns[i]->getHand().setArmies(35);
 					}
 				}
+				
 				else if (ordered_turns.size() == 4) {
 					for (int i = 0;i < ordered_turns.size();i++) {
 						ordered_turns[i]->getHand().setArmies(30);
 					}
 				}
+				
 				else if (ordered_turns.size() == 5) {
 					for (int i = 0;i < ordered_turns.size();i++) {
 						ordered_turns[i]->getHand().setArmies(25);
 					}
 				}
+				
 				else if (ordered_turns.size() == 6) {
 					for (int i = 0;i < ordered_turns.size();i++) {
 						ordered_turns[i]->getHand().setArmies(20);

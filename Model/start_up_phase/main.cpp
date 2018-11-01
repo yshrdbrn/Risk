@@ -3,6 +3,7 @@
 #include <string>
 #include "../Player/Player.h"
 #include <vector>
+#include "../Maploader/mapLoader.h"
 
 
 
@@ -33,7 +34,7 @@ int main() {
 
 	cout << "Please enter the names of every player" << endl;
 
-	for (int i = 0; i<numberPlayers; i++) {
+	for (int i = 0; i<initial_array.size(); i++) {
 		cin >> name;
 		initial_array[i]->setName(name);
 	}
@@ -48,6 +49,12 @@ int main() {
 
 	cout << "now distributing countries" << endl;
 	startup::distributing_countries(countries, order_array);
+
+
+	
+
+	std::cin.get();
+	std::cin.get();
 	
 
 	
