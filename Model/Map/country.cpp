@@ -42,3 +42,10 @@ void Country::AddNumOfArmies(int armies){
 
 
 
+void Country::setOwner(Player *player) {
+    owner = player;
+}
+
+Player *Country::getOwner() {
+    return owner;
+}

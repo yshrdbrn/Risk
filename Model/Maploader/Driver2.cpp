@@ -15,7 +15,7 @@ int main() {
     std::string path = "../Model/Maploader/Maps/";
 
     try {
-        map_ptr mapPtr = mapLoader.createMapWithFileName(path + "WorldNotRightFormat.map");
+        map_ptr mapPtr = mapLoader.createMapWithFileName("WorldNotRightFormat.map");
         std::cout << "File is valid" << std::endl;
     } catch (RiskException &e) {
         std::cout << "Error on first file:" << std::endl;
@@ -24,7 +24,7 @@ int main() {
 
     try {
         std::cout << std::endl;
-        map_ptr mapPtr2 = mapLoader.createMapWithFileName(path + "WorldNotConnected.map");
+        map_ptr mapPtr2 = mapLoader.createMapWithFileName("WorldNotConnected.map");
         std::cout << "File is valid" << std::endl;
     } catch (RiskException &e) {
         std::cout << "Error on second file:" << std::endl;
@@ -33,7 +33,7 @@ int main() {
 
     try {
         std::cout << std::endl;
-        map_ptr mapPtr3 = mapLoader.createMapWithFileName(path + "World.map");
+        map_ptr mapPtr3 = mapLoader.createMapWithFileName("World.map");
         std::cout << "File is valid" << std::endl;
     } catch (RiskException &e) {
         std::cout << "Error on third file:" << std::endl;

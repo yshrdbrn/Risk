@@ -7,6 +7,8 @@
 
 Player::Player(){};
 
+Player::Player(int playerId): id(playerId) {}
+
 Hand Player::getHand(){
     return hand ; 
 }
@@ -174,3 +176,11 @@ void Player:: reinforce(){
         }
 
 }
+int Player::getId() const {
+    return id;
+}
+
+void Player::setId(int id) {
+    Player::id = id;
+}
+

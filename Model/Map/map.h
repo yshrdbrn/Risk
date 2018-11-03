@@ -7,6 +7,7 @@
 #include "country.h"
 #include "continent.h"
 #include "riskException.h"
+#include "../Player/Player.h"
 
 typedef std::shared_ptr<Continent> continent_ptr;
 
@@ -99,9 +100,14 @@ public:
      */
     int numberOfCountries();
 
-    
-    //Accessor for countries vector 
-    std::vector<country_ptr>& getCountries();
+    /**
+     * This functions checks if all the countries belong to one player.
+     * If so, it will return a pointer to the player, otherwise it will return null
+     * @return a pointer to player owning all the countries if there is one
+     */
+    Player *ownerOfAllCountries();
+
+    const vector<country_ptr> &getCountries() const;
 };
 
 

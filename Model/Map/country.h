@@ -10,6 +10,7 @@
 #include <memory>
 
 class Continent;
+class Player;
 
 class Country {
 private:
@@ -22,12 +23,9 @@ private:
     // The continent this country belongs to
     std::shared_ptr<Continent> continent;
 
-    //Player who own the country
-    
+    Player *owner;
 
-    //number of armies placed on country
     int numOfArmies;
-
 
 public:
     explicit Country(const std::string &name);
@@ -56,6 +54,9 @@ public:
     int getNumOfArmies();
 
     void AddNumOfArmies(int);
+    void setOwner(Player *player);
+
+    Player *getOwner();
 };
 
 
