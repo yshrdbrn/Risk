@@ -3,8 +3,9 @@
 //
 
 #include "country.h"
+#include "../Player/Player.h"
 
-Country::Country(const std::string &name) : name(name) {}
+Country::Country(const std::string &name) : name(name) ,numOfArmies(0) {}
 
 bool Country::operator==(const Country &other) const {
     return name == other.name;
@@ -29,3 +30,15 @@ void Country::setContinent(const std::shared_ptr<Continent> &cont) {
 std::vector<std::shared_ptr<Country>> Country::getNeighbors() {
     return neighbors;
 }
+
+
+int Country::getNumOfArmies(){
+    return numOfArmies;
+}
+
+void Country::AddNumOfArmies(int armies){
+    numOfArmies += armies;
+}
+
+
+

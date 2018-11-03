@@ -22,6 +22,13 @@ private:
     // The continent this country belongs to
     std::shared_ptr<Continent> continent;
 
+    //Player who own the country
+    
+
+    //number of armies placed on country
+    int numOfArmies;
+
+
 public:
     explicit Country(const std::string &name);
 
@@ -45,6 +52,10 @@ public:
     bool operator==(const Country &other) const;
 
     bool operator!=(const Country &other) const;
+
+    int getNumOfArmies();
+
+    void AddNumOfArmies(int);
 };
 
 

@@ -125,3 +125,7 @@ int Map::numberOfCountries() {
     return (int)countries.size();
 }
 
+std::vector<country_ptr>& Map::getCountries(){
+    return countries;
+}
+

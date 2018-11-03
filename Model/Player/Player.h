@@ -26,6 +26,7 @@ class Player{
         void setDice(Dice d);
 
         void setCountries(std::vector<Country*>& );
+
         std::vector<Country *> getCountries();
 
         void setContinents(std::vector<Continent*>&);

@@ -98,6 +98,10 @@ public:
      * @return number of countries
      */
     int numberOfCountries();
+
+    
+    //Accessor for countries vector 
+    std::vector<country_ptr>& getCountries();
 };
 
 
