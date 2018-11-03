@@ -11,12 +11,9 @@
 int main() {
     MapLoader mapLoader;
 
-<<<<<<< HEAD
     std::cout << "hello" << std::endl;
     std::string path = "../Model/Maploader/Maps/";
 
-=======
->>>>>>> e33bc0c4537f3a9f7d1f73e4ef7af722b223f306
     try {
         map_ptr mapPtr = mapLoader.createMapWithFileName("WorldNotRightFormat.map");
         std::cout << "File is valid" << std::endl;
