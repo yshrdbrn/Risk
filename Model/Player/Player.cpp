@@ -40,7 +40,45 @@ std::vector<Continent*> Player::getContinents(){
 }
 
 void Player::attack(){
-    //std::cout << "Player is attacking.. " << endl ;
+    std::cout << "Player attacking phase.. " << endl ;
+
+	bool isAttacking = true;
+	string answer;
+
+	//If the player chooses not to attack, it will exit the attack phase and move on to the next phase.
+	while (isAttacking = true) {
+		std::cout << "Do you want to attack?(yes/no)" << endl;
+		cin >> answer;
+		if (answer == "no") {
+			isAttacking = false;
+			continue;
+		}
+	//Player chooses country to attack from and its neighbour to attack
+		string attCountry;
+		string defCountry;
+		std::cout << "Enter the name of the country you want to attack from" << endl;
+		cin >> attCountry;
+	//Check to see if country is owned by the player
+		std::vector<Country*> ::iterator iter;
+		bool countryIsOwned = false;
+		for (iter = countries.begin(); iter != countries.end(); iter++) {
+			if ((*iter)->getName() == attCountry) {
+				countryIsOwned = true;
+				continue;
+			}
+		}
+	//Player chooses country to attack
+		std::cout << "Enter the name of the country you want to attack" << endl;
+		cin >> defCountry;
+	//Check to see if countries are neighbours 
+
+
+
+
+
+
+
+	}
 }
 
 void Player::fortify(){

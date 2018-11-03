@@ -14,7 +14,6 @@ int main() {
 		cin >> numberOfDice;
 	}
 
-
 	Dice dice;
 	dice.diceRoll(numberOfDice);
 	dice.distributionStatistics();
