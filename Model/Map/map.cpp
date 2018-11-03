@@ -125,3 +125,18 @@ int Map::numberOfCountries() {
     return (int)countries.size();
 }
 
+Player *Map::ownerOfAllCountries() {
+    Player *winner = countries[0]->getOwner();
+
+    for(auto &country: countries) {
+        if (winner->getId() != country->getOwner()->getId())
+            return nullptr;
+    }
+
+    return winner;
+}
+
+const vector<country_ptr> &Map::getCountries() const {
+    return countries;
+}
+

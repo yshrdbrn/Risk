@@ -47,6 +47,11 @@ public:
      */
     map_ptr createMapWithFileName(const std::string &fileName);
 
+    /**
+     * This function will traverse all the .map files in "{PROJECT_ROOT}/Model/Maploader/Maps".
+     * It will return the name of all the map files
+     * @return vector of all the map names
+     */
     std::vector<std::string> getListOfAllMapFiles();
 };
 

@@ -9,6 +9,7 @@
 #include <vector>
 
 class Continent;
+class Player;
 
 class Country {
 private:
@@ -20,6 +21,8 @@ private:
 
     // The continent this country belongs to
     std::shared_ptr<Continent> continent;
+
+    Player *owner;
 
 public:
     explicit Country(const std::string &name);
@@ -44,6 +47,10 @@ public:
     bool operator==(const Country &other) const;
 
     bool operator!=(const Country &other) const;
+
+    void setOwner(Player *player);
+
+    Player *getOwner();
 };
 
 

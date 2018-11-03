@@ -14,9 +14,11 @@ class Player{
         std::vector<Country*> countries;
         Hand hand;
         Dice dice;
+        int id;
 
     public:
         Player();
+        Player(int playerId);
         Hand getHand();
         void setHand(Hand hand);
 
@@ -30,6 +32,9 @@ class Player{
         void reinforce();
         void attack();
         void fortify();
+
+        int getId() const;
+        void setId(int id);
 
 };
 

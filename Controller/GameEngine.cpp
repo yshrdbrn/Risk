@@ -3,11 +3,36 @@
 //
 
 #include <vector>
+#include <iostream>
+#include <string>
 #include "GameEngine.h"
 #include "../View/GameSetupView.h"
+#include "../View/GameFinishView.h"
 #include "../Model/Map/riskException.h"
 
 void GameEngine::startGame() {
+    initGame();
+    mainLoop(5);
+}
+
+GameEngine::~GameEngine() {
+    for (auto &player : players)
+        delete player;
+}
+
+int GameEngine::getNumberOfPlayers() {
+    return players.size();
+}
+
+int GameEngine::getNumberOfCardsInDeck() {
+    return deck->getTotalCards();
+}
+
+int GameEngine::getNumberOfCountriesInMap() {
+    return map->numberOfCountries();
+}
+
+void GameEngine::initGame() {
     MapLoader mapLoader;
     GameSetupView gameSetupView;
     std::vector<std::string> mapNames = mapLoader.getListOfAllMapFiles();
@@ -29,22 +54,35 @@ void GameEngine::startGame() {
     int numberOfPlayers = gameSetupView.promptUserToChooseNumberOfPlayers(MIN_PLAYERS, MAX_PLAYERS);
 
     for (int i = 0; i < numberOfPlayers; i++)
-        players.push_back(new Player());
+        players.push_back(new Player(i + 1));
 }
 
-GameEngine::~GameEngine() {
-    for (auto &player : players)
-        delete player;
+void GameEngine::mainLoop(int numberOfIterations) {
+    while(numberOfIterations > 0 && map->ownerOfAllCountries() == nullptr) {
+        for(Player* &player: players) {
+            std::cout << "Player " << to_string(player->getId()) << "'s turn." << std::endl;
+            player->reinforce();
+            player->attack();
+            player->fortify();
+        }
+
+        numberOfIterations--;
+    }
+
+    GameFinishView gameFinishView;
+    if (map->ownerOfAllCountries() != nullptr)
+        gameFinishView.announceWinner(map->ownerOfAllCountries());
 }
 
-int GameEngine::getNumberOfPlayers() {
-    return players.size();
+void GameEngine::setOwnershipOfCountriesToOnePlayer() {
+    for(auto &country: map->getCountries()) {
+        country->setOwner(players[0]);
+    }
 }
 
-int GameEngine::getNumberOfCardsInDeck() {
-    return deck->getTotalCards();
-}
-
-int GameEngine::getNumberOfCountriesInMap() {
-    return map->numberOfCountries();
+void GameEngine::setOwnershipOfCountriesToRandomPlayers() {
+    std::vector<country_ptr> countries = map->getCountries();
+    for (int i = 0; i < countries.size() - 1; i++)
+        countries[i]->setOwner(players[0]);
+    countries[countries.size() - 1]->setOwner(players[1]);
 }

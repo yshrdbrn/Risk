@@ -29,3 +29,11 @@ void Country::setContinent(const std::shared_ptr<Continent> &cont) {
 std::vector<std::shared_ptr<Country>> Country::getNeighbors() {
     return neighbors;
 }
+
+void Country::setOwner(Player *player) {
+    owner = player;
+}
+
+Player *Country::getOwner() {
+    return owner;
+}
