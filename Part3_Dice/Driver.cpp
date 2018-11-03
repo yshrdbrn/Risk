@@ -8,8 +8,12 @@ int main() {
 	int numberOfDice;
 
 	cout << "Please enter the number of Dice you want to roll between 1 and 3: " << endl;
-
 	cin >> numberOfDice;
+	while (numberOfDice > 3 || numberOfDice < 1) {
+		cout << "Please choose a value between 1 and 3" << endl;
+		cin >> numberOfDice;
+	}
+
 
 	Dice dice;
 	dice.diceRoll(numberOfDice);
