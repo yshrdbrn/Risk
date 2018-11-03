@@ -5,10 +5,10 @@ COMP 345 Assignment 1: Part 3 (Dice Roll)
 Team Members: Mehdi, Youssef, Yashar. 
 */
 
-#include <iostream>;
-#include <random>;
+#include <iostream>
+#include <random>
 #include <ctime>
-#include "Dice_Roll.h";
+#include "Dice_Roll.h"
 
 using namespace std;
 

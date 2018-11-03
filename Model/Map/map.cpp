@@ -24,7 +24,7 @@ bool Map::isMapConnected() {
     for (const country_ptr &countryPtr: countries)
         mark[countryPtr->getName()] = false;
 
-    dfs(countries[0]->getName(), mark);
+    dfs(countries[0], mark);
 
     // Check if dfs traversed all the countries
     for (auto &it : mark) {
@@ -37,7 +37,7 @@ bool Map::isMapConnected() {
 }
 
 bool Map::isConnectedForContinent(continent_ptr continent) {
-    return continent->isConnected(adjList);
+    return continent->isConnected();
 }
 
 bool Map::areAllContinentsConnected() {
@@ -72,13 +72,15 @@ void Map::addCountry(std::string name, std::string continent, std::vector<std::s
 
     // Find or create the Country object
     country_ptr ptr = findCountry(name);
-    if (ptr == nullptr)
-        ptr = std::make_shared<Country>(name);
+    ptr->setContinent(cnt);
 
     // Update map properties
-    adjList[ptr->getName()] = adj;
+    for (auto &adjCountry: adj) {
+        auto adjPtr = findCountry(adjCountry);
+        ptr->addNeighbor(adjPtr);
+    }
+
     cnt->addCountry(ptr);
-    countries.push_back(ptr);
 }
 
 
@@ -95,27 +97,35 @@ continent_ptr Map::findContinent(const std::string &name) {
 
 country_ptr Map::findCountry(const std::string &name) {
     country_ptr found = nullptr;
-    for(const country_ptr &ptr: countries)
+    for(const country_ptr &ptr: countries) {
         if (ptr->getName() == name) {
             found = ptr;
             break;
         }
+    }
 
+    if (found == nullptr) {
+        found = std::make_shared<Country>(name);
+        countries.push_back(found);
+    }
     return found;
 }
 
-void Map::dfs(std::string node, std::unordered_map<std::string, bool> &mark) {
-    mark[node] = true;
-    std::vector<std::string> &adj = adjList[node];
+void Map::dfs(country_ptr node, std::unordered_map<std::string, bool> &mark) {
+    mark[node->getName()] = true;
 
-    for (const auto &t: adj) {
-        if (!mark[t])
+    for (const auto &t: node->getNeighbors()) {
+        if (!mark[t->getName()])
             dfs(t, mark);
     }
 }
 
 
 int Map::numberOfCountries() {
-    return countries.size();
+    return (int)countries.size();
+}
+
+std::vector<country_ptr>& Map::getCountries(){
+    return countries;
 }
 

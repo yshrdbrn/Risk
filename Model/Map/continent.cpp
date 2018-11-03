@@ -23,7 +23,6 @@ const std::string &Continent::getName() const {
     return name;
 }
 
-// Returns the number of countries in the countries list with the same name as the input
 int Continent::numberOfCountriesWithName(std::string name) {
     int counter = 0;
     for (const country_ptr &country: countries)
@@ -34,14 +33,16 @@ int Continent::numberOfCountriesWithName(std::string name) {
 }
 
 
-// Returns if this continent is connected
-bool Continent::isConnected(std::unordered_map<std::string, std::vector<std::string> > &adjList) {
+bool Continent::isConnected() {
+    // Create the mark for dfs
     std::unordered_map<std::string, bool> mark;
     for (const country_ptr &countryPtr: countries)
+        // Add each country inside the continent to mark and flag them as false
         mark[countryPtr->getName()] = false;
 
-    dfs(countries[0]->getName(), mark, adjList);
+    dfs(countries[0], mark);
 
+    // Check if dfs marked all of the countries
     for (auto &it : mark) {
         if (!it.second) {
             return false;
@@ -51,19 +52,18 @@ bool Continent::isConnected(std::unordered_map<std::string, std::vector<std::str
     return true;
 }
 
-// DFS to traverse the continent graph
-void Continent::dfs(std::string node, std::unordered_map<std::string, bool> &mark,
-        std::unordered_map<std::string, std::vector<std::string> > &adjList) {
-    mark[node] = true;
-    std::vector<std::string> &adj = adjList[node];
 
-    for (const auto &t: adj) {
-        if (contains(t) && !mark[t])
-            dfs(t, mark, adjList);
+void Continent::dfs(country_ptr node, std::unordered_map<std::string, bool> &mark) {
+    mark[node->getName()] = true;
+
+    for (const auto &t: node->getNeighbors()) {
+        // If the neighbor is not marked
+        if (containsCountry(t->getName()) && !mark[t->getName()])
+            dfs(t, mark);
     }
 }
 
-bool Continent::contains(std::string countryName) {
+bool Continent::containsCountry(std::string countryName) {
     for (const country_ptr &ptr: countries)
         if (ptr->getName() == countryName)
             return true;

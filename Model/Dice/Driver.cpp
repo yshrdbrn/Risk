@@ -1,6 +1,6 @@
-#include <iostream>;
-#include <random>;
-#include "Dice_Roll.h";
+#include <iostream>
+#include <random>
+#include "Dice_Roll.h"
 
 using namespace std;
 
