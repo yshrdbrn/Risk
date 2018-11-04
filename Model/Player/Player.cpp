@@ -39,24 +39,33 @@ std::vector<Continent*> Player::getContinents(){
     return continents;
 }
 
+int Player::getId() const {
+    return id;
+}
+
+void Player::setId(int id) {
+    Player::id = id;
+}
+
+
 void Player::attack(){
     std::cout << "Player attacking phase.. " << endl ;
 
 	bool isAttacking = true;
 	string answer;
+    Country * refCountry ; 
 
 	//If the player chooses not to attack, it will exit the attack phase and move on to the next phase.
-	while (isAttacking = true) {
+	while (isAttacking) {
 		std::cout << "Do you want to attack?(yes/no)" << endl;
 		cin >> answer;
 		if (answer == "no") {
 			isAttacking = false;
-			continue;
+			break;
 		}
 	//Player chooses country to attack from and its neighbour to attack
 		string attCountry;
 		string defCountry;
-		Country* refCountry;
 		std::cout << "Enter the name of the country you want to attack from" << endl;
 		cin >> attCountry;
 	//Check to see if country is owned by the player
@@ -65,7 +74,7 @@ void Player::attack(){
 		for (iter = countries.begin(); iter != countries.end(); iter++) {
 			if ((*iter)->getName() == attCountry) {
 				countryIsOwned = true;
-				Country* refCountry = (*iter);
+				refCountry = (*iter);
 				continue;
 			}
 		}
@@ -74,7 +83,7 @@ void Player::attack(){
 		std::cout << "Enter the name of the country you want to attack" << endl;
 		cin >> defCountry;
 	//Check to see if countries are neighbours 
-		refCountry->getNeighbors();
+		/*refCountry->getNeighbors();
 		std::vector<shared_ptr<Country>> neighbors = refCountry->getNeighbors();
 		for (iter = countries.begin(); iter != countries.end(); iter++) {
 			if ((*iter)->getName() == attCountry) {
@@ -82,7 +91,7 @@ void Player::attack(){
 				Country* refCountry = (*iter);
 				continue;
 			}
-		}
+		}*/
 
 		
 

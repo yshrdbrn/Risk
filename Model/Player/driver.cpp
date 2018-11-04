@@ -6,27 +6,20 @@
 
 int main()
 {
-    //Create Map and check if it's valid
-    typedef std::unique_ptr<Map> map_ptr;
-    MapLoader  maploader;
-    const std::string path = "../Model/Maploader/Maps/World.map";
-     map_ptr map = maploader.createMapWithFileName(path);
-     map->checkIfMapIsValid();
-
-    //Create player
-    Player p1;
+   Player p1;
 
 
     //Set the players Hand
     Hand hand(2,2,2);
     p1.setHand(hand);
+    int two(2);
 
     Country * brazil = new Country("Brazil");
     Country * alaska = new Country("Alaska");
     Country * canada = new Country("Canada");
     std::vector<Country*> c1{brazil , canada , alaska};
     p1.setCountries(c1);
-	brazil->AddNumOfArmies(2);
+	brazil->AddNumOfArmies(two);
 	p1.attack();
     //p1.reinforce();
 
