@@ -56,6 +56,10 @@ public:
 	int getArmies();
 
 	void incrementArmies(int armies);
+
+	void setPlayer(Player* player);
+
+	Player* getPlayer();
 };
 
 

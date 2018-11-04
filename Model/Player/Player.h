@@ -30,6 +30,7 @@ public:
 		void countryNames();
 		void setArmies(int armies);
 		int getArmies();
+		void removeArmies(int armies);
 
         std::vector<country_ptr> getCountries();
 

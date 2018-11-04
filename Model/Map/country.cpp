@@ -41,3 +41,11 @@ int Country:: getArmies() {
 void Country::incrementArmies(int armies) {
 	this->armies = this->armies + armies;
 }
+
+void Country::setPlayer(Player* player) {
+	this->player = player;
+}
+
+Player* Country::getPlayer() {
+	return this->player;
+}
