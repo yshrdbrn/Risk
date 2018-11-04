@@ -26,7 +26,9 @@ int main()
     Country * canada = new Country("Canada");
     std::vector<Country*> c1{brazil , canada , alaska};
     p1.setCountries(c1);
-    p1.reinforce();
+	brazil->AddNumOfArmies(2);
+	p1.attack();
+    //p1.reinforce();
 
 
 

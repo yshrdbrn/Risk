@@ -7,8 +7,6 @@
 
 Player::Player(){};
 
-Player::Player(int playerId): id(playerId) {}
-
 Hand Player::getHand(){
     return hand ; 
 }
@@ -58,6 +56,7 @@ void Player::attack(){
 	//Player chooses country to attack from and its neighbour to attack
 		string attCountry;
 		string defCountry;
+		Country* refCountry;
 		std::cout << "Enter the name of the country you want to attack from" << endl;
 		cin >> attCountry;
 	//Check to see if country is owned by the player
@@ -66,13 +65,26 @@ void Player::attack(){
 		for (iter = countries.begin(); iter != countries.end(); iter++) {
 			if ((*iter)->getName() == attCountry) {
 				countryIsOwned = true;
+				Country* refCountry = (*iter);
 				continue;
 			}
 		}
+		cout << refCountry->getNumOfArmies() << endl;
 	//Player chooses country to attack
 		std::cout << "Enter the name of the country you want to attack" << endl;
 		cin >> defCountry;
 	//Check to see if countries are neighbours 
+		refCountry->getNeighbors();
+		std::vector<shared_ptr<Country>> neighbors = refCountry->getNeighbors();
+		for (iter = countries.begin(); iter != countries.end(); iter++) {
+			if ((*iter)->getName() == attCountry) {
+				countryIsOwned = true;
+				Country* refCountry = (*iter);
+				continue;
+			}
+		}
+
+		
 
 
 
@@ -176,11 +188,3 @@ void Player:: reinforce(){
         }
 
 }
-int Player::getId() const {
-    return id;
-}
-
-void Player::setId(int id) {
-    Player::id = id;
-}
-
