@@ -9,7 +9,7 @@
 #include "../Dice/Dice_Roll.h"
 
 class Player{
-    private:
+public:
 
      
         std::vector<country_ptr> countries;
@@ -27,6 +27,9 @@ class Player{
 
         void setCountries(std::vector<country_ptr> c);
 		void addCountries(country_ptr object);
+		void countryNames();
+		void setArmies(int armies);
+		int getArmies();
 
         std::vector<country_ptr> getCountries();
 

@@ -29,3 +29,15 @@ void Country::setContinent(const std::shared_ptr<Continent> &cont) {
 std::vector<std::shared_ptr<Country>> Country::getNeighbors() {
     return neighbors;
 }
+
+void Country:: setArmies(int armies) {
+	this->armies = armies;
+}
+
+int Country:: getArmies() {
+	return this->armies;
+}
+
+void Country::incrementArmies(int armies) {
+	this->armies = this->armies + armies;
+}

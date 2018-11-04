@@ -8,191 +8,28 @@
 #include "../Map/continent.h"
 #include "../Cards/Hand.h"
 #include "../Dice/Dice_Roll.h"
+#include <chrono>
 
 
 
 using namespace std;
 //------------------------------------------------------------------------------------------------------
+
 vector<Player*> startup::order_play(vector <Player*> array) {
-	
-	vector <Player*> newArray(array.size());
-	
-	if (array.size() == 2) {
-		std::random_device rd;     // only used once to initialise (seed) engine
-		std::mt19937 rng(rd());    // random-number engine used (Mersenne-Twister in this case)
-		std::uniform_int_distribution<int> uni(0, 1); // guaranteed unbiased
+	unsigned seed = chrono::system_clock::now().time_since_epoch().count();
 
-		auto random_integer = uni(rng);
+	shuffle(array.begin(), array.end(), std::default_random_engine(seed));
 
-		if (random_integer == 0) {
-			newArray[0] = array[0];
-			newArray[1] = array[1];
-			return newArray;
-		}
+	return array;
+	    
+}
 
-		else
-		{
-			newArray[0] = array[1];
-			newArray[1] = array[0];
-			return newArray;
-		}
-	}
-
-	else if (array.size() == 3) {
-		std::random_device rd;     // only used once to initialise (seed) engine
-		std::mt19937 rng(rd());    // random-number engine used (Mersenne-Twister in this case)
-		std::uniform_int_distribution<int> uni(0, 2); // guaranteed unbiased
-
-
-		auto random_integer = uni(rng);
-
-		newArray[0] = array[random_integer];
-
-		auto random2 = uni(rng);
-		while (random2 == random_integer) {
-			random2 = uni(rng);
-		}
-
-		newArray[1] = array[random2];
-
-		auto random3 = uni(rng);
-		while (random3 == random2 || random3 == random_integer) {
-			random3 = uni(rng);
-		}
-
-		newArray[2] = array[random3];
-
-		return newArray;
-	}
-
-	else if (array.size() == 4) {
-
-			std::random_device rd;     // only used once to initialise (seed) engine
-			std::mt19937 rng(rd());    // random-number engine used (Mersenne-Twister in this case)
-			std::uniform_int_distribution<int> uni(0, 3); // guaranteed unbiased
-
-			auto random_integer = uni(rng);
-
-			newArray[0] = array[random_integer];
-
-			auto random2 = uni(rng);
-			while (random2 == random_integer) {
-				random2 = uni(rng);
-			}
-
-			newArray[1] = array[random2];
-
-			auto random3 = uni(rng);
-			while (random3 == random_integer || random3 == random2) {
-				random3 = uni(rng);
-			}
-
-			newArray[2] = array[random3];
-
-			auto random4 = uni(rng);
-			while (random4 == random_integer || random4 == random2 || random4 == random3) {
-				random4 = uni(rng);
-			}
-
-			newArray[3] = array[random4];
-
-			return newArray;
-
-		}
-		else if (array.size() == 5) {
+void startup::distributing_countries(vector <country_ptr> array, vector<Player *> ordered_turns) {
 				
-				std::random_device rd;     // only used once to initialise (seed) engine
-				std::mt19937 rng(rd());    // random-number engine used (Mersenne-Twister in this case)
-				std::uniform_int_distribution<int> uni(0, 4); // guaranteed unbiased
+				unsigned seed = chrono::system_clock::now().time_since_epoch().count();
 
-				auto random_integer = uni(rng);
-
-				newArray[0] = array[random_integer];
-
-				auto random2 = uni(rng);
-				while (random2 == random_integer) {
-					random2 = uni(rng);
-				}
-
-				newArray[1] = array[random2];
-
-				auto random3 = uni(rng);
-				while (random3 == random_integer || random3 == random2) {
-					random3 = uni(rng);
-				}
-
-				newArray[2] = array[random3];
-
-				auto random4 = uni(rng);
-				while (random4 == random_integer || random4 == random2 || random4 == random3) {
-					random4 = uni(rng);
-				}
-
-				newArray[3] = array[random4];
-
-				auto random5 = uni(rng);
-				while (random5 == random_integer || random5 == random2 || random5 == random3 || random5 == random4) {
-					random5 = uni(rng);
-				}
-
-				newArray[4] = array[random5];
-
-				return newArray;
-
-			}
-
-			else if (array.size() == 6) {
-
-					std::random_device rd;     // only used once to initialise (seed) engine
-					std::mt19937 rng(rd());    // random-number engine used (Mersenne-Twister in this case)
-					std::uniform_int_distribution<int> uni(0, 5); // guaranteed unbiased
-
-					auto random_integer = uni(rng);
-
-					newArray[0] = array[random_integer];
-
-					auto random2 = uni(rng);
-					while (random2 == random_integer) {
-						random2 = uni(rng);
-					}
-
-					newArray[1] = array[random2];
-
-					auto random3 = uni(rng);
-					while (random3 == random_integer || random3 == random2) {
-						random3 = uni(rng);
-					}
-
-					newArray[2] = array[random3];
-
-					auto random4 = uni(rng);
-					while (random4 == random_integer || random4 == random2 || random4 == random3) {
-						random4 = uni(rng);
-					}
-
-					newArray[3] = array[random4];
-
-					auto random5 = uni(rng);
-					while (random5 == random_integer || random5 == random2 || random5 == random3 || random5 == random4) {
-						random5 = uni(rng);
-					}
-
-					newArray[4] = array[random5];
-
-					auto random6 = uni(rng);
-					while (random6 == random_integer || random6 == random2 || random6 == random3 || random6 == random4 || random6 == random5) {
-						random6 = uni(rng);
-					}
-
-					newArray[5] = array[random6];
-
-					return newArray;
-				}
-
-			}
-
-
-		    void startup::distributing_countries(vector <country_ptr> array, vector<Player *> ordered_turns) {
+				shuffle(array.begin(), array.end(), std::default_random_engine(seed));
+				
 				int a = 0;
 				for (int i = 0; i < array.size();i++) {
 					ordered_turns[a]->addCountries(array[i]);
@@ -204,38 +41,85 @@ vector<Player*> startup::order_play(vector <Player*> array) {
 			}
 
 			
-		    void startup::distributing_armies(vector<Player*> ordered_turns) {
+ void startup::distributing_armies(vector<Player*> ordered_turns) {
 				
 				if (ordered_turns.size() == 2) {
 					for (int i = 0;i < ordered_turns.size();i++) {
-						ordered_turns[i]->getHand().setArmies(40);
+						
+						ordered_turns[i]->setArmies(40);
 					}
 				}
 				
 				else if (ordered_turns.size() == 3) {
 					for (int i = 0;i < ordered_turns.size();i++) {
-						ordered_turns[i]->getHand().setArmies(35);
+						
+						ordered_turns[i]->setArmies(35);
 					}
 				}
 				
 				else if (ordered_turns.size() == 4) {
 					for (int i = 0;i < ordered_turns.size();i++) {
-						ordered_turns[i]->getHand().setArmies(30);
+						
+						ordered_turns[i]->setArmies(30);
 					}
 				}
 				
 				else if (ordered_turns.size() == 5) {
 					for (int i = 0;i < ordered_turns.size();i++) {
-						ordered_turns[i]->getHand().setArmies(25);
+						
+						ordered_turns[i]->setArmies(25);
 					}
 				}
 				
 				else if (ordered_turns.size() == 6) {
 					for (int i = 0;i < ordered_turns.size();i++) {
-						ordered_turns[i]->getHand().setArmies(20);
+						
+						ordered_turns[i]->setArmies(20);
 					}
 				}
 			}
+
+ void startup:: placing_armies(vector<Player*> ordered_turns) {
+	 int totalArmies;
+	 int country;
+	 
+	 if (ordered_turns.size()==2)
+		 totalArmies = 40;
+	 else if (ordered_turns.size() == 3)
+		 totalArmies = 35;
+	 else if (ordered_turns.size() == 4)
+		 totalArmies = 30;
+	 else if (ordered_turns.size() == 5)
+		 totalArmies = 25;
+	 else if (ordered_turns.size() == 6)
+		 totalArmies = 20;
+
+
+	 
+	 for (int i = 0;i < totalArmies;i++) {
+		 cout << endl;
+		 
+		 for (int a = 0;a < ordered_turns.size();a++) {
+			 cout << ordered_turns[a]->getName() << " your countries are : " << endl;
+			 
+			 for (int c = 0;c < ordered_turns[a]->getCountries().size();c++) {
+				 cout << c <<" "<< ordered_turns[a]->getCountries()[c]->getName()<<" : "<<
+					 ordered_turns[a]->getCountries()[c]->getArmies() <<" armies"<< endl;
+			 }
+			 
+			 cout << "\nPlease enter the number of the country you would like to place an army on : " << endl;
+			 cin >> country;
+
+			 ordered_turns[a]->getCountries()[country]->incrementArmies(1);
+			 
+
+
+			 
+
+
+		 }
+	 }
+ }
 
 
 

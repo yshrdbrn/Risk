@@ -55,3 +55,25 @@ void Player::addCountries(country_ptr object) {
 	countries.push_back(object);
 }
 
+void Player::countryNames() {
+	
+	if (this->countries.size()==0)
+		cout << this->getName() + " has no countries" << endl;
+	
+	else {
+cout << "\nThe countries of " + this->getName() + " are :" << endl;
+
+		for (int i = 0;i < this->countries.size();i++) {
+			cout << this->countries[i]->getName() << endl;
+		}
+	}
+}
+
+void Player::setArmies(int armies) {
+	this->hand.setArmies(armies);
+}
+
+int Player::getArmies() {
+	return this->hand.getArmies();
+}
+

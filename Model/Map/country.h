@@ -25,6 +25,8 @@ private:
 
 	Player* player;
 
+	int armies = 0;
+
 public:
     explicit Country(const std::string &name);
 
@@ -48,6 +50,12 @@ public:
     bool operator==(const Country &other) const;
 
     bool operator!=(const Country &other) const;
+
+	void setArmies(int armies);
+
+	int getArmies();
+
+	void incrementArmies(int armies);
 };
 
 

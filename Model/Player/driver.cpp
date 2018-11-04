@@ -4,9 +4,9 @@
 int main()
 {
 
-    Country * c1 = new Country("c1");
-    Country * c2 = new Country("c2") ;
-    Country * c3 = new Country("c3") ;
+	country_ptr c1 = std::make_shared<Country>("usa");
+	country_ptr c2 = std::make_shared<Country>("china");
+	country_ptr c3 = std::make_shared<Country>("france");
     std::vector<country_ptr> c = {c1,c2, c3};
     Player p1;
     p1.setCountries(c);
