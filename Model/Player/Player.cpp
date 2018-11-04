@@ -7,6 +7,8 @@
 
 Player::Player(){};
 
+Player::Player(int playerID) : id(playerID){}
+
 Hand Player::getHand(){
     return hand ; 
 }
@@ -50,7 +52,6 @@ void Player::setId(int id) {
 
 void Player::attack(){
     std::cout << "Player attacking phase.. " << endl ;
-
 	bool isAttacking = true;
 	string answer;
     Country * refCountry ; 
@@ -64,49 +65,48 @@ void Player::attack(){
 			break;
 		}
 	//Player chooses country to attack from and its neighbour to attack
+    bool countryIsOwned = false;
+        do{
 		string attCountry;
-		string defCountry;
 		std::cout << "Enter the name of the country you want to attack from" << endl;
 		cin >> attCountry;
 	//Check to see if country is owned by the player
 		std::vector<Country*> ::iterator iter;
-		bool countryIsOwned = false;
 		for (iter = countries.begin(); iter != countries.end(); iter++) {
 			if ((*iter)->getName() == attCountry) {
 				countryIsOwned = true;
 				refCountry = (*iter);
-				continue;
+				break;
 			}
 		}
-		cout << refCountry->getNumOfArmies() << endl;
+        }while(!countryIsOwned);
+
+
 	//Player chooses country to attack
-		std::cout << "Enter the name of the country you want to attack" << endl;
+    bool isNeighbor = false;
+        do{
+        string defCountry;
+		cout << "Enter the name of the country you want to attack" << endl;
 		cin >> defCountry;
 	//Check to see if countries are neighbours 
-		/*refCountry->getNeighbors();
 		std::vector<shared_ptr<Country>> neighbors = refCountry->getNeighbors();
-		for (iter = countries.begin(); iter != countries.end(); iter++) {
-			if ((*iter)->getName() == attCountry) {
-				countryIsOwned = true;
-				Country* refCountry = (*iter);
-				continue;
+        std::vector<shared_ptr<Country>> ::iterator iter2;
+		for (iter2= neighbors.begin(); iter2 != neighbors.end(); iter2++) {
+			if ((*iter2)->getName() == defCountry) {
+            	isNeighbor = true;
+				break;
 			}
-		}*/
-
+            else{
+                cout << "Not a neighboring country" << endl;
+            }
+		}
+        }while(!isNeighbor);
 		
-
-
-
-
-
-
-
-	}
+    }
 }
 
 void Player::fortify(){
     //std::cout << "begin fortfiying phase..." << endl ;
-
 }
 //Reinforce method
 void Player:: reinforce(){
@@ -172,28 +172,29 @@ void Player:: reinforce(){
                 continue;
             }
             else{
-            cout << "Please enter the name of the country where you wish to place your armies: " << endl;
-            cin >> country_input ;
-            //iterate through "countries" vector to check if country is owned by the player
-            std::vector<Country*> :: iterator iter;
-            bool countryIsOwned = false;
-            for(iter=countries.begin() ; iter!=countries.end() ; iter++){
-                if((*iter)->getName() == country_input){
-                    countryIsOwned=true;
-                    (*iter)->AddNumOfArmies(armiesToPlace);
-                    armies = armies - armiesToPlace;
-                    continue;
-                }
-            }
-            if(countryIsOwned){
-                cout << "Placed " << armiesToPlace << " armies on " << country_input << "." <<endl;
-            }
-            else{
-                cout << "Country name in not valid..." << endl;
-                continue;
-            } 
+                bool countryIsOwned = false;
+                do{
+                    cout << "Please enter the name of the country where you wish to place your armies: " << endl;
+                    cin >> country_input ;
+                    //iterate through "countries" vector to check if country is owned by the player
+                    std::vector<Country*> :: iterator iter;
+                    for(iter=countries.begin() ; iter!=countries.end() ; iter++){
+                        if((*iter)->getName() == country_input){
+                        countryIsOwned=true;
+                        (*iter)->AddNumOfArmies(armiesToPlace);
+                        armies = armies - armiesToPlace;
+                        continue;
+                        }   
+                    }
+                    if(countryIsOwned){
+                    cout << "Placed " << armiesToPlace << " armies on " << country_input << "." <<endl;
+                    }
+                    else{
+                    cout << "Country name in not valid..." << endl;
+                     continue;
+                    }
+                } while(!countryIsOwned);
 
+            }
             }
         }
-
-}
