@@ -54,7 +54,8 @@ void Player::attack(){
     std::cout << "Player attacking phase.. " << endl ;
 	bool isAttacking = true;
 	string answer;
-    Country * refCountry ; 
+    Country * refAttCountry ; 
+    std::shared_ptr<Country>  refDefCountry;
 
 	//If the player chooses not to attack, it will exit the attack phase and move on to the next phase.
 	while (isAttacking) {
@@ -73,12 +74,15 @@ void Player::attack(){
 	//Check to see if country is owned by the player
 		std::vector<Country*> ::iterator iter;
 		for (iter = countries.begin(); iter != countries.end(); iter++) {
-			if ((*iter)->getName() == attCountry) {
+			if ((*iter)->getName() == attCountry && (*iter)->getNumOfArmies() >= 2) {
 				countryIsOwned = true;
-				refCountry = (*iter);
+				refAttCountry = (*iter);
 				break;
-			}
+			}            
 		}
+        if(!countryIsOwned)
+            cout<< "Country is not a valid country to attack from" << endl;
+
         }while(!countryIsOwned);
 
 
@@ -89,17 +93,17 @@ void Player::attack(){
 		cout << "Enter the name of the country you want to attack" << endl;
 		cin >> defCountry;
 	//Check to see if countries are neighbours 
-		std::vector<shared_ptr<Country>> neighbors = refCountry->getNeighbors();
+		std::vector<shared_ptr<Country>> neighbors = refAttCountry->getNeighbors();
         std::vector<shared_ptr<Country>> ::iterator iter2;
 		for (iter2= neighbors.begin(); iter2 != neighbors.end(); iter2++) {
 			if ((*iter2)->getName() == defCountry) {
+                refDefCountry = (*iter2);
             	isNeighbor = true;
 				break;
 			}
-            else{
-                cout << "Not a neighboring country" << endl;
-            }
 		}
+        if (!isNeighbor)  
+            cout << "Not a neighboring country" << endl;
         }while(!isNeighbor);
 		
     }
