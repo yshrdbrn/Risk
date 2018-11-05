@@ -89,7 +89,7 @@ void Player::attack(){
 
         }while(!isValidAtt);
 
-        cout << refAttCountry->getNeighbors() << endl << "-----------------" <<endl;
+//        cout << refAttCountry->getNeighbors() << endl << "-----------------" <<endl;
 
 	//Player chooses country to attack
     bool isValidDef = false;
