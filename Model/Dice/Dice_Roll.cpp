@@ -27,25 +27,27 @@ Dice::Dice() {
 Dice::~Dice(){
 }
 
-vector<int>& Dice::diceRoll( int numberOfDice){
+std::vector<int> Dice::diceRoll(int numberOfDice){
 	//Used in method to return value of the dice in order
 	int diceValue;
-	vector<int> arr;
+	std::vector<int> arr;
+	
 	/* Loop which rolls number of dices based on user input
 	diceValue uses the method singleRoll() in order to 
 	randomly compute a value between 1-6 for each dice roll.
 	*/
 	for (int i = 0; i < numberOfDice; i++) {
 		diceValue = valueOfDice();
-		arr[i]= diceValue;
+		arr.push_back(diceValue);
 		cout << "The number rolled for dice number " << i + 1 << " is " << diceValue << endl;
 	}
 	return arr;
 }
 	//Method which returns value of Dice to use in the diceRoll method above. 
 int Dice::valueOfDice()
-{
-	int diceValue = (int)((6 * rand() / (RAND_MAX + 1.0)) + 1);
+{	
+	srand(rand());
+	int diceValue = rand() % 6 +1;
 	distributionDiceRoll[diceValue - 1] += 1;
 	diceRollTotal++;
 	return diceValue;

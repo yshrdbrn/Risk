@@ -45,7 +45,8 @@ public:
     /*
      * Returns the vector containing the neighbors of this country
      */
-    std::vector<std::shared_ptr<Country>> getNeighbors();
+    std::vector<std::shared_ptr<Country>> &getNeighbors();
+    void setNeighbors(std::vector<std::shared_ptr<Country>>&);
 
     bool operator==(const Country &other) const;
 
@@ -59,7 +60,6 @@ public:
 
     void setOwner(Player *player);
 
-    void setNeighbors(std::vector<std::shared_ptr<Country>>&);
 
     Player *getOwner();
 };

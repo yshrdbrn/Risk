@@ -12,7 +12,7 @@ public:
 	
 	int valueOfDice();
 	void distributionStatistics();
-	std::vector<int>& diceRoll(int numberOfDice);
+	std::vector<int> diceRoll(int numberOfDice);
 	
 private: 
 	int diceRollTotal;
