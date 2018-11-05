@@ -2,6 +2,8 @@
 
 /* Defining variables and functions which will be used
 */
+#include <iostream>
+#include <vector>
 
 class Dice {
 public: 
@@ -10,7 +12,7 @@ public:
 	
 	int valueOfDice();
 	void distributionStatistics();
-	void diceRoll(int numberOfDice);
+	std::vector<int>& diceRoll(int numberOfDice);
 	
 private: 
 	int diceRollTotal;

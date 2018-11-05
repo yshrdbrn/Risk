@@ -53,8 +53,13 @@ public:
 
     int getNumOfArmies();
 
-    void AddNumOfArmies(int);
+    void addNumOfArmies(int);
+
+    void removeNumOfArmies(int);
+
     void setOwner(Player *player);
+
+    void setNeighbors(std::vector<std::shared_ptr<Country>>&);
 
     Player *getOwner();
 };

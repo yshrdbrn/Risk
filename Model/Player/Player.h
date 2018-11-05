@@ -14,7 +14,7 @@ class Player{
         std::vector<Continent*> continents;
         std::vector<Country*> countries;
         Hand hand;
-        Dice dice;
+        Dice * dice;
         int id;
 
     public:
@@ -24,8 +24,8 @@ class Player{
         Hand getHand();
         void setHand(Hand&);
 
-        Dice getDice();
-        void setDice(Dice d);
+        Dice * getDice();
+        void setDice(Dice *);
 
         void setCountries(std::vector<Country*>& );
 

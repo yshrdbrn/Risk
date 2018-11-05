@@ -36,11 +36,13 @@ int Country::getNumOfArmies(){
     return numOfArmies;
 }
 
-void Country::AddNumOfArmies(int armies){
+void Country::addNumOfArmies(int armies){
     numOfArmies += armies;
 }
 
-
+void Country::removeNumOfArmies(int armies){
+    numOfArmies -= armies;
+}
 
 void Country::setOwner(Player *player) {
     owner = player;
@@ -48,4 +50,8 @@ void Country::setOwner(Player *player) {
 
 Player *Country::getOwner() {
     return owner;
+}
+
+void Country::setNeighbors(std::vector<std::shared_ptr<Country>> & neighbors){
+    neighbors= neighbors;
 }

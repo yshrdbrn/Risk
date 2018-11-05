@@ -136,7 +136,7 @@ Player *Map::ownerOfAllCountries() {
     return winner;
 }
 
-const vector<country_ptr> &Map::getCountries() const {
+const vector<country_ptr> Map::getCountries() const {
     return countries;
 }
 
