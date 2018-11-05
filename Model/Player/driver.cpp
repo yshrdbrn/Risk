@@ -15,7 +15,7 @@ int main()
     gameEngine.mainLoop(1);*/
 
 
-    Player * p1 = new Player();
+   /* Player * p1 = new Player();
     Player * p2 = new Player();
     typedef std::unique_ptr<Map> map_ptr;
     MapLoader maploader;
@@ -31,15 +31,63 @@ int main()
     }
 
     cout << countries[5]->getName() << endl;
+    */
+
+
+
+
+    Player * p1 = new Player(1);
+    Player* p2 = new Player(2);
+    country_ptr usa = std::make_shared<Country>(Country("USA"));
+    country_ptr canada =std::make_shared<Country>(Country("Canada"));
+    country_ptr alaska =std::make_shared<Country>(Country("Alaska"));
+    country_ptr france = std::make_shared<Country>(Country("France"));
+    country_ptr germany = std::make_shared<Country>(Country("Germany"));
+    country_ptr england = std::make_shared<Country>(Country("England"));
+
     
+    std::vector<country_ptr> usNeighbors{canada , alaska};
+    usa->setNeighbors(usNeighbors);
+    std::vector<country_ptr> canadaNeighbors{usa , alaska};
+    canada->setNeighbors(canadaNeighbors);
+    std::vector<country_ptr> alaskaNeighbors{usa , canada};
+    alaska->setNeighbors(alaskaNeighbors);
+    std::vector<country_ptr>franceNeighbors{england , germany};
+    france->setNeighbors(franceNeighbors);
+    std::vector<country_ptr>englandNeighbors{france, germany};
+    england->setNeighbors(englandNeighbors);
+    std::vector<country_ptr>germanyNeiyeghbors{france,england};
+    germany->setNeighbors(germanyNeiyeghbors);
+
+    std::vector<country_ptr> countries{usa , canada , alaska , france , germany, england,};
+
+    std::vector<country_ptr>::iterator iter;
+    for(iter=countries.begin(); iter != countries.end() ; iter++){
+       int  randomInt = (int)((4 * rand() / (RAND_MAX + 1.0)) + 1);
+        (*iter)->addNumOfArmies(randomInt);
+    }
+
+    std::vector<country_ptr> p1Countries{usa , canada , france , germany};
+    std::vector<country_ptr> p2Countries{england, alaska};
+
+    p1->setCountries(p1Countries);
+    p2->setCountries(p2Countries);
+    usa->setOwner(p1);
+    canada->setOwner(p1);
+    france->setOwner(p1);
+    germany->setOwner(p1);
+    england->setOwner(p2);
+    alaska->setOwner(p2);
+
+    p1->reinforce();
+    p1->attack();
+    p1->fortify();
 
 
 
 
-    //Set the players Hand
-    /*Hand hand(2,2,2);
+   /* Hand hand(2,2,2);
     p1.setHand(hand);
-    int two(2);
     std::shared_ptr<Country> usa = new Country("USA");
     std::shared_ptr<Country> france = new Country("France");
     std::shared_ptr<Country> brazil = new Country("Brazil");

@@ -27,11 +27,11 @@ void Player::setDice(Dice * d){
     dice = d;
 }
 
-std::vector<Country *> Player::getCountries(){
+std::vector<country_ptr> Player::getCountries(){
     return countries;
 }
 
-void Player::setCountries(std::vector<Country*>& c){
+void Player::setCountries(std::vector<country_ptr>& c){
     countries = c;
 }
 
@@ -56,7 +56,7 @@ void Player::attack(){
     std::cout << "Player attacking phase.. " << endl ;
 	bool isAttacking = true;
 	string answer;
-    Country * refAttCountry ; 
+    country_ptr refAttCountry ; 
     std::shared_ptr<Country>  refDefCountry;
     int numberOfDiceAtt;
     int numberOfDiceDef;
@@ -76,7 +76,7 @@ void Player::attack(){
 		std::cout << "Enter the name of the country you want to attack from" << endl;
 		cin >> attCountry;
 	//Check to see if country is owned by the player
-		std::vector<Country*> ::iterator iter;
+		std::vector<shared_ptr<Country>> ::iterator iter;
 		for (iter = countries.begin(); iter != countries.end(); iter++) {
 			if ((*iter)->getName() == attCountry && (*iter)->getNumOfArmies() >= 2) {
 				isValidAtt = true;
@@ -89,6 +89,7 @@ void Player::attack(){
 
         }while(!isValidAtt);
 
+        cout << refAttCountry->getNeighbors() << endl << "-----------------" <<endl;
 
 	//Player chooses country to attack
     bool isValidDef = false;
@@ -96,11 +97,13 @@ void Player::attack(){
         string defCountry;
 		std::cout << "Enter the name of the country you want to attack" << endl;
 		cin >> defCountry;
-	//Check to see if countries are neighbours 
+	//Check to see if countries are neighbours
 		std::vector<shared_ptr<Country>> neighbors = refAttCountry->getNeighbors();
         std::vector<shared_ptr<Country>> ::iterator iter2;
 		for (iter2= neighbors.begin(); iter2 != neighbors.end(); iter2++) {
-			if ((*iter2)->getName() == defCountry && (*iter2)->getOwner() != refAttCountry->getOwner()) {
+            cout << "inside for loop";
+			if ((*iter2)->getName() == defCountry && (*iter2)->getOwner()->getId() != refAttCountry->getOwner()->getId()) {
+                cout<< "inside if statement";
                 refDefCountry = (*iter2);
             	isValidDef = true;
 				break;
@@ -110,7 +113,7 @@ void Player::attack(){
             std::cout << "Not a neighboring country" << endl;
         }while(!isValidDef);
 
-
+        //Checking if valid inoout for number of Dice
         bool isValid = false;
         do {
 			std::cout << "Choose the number of dice you want to roll for ATTACK" << endl;
@@ -128,7 +131,7 @@ void Player::attack(){
 		
 
         }while(!isValid);
-
+        //Rolling dice for Attacker and Defender
             vector<int>  arrAtt;
 		    vector<int> arrDef;
 		    std::cout << "NOW ROLLING FOR ATTACKING COUNTRY " << endl;
@@ -137,7 +140,7 @@ void Player::attack(){
 			std::cout << "NOW ROLLING FOR DEFENDING COUNTRY" << endl;
 			arrDef = refDefCountry->getOwner()->getDice()->diceRoll(numberOfDiceDef);
 			//std::sort(arrDef.begin(), arrDef.end());
-			
+			//Comparing values to see who wins between Attacker and Defender and removing armies where appropiate
 			while (arrAtt.size() != 0 || arrDef.size() != 0){
                 vector<int>::const_iterator maxAtt,maxDef;  
                 maxAtt = std::max_element(arrAtt.begin(), arrAtt.end());
@@ -159,7 +162,7 @@ void Player::attack(){
                 //Asking the winner to Move Armies to new territory
                 std::cout << "How many armies would you like to move to "<< refDefCountry->getName() << " ?" <<endl;
                 cin  >> armiesToMove;
-                //Validate the number of armies
+                //Validate the number of armies to move
                 bool isValidNumber=false;
                 do{
                     std::cout << "Enter the number of countries you want to move:" << endl;
@@ -203,7 +206,7 @@ void Player::fortify(){
     std::cout << "Beginning Fortify Phase... " << endl;
         bool isFortifying = true;
         std::string answer;
-        Country * refSourceCountry;
+        country_ptr refSourceCountry;
         std::shared_ptr<Country> refTargetCountry;
         string sourceCountry;
          int armiesToMove;
@@ -221,7 +224,7 @@ void Player::fortify(){
 		std::cout << "Enter the name of the country you want to move armies from" << endl;
 		cin >> sourceCountry;
 	//Check to see if country is owned by the player
-		std::vector<Country*> ::iterator iter;
+		std::vector<country_ptr> ::iterator iter;
 		for (iter = countries.begin(); iter != countries.end(); iter++) {
 			if ((*iter)->getName() == sourceCountry) {
 				isValidSource = true;
@@ -344,7 +347,7 @@ void Player:: reinforce(){
                     cout << "Please enter the name of the country where you wish to place your armies: " << endl;
                     cin >> country_input ;
                     //iterate through "countries" vector to check if country is owned by the player
-                    std::vector<Country*> :: iterator iter;
+                    std::vector<country_ptr> :: iterator iter;
                     for(iter=countries.begin() ; iter!=countries.end() ; iter++){
                         if((*iter)->getName() == country_input){
                         countryIsOwned=true;
