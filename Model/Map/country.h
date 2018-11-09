@@ -9,6 +9,7 @@
 #include <vector>
 
 class Continent;
+class Player;
 
 class Player;
 

@@ -4,11 +4,13 @@
 
 #include <fstream>
 #include <sstream>
+#include <sys/types.h>
+#include <dirent.h>
 #include "mapLoader.h"
 #include "../Map/riskException.h"
 
 map_ptr MapLoader::createMapWithFileName(const std::string &fileName) {
-    auto fileContent = loadFileWithName(fileName);
+    auto fileContent = loadFileWithName(MapsDirPath + fileName);
 
     map_ptr mapPtr = std::make_unique<Map>();
 
@@ -84,3 +86,22 @@ void MapLoader::addCountryToMap(map_ptr &mapPtr, std::string info) {
     std::vector<std::string> adjList(dividedInfo.begin() + 4, dividedInfo.end());
     mapPtr->addCountry(dividedInfo[0], dividedInfo[3], adjList);
 }
+
+std::vector<std::string> MapLoader::getListOfAllMapFiles() {
+    std::vector<std::string> fileNames;
+
+    // Open directory
+    DIR *dirp = opendir(MapsDirPath.c_str());
+    struct dirent * dp;
+    while ((dp = readdir(dirp)) != NULL) {
+        // Check if the file is a .map file
+        std::string name(dp->d_name);
+        if (name.find(".map") != std::string::npos)
+            fileNames.emplace_back(dp->d_name);
+    }
+    // Close directory
+    closedir(dirp);
+    return fileNames;
+}
+
+MapLoader::MapLoader(): MapsDirPath("Model/Maploader/Maps/") {}
