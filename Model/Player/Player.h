@@ -14,12 +14,13 @@ class Player{
         std::vector<Continent*> continents;
         std::vector<country_ptr> countries;
         Hand hand;
+
         Dice * dice;
+        string name;
         int id;
 
     public:
         Player();
-
         Player(int playerId);
         Hand getHand();
         void setHand(Hand&);
@@ -38,8 +39,14 @@ class Player{
         void attack();
         void fortify();
 
+
+		string getName();
+		void  setName(string name);
+
+
         int getId() const;
         void setId(int id);
+
 
 };
 

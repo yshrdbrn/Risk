@@ -10,6 +10,7 @@
 #include <memory>
 
 class Continent;
+
 class Player;
 
 class Country {

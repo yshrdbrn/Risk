@@ -17,12 +17,16 @@ add_executable(part1 Model/Map/driver.cpp ${MAP})
 
 add_executable(part2 Model/Maploader/Driver2.cpp ${MAP} ${MAPLOADER})
 
+
 add_executable(part3 Model/Dice/Driver.cpp ${DICE})
 
 add_executable(part4 Model/Player/driver.cpp ${PLAYER} ${CARDS} ${DICE} ${MAPLOADER} ${MAP})
+
+add_executable(part6 Model/start_up_phase/main.cpp Model/start_up_phase/startup.cpp Model/start_up_phase/startup.h Model/Player/Player.cpp Model/Player/Player.h Model/Cards/Deck.cpp Model/Cards/Deck.h Model/Cards/Hand.h Model/Cards/Hand.cpp Model/Map/country.h Model/Map/country.cpp Model/Dice/Dice_Roll.h Model/Dice/Dice_Roll.cpp Model/Maploader/mapLoader.cpp Model/Maploader/mapLoader.h Model/Map/riskException.cpp Model/Map/riskException.h Model/Map/map.cpp Model/Map/map.h Model/Map/continent.cpp Model/Map/continent.h)
 
 add_executable(part5 Model/Cards/main.cpp ${CARDS})
 
 add_executable(a2_part1 Controller/DriverA2Part1.cpp ${MODEL} ${VIEW} ${CONTROLLER})
 
 add_executable(a2_part3 Controller/DriverA2Part3.cpp ${MODEL} ${VIEW} ${CONTROLLER})
+

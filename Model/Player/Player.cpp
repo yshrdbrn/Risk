@@ -9,7 +9,9 @@
 
 Player::Player(){};
 
+
 Player::Player(int playerID) : id(playerID){}
+
 
 Hand Player::getHand(){
     return hand ; 
@@ -281,6 +283,13 @@ void Player::fortify(){
     
 
 
+int Player::getId() const {
+    return id;
+}
+
+void Player::setId(int id) {
+    Player::id = id;
+}
 
 
 //Reinforce method
