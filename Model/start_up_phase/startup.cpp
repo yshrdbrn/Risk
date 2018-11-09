@@ -1,4 +1,4 @@
- t#include <iostream>
+#include <iostream>
 #include <string>
 #include <vector>
 #include "random"
@@ -34,7 +34,7 @@ void startup::distributing_countries(vector <country_ptr> array, vector<Player *
 				int a = 0;
 				for (int i = 0; i < array.size();i++) {                        //distributing the countries to the players
 					ordered_turns[a]->addCountries(array[i]);                  //and setting the country's player to that player.
-					array[i]->setPlayer(ordered_turns[a]);
+					array[i]->setOwner(ordered_turns[a]);
 					a++;
 					if (a == ordered_turns.size()) {
 						a = 0;
@@ -113,7 +113,7 @@ void startup::distributing_countries(vector <country_ptr> array, vector<Player *
 				                                                 //they own.
 				 for (int c = 0;c < ordered_turns[a]->getCountries().size();c++) {
 					 cout << c << " " << ordered_turns[a]->getCountries()[c]->getName() << " : " <<
-						 ordered_turns[a]->getCountries()[c]->getArmies() << " armies" << endl;
+						 ordered_turns[a]->getCountries()[c]->getNumOfArmies() << " armies" << endl;
 				 }
 
 				 cout << "\nPlease enter the number of the country you would like to place an army on : ";

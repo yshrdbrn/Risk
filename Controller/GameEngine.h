@@ -19,6 +19,8 @@ private:
     std::vector<Player *> players;
     Deck *deck;
 
+    void startUpPhase();
+
 public:
     ~GameEngine();
 
@@ -36,7 +38,7 @@ public:
     /**
      * It will execute the main loop of the game
      */
-    void mainLoop(int numberOfIterations);
+    void mainLoop();
 
     int getNumberOfPlayers();
     int getNumberOfCardsInDeck();

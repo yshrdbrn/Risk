@@ -59,6 +59,8 @@ public:
 
     void removeNumOfArmies(int);
 
+    void incrementArmies(int armies);
+
     void setOwner(Player *player);
 
 

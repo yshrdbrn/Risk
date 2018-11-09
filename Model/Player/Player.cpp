@@ -117,7 +117,7 @@ void Player::attack(){
         bool isValidAttDice = false;
 			std::cout << "Choose the number of dice you want to roll for ATTACK" << endl;
 			cin >> numberOfDiceAtt;
-			while(numberOfDiceAtt > 3 || numberOfDiceAtt < 1 && numberOfDiceAtt <= refAttCountry -> getNumOfArmies() - 1) {
+			while((numberOfDiceAtt > 3 || numberOfDiceAtt < 1) || (numberOfDiceAtt > refAttCountry -> getNumOfArmies() - 1)) {
 				std::cout << "Choose a valid number of Dice to roll. It must be between 1-3 and cannot be greater than the number of armies you have" << endl;
 				cin >> numberOfDiceAtt;
             }
@@ -280,16 +280,6 @@ void Player::fortify(){
 
 
 }
-    
-
-
-int Player::getId() const {
-    return id;
-}
-
-void Player::setId(int id) {
-    Player::id = id;
-}
 
 
 //Reinforce method
@@ -382,4 +372,44 @@ void Player:: reinforce(){
 
             }
             }
+
+}
+
+void Player::addCountries(country_ptr object) {
+    countries.push_back(object);
+}
+
+void Player::countryNames() {
+
+    if (this->countries.size()==0)
+        cout <<"\n"<< this->getName() + " has no countries" << endl;
+
+    else {
+        cout << "\nThe countries of " + this->getName() + " are :" << endl;
+
+        for (int i = 0;i < this->countries.size();i++) {
+            cout << this->countries[i]->getName() << endl;
+        }
+    }
+}
+
+void Player::setArmies(int armies) {
+    this->hand.setArmies(armies);
+}
+
+int Player::getArmies() {
+    return this->hand.getArmies();
+}
+
+void Player::removeArmies(int armies) {
+    this->hand.setArmies(this->hand.getArmies() - armies);
+}
+
+
+string Player::getName() {
+    return this->name;
+}
+
+void Player::setName(string name) {
+    this->name = name;
 }

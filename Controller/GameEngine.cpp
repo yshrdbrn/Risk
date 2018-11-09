@@ -9,10 +9,14 @@
 #include "../View/GameSetupView.h"
 #include "../View/GameFinishView.h"
 #include "../Model/Map/riskException.h"
+#include "../Model/start_up_phase/startup.h"
 
 void GameEngine::startGame() {
     initGame();
-    mainLoop(5);
+
+    startUpPhase();
+
+    mainLoop();
 }
 
 GameEngine::~GameEngine() {
@@ -57,16 +61,23 @@ void GameEngine::initGame() {
         players.push_back(new Player(i + 1));
 }
 
-void GameEngine::mainLoop(int numberOfIterations) {
-    while(numberOfIterations > 0 && map->ownerOfAllCountries() == nullptr) {
+void GameEngine::startUpPhase() {
+
+    auto temp = startup::order_play(players);
+
+    startup::distributing_countries(map->getCountries(), temp);
+    startup::distributing_armies(temp);
+    startup::placing_armies(temp);
+}
+
+void GameEngine::mainLoop() {
+    while(map->ownerOfAllCountries() == nullptr) {
         for(Player* &player: players) {
             std::cout << "Player " << to_string(player->getId()) << "'s turn." << std::endl;
             player->reinforce();
             player->attack();
             player->fortify();
         }
-
-        numberOfIterations--;
     }
 
     GameFinishView gameFinishView;

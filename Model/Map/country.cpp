@@ -55,3 +55,7 @@ Player *Country::getOwner() {
 void Country::setNeighbors(std::vector<std::shared_ptr<Country>>& n){
     neighbors=n;
 }
+
+void Country::incrementArmies(int armies) {
+    numOfArmies += armies;
+}

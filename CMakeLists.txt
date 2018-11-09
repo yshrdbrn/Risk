@@ -12,11 +12,11 @@ set(CARDS Model/Cards/Deck.h Model/Cards/Deck.cpp Model/Cards/Hand.cpp Model/Car
 set(MODEL ${MAP} ${MAPLOADER} ${PLAYER} ${DICE} ${CARDS})
 set(VIEW View/GameSetupView.cpp View/GameSetupView.h View/GameFinishView.cpp View/GameFinishView.h)
 set(CONTROLLER Controller/GameEngine.cpp Controller/GameEngine.h)
+set(STARTUP Model/start_up_phase/startup.cpp Model/start_up_phase/startup.h)
 
 add_executable(part1 Model/Map/driver.cpp ${MAP})
 
 add_executable(part2 Model/Maploader/Driver2.cpp ${MAP} ${MAPLOADER})
-
 
 add_executable(part3 Model/Dice/Driver.cpp ${DICE})
 
@@ -28,5 +28,5 @@ add_executable(part5 Model/Cards/main.cpp ${CARDS})
 
 add_executable(a2_part1 Controller/DriverA2Part1.cpp ${MODEL} ${VIEW} ${CONTROLLER})
 
-add_executable(a2_part3 Controller/DriverA2Part3.cpp ${MODEL} ${VIEW} ${CONTROLLER})
+add_executable(a2_part3 Controller/DriverA2Part3.cpp ${MODEL} ${VIEW} ${CONTROLLER} ${STARTUP})
 
