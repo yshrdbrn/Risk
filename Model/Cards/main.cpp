@@ -2,7 +2,6 @@
 #include "Deck.h"
 #include "Hand.h"
 #include "random"
-#include "../Player/Player.h"
 
 using namespace std;
 
@@ -25,16 +24,17 @@ int main() {
 	cout << "myHand contains " << myHand.getCavalery() << " Cavalery cards\n" << endl;
 	cout << "\nNow proceeding to exchange some Cards-------------------------------" << endl;
 
-	myHand.exchange();   //exchanging my cards for armies
+	/*myHand.exchange();   //exchanging my cards for armies
 	myHand.exchange();
 	myHand.exchange();
 	myHand.exchange();
-	myHand.exchange();
+	myHand.exchange();*/
 	
 	cout <<"\nmyHand now contains "<< myHand.getInfantry()<<" Infantry cards" << endl;     //again, testing getters and setters
 	cout << "myHand now contains " << myHand.getArtillery() << " Artillery cards" << endl; //to see if the exchange worked correctly
 	cout << "myHand now contains " << myHand.getCavalery() << " Cavalery cards \n" << endl;
 	cout <<"\nmyHand now contains "<< myHand.getArmies()<<" armies" << endl;
+
 
 	
 	cin.get();

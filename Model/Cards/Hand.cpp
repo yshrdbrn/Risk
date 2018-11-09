@@ -8,6 +8,8 @@ using namespace std;
 Hand::Hand() {
 
 }
+
+Hand::Hand(int artillery , int cavalery , int infantry) : cavalery(cavalery) , artillery(artillery) , infantry(infantry){}
 //--------------------------------------------------------Getters
 int Hand::getArtillery() {
 	return this->artillery;
@@ -45,10 +47,6 @@ void Hand::setTotalCards(int totalCards) {
 	this->totalCards = totalCards;
 }
 
-void Hand::setArmies(int armies) {
-	this->armies = armies;
-}
-
 //----------------------------------------------------Increment methods
 void Hand::ArtilleryIncrement(int increment) {
 	this->artillery += increment;
@@ -66,7 +64,7 @@ void Hand::totalCardsIncrement(int totalCards) {
 	this->totalCards += totalCards;
 }
 //-------------------------------------------------------exchange_method
-void Hand::exchange() {
+void Hand::exchange(int& numOfArmies) {
 	bool checker = false;
 	string type;
 	string yes;
@@ -106,7 +104,7 @@ void Hand::exchange() {
 			if (this->infantry >= 3) {                      //if there is at least 3 infantries in the deck
 				this->infantry -= 3;
 				this->exchangeCounter += 5;
-				this->armies += this->exchangeCounter;
+				numOfArmies += this->exchangeCounter;
 				
 				
 			}
@@ -118,7 +116,7 @@ void Hand::exchange() {
 				if (this->artillery >= 3) {                       //if there is at least 3 artillery in the deck
 					this->artillery -= 3;
 					this->exchangeCounter += 5;
-					this->armies += this->exchangeCounter;
+					numOfArmies += this->exchangeCounter;
 					
 					
 				}
@@ -146,7 +144,7 @@ void Hand::exchange() {
 			this->artillery--;
 			this->cavalery--;
 			this->exchangeCounter += 5;
-			this->armies += this->exchangeCounter;
+			numOfArmies+= this->exchangeCounter;
 			
 			
 			

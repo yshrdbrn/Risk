@@ -7,9 +7,9 @@
 
 #include <string>
 #include <vector>
+#include <memory>
 
 class Continent;
-class Player;
 
 class Player;
 
@@ -24,9 +24,9 @@ private:
     // The continent this country belongs to
     std::shared_ptr<Continent> continent;
 
-	Player* player;
+    Player *owner;
 
-	int armies = 0;
+    int numOfArmies;
 
 public:
     explicit Country(const std::string &name);
@@ -46,21 +46,23 @@ public:
     /*
      * Returns the vector containing the neighbors of this country
      */
-    std::vector<std::shared_ptr<Country>> getNeighbors();
+    std::vector<std::shared_ptr<Country>> &getNeighbors();
+    void setNeighbors(std::vector<std::shared_ptr<Country>>&);
 
     bool operator==(const Country &other) const;
 
     bool operator!=(const Country &other) const;
 
-	void setArmies(int armies);
+    int getNumOfArmies();
 
-	int getArmies();
+    void addNumOfArmies(int);
 
-	void incrementArmies(int armies);
+    void removeNumOfArmies(int);
 
-	void setPlayer(Player* player);
+    void setOwner(Player *player);
 
-	Player* getPlayer();
+
+    Player *getOwner();
 };
 
 

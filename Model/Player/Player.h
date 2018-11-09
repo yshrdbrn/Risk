@@ -9,33 +9,31 @@
 #include "../Dice/Dice_Roll.h"
 
 class Player{
-public:
+    private:
 
-     
+        std::vector<Continent*> continents;
         std::vector<country_ptr> countries;
         Hand hand;
-        Dice dice;
-		    string name;
-        int id;
 
+        Dice * dice;
+        string name;
+        int id;
 
     public:
         Player();
         Player(int playerId);
         Hand getHand();
-        void setHand(Hand hand);
+        void setHand(Hand&);
 
-       Dice getDice();
-        void setDice(Dice d);
+        Dice * getDice();
+        void setDice(Dice *);
 
-        void setCountries(std::vector<country_ptr> c);
-		void addCountries(country_ptr object);
-		void countryNames();
-		void setArmies(int armies);
-		int getArmies();
-		void removeArmies(int armies);
+        void setCountries(std::vector<country_ptr>& );
 
         std::vector<country_ptr> getCountries();
+
+        void setContinents(std::vector<Continent*>&);
+        std::vector<Continent*> getContinents();
 
         void reinforce();
         void attack();
@@ -45,7 +43,6 @@ public:
 		string getName();
 		void  setName(string name);
 
-		
 
         int getId() const;
         void setId(int id);

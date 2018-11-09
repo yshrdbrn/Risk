@@ -107,7 +107,7 @@ public:
      */
     Player *ownerOfAllCountries();
 
-    const vector<country_ptr> &getCountries() const;
+    const vector<country_ptr> getCountries() const;
 };
 
 

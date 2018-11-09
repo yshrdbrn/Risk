@@ -92,8 +92,4 @@ int main() {
         std::cout << "Error on forth map:" << std::endl;
         std::cout << e.what() << std::endl;
     }
-
-	std::cout << map4.numberOfCountries() <<std:: endl;
-	std::cin.get();
-	std::cin.get();
 }
