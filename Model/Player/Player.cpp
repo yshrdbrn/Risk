@@ -1,5 +1,6 @@
-#include "Player.h"
+#include"Player.h"
 #include "../Map/country.h"
+#include <vector>
 
 
 
@@ -23,11 +24,11 @@ void Player::setDice(Dice d){
     dice = d;
 }
 
-std::vector<Country *> Player::getCountries(){
+std::vector<country_ptr> Player::getCountries(){
     return countries;
 }
 
-void Player::setCountries(std::vector<Country*> c){
+void Player::setCountries(std::vector<country_ptr> c){
     countries = c;
 }
 
@@ -43,6 +44,45 @@ void Player::fortify(){
 void Player:: reinforce(){
     std::cout << "begin reinforcing phase... " << endl;
 }
+
+string Player::getName() {
+	return this->name;
+}
+
+void Player::setName(string name) {
+	this->name = name;
+}
+
+void Player::addCountries(country_ptr object) {
+	countries.push_back(object);
+}
+
+void Player::countryNames() {
+	
+	if (this->countries.size()==0)
+		cout <<"\n"<< this->getName() + " has no countries" << endl;
+	
+	else {
+cout << "\nThe countries of " + this->getName() + " are :" << endl;
+
+		for (int i = 0;i < this->countries.size();i++) {
+			cout << this->countries[i]->getName() << endl;
+		}
+	}
+}
+
+void Player::setArmies(int armies) {
+	this->hand.setArmies(armies);
+}
+
+int Player::getArmies() {
+	return this->hand.getArmies();
+}
+
+void Player::removeArmies(int armies) {
+	this->hand.setArmies(this->hand.getArmies() - armies);
+}
+
 
 int Player::getId() const {
     return id;

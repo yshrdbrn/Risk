@@ -11,6 +11,8 @@
 class Continent;
 class Player;
 
+class Player;
+
 class Country {
 private:
     // Name of the country, which is unique
@@ -22,7 +24,9 @@ private:
     // The continent this country belongs to
     std::shared_ptr<Continent> continent;
 
-    Player *owner;
+	Player* player;
+
+	int armies = 0;
 
 public:
     explicit Country(const std::string &name);
@@ -48,9 +52,15 @@ public:
 
     bool operator!=(const Country &other) const;
 
-    void setOwner(Player *player);
+	void setArmies(int armies);
 
-    Player *getOwner();
+	int getArmies();
+
+	void incrementArmies(int armies);
+
+	void setPlayer(Player* player);
+
+	Player* getPlayer();
 };
 
 

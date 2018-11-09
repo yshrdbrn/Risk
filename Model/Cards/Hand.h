@@ -18,6 +18,7 @@ public:
 	void setInfantry(int Artillery);
 	void setCavalery(int Artillery);
 	void setTotalCards(int totalCards);
+	void setArmies(int armies);
 
 	void ArtilleryIncrement(int increment);
 	void InfantryIncrement(int increment);

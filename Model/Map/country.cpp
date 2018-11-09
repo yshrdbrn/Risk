@@ -30,10 +30,22 @@ std::vector<std::shared_ptr<Country>> Country::getNeighbors() {
     return neighbors;
 }
 
-void Country::setOwner(Player *player) {
-    owner = player;
+void Country:: setArmies(int armies) {
+	this->armies = armies;
 }
 
-Player *Country::getOwner() {
-    return owner;
+int Country:: getArmies() {
+	return this->armies;
+}
+
+void Country::incrementArmies(int armies) {
+	this->armies = this->armies + armies;
+}
+
+void Country::setPlayer(Player* player) {
+	this->player = player;
+}
+
+Player* Country::getPlayer() {
+	return this->player;
 }
