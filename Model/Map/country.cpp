@@ -59,3 +59,7 @@ void Country::setNeighbors(std::vector<std::shared_ptr<Country>>& n){
 void Country::incrementArmies(int armies) {
     numOfArmies += armies;
 }
+
+const shared_ptr<Continent> &Country::getContinent() const {
+    return continent;
+}

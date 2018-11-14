@@ -57,6 +57,8 @@ public:
 
     void addNumOfArmies(int);
 
+    const std::shared_ptr<Continent> &getContinent() const;
+
     void removeNumOfArmies(int);
 
     void incrementArmies(int armies);

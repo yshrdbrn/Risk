@@ -9,8 +9,11 @@
 #include <unordered_map>
 #include <memory>
 #include "country.h"
+#include "../Player/Player.h"
 
 typedef std::shared_ptr<Country> country_ptr;
+
+class Player;
 
 class Continent {
 private:
@@ -19,6 +22,8 @@ private:
     std::vector<country_ptr> countries;
 
     std::string name;
+
+    int controlValue;
 
 
     /**
@@ -36,11 +41,13 @@ private:
     bool containsCountry(std::string countryName);
 
 public:
-    explicit Continent(const std::string &name);
+    explicit Continent(const std::string &name, int control);
 
     bool operator==(const Continent &other) const;
 
     bool operator!=(const Continent &other) const;
+
+    int getControlValue() const;
 
     /**
      * Adds a country to its set of countries
@@ -62,6 +69,8 @@ public:
      * @return true if the continent is connected
      */
     bool isConnected();
+
+    bool doesContinentBelongToPlayer(Player *player);
 };
 
 

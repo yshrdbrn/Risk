@@ -68,7 +68,7 @@ void MapLoader::addContinentToMap(map_ptr &mapPtr, std::string line) {
     if (position == std::string::npos)
         throw RiskException("Continent name is not in the right format.");
 
-    mapPtr->addContinent(line.substr(0, position));
+    mapPtr->addContinent(line.substr(0, position), std::stoi(line.substr(position+1)));
 }
 
 void MapLoader::addCountryToMap(map_ptr &mapPtr, std::string info) {

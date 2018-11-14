@@ -4,8 +4,10 @@
 
 #include <unordered_map>
 #include "continent.h"
+#include "../Player/Player.h"
 
-Continent::Continent(const std::string &name) : name(name) {}
+
+Continent::Continent(const std::string &name, int control) : name(name), controlValue(control) {}
 
 bool Continent::operator==(const Continent &other) const {
     return name == other.name;
@@ -69,4 +71,17 @@ bool Continent::containsCountry(std::string countryName) {
             return true;
 
     return false;
+}
+
+int Continent::getControlValue() const {
+    return controlValue;
+}
+
+bool Continent::doesContinentBelongToPlayer(Player *player) {
+    for(auto &country: countries) {
+        if (country->getOwner()->getId() != player->getId())
+            return false;
+    }
+
+    return true;
 }

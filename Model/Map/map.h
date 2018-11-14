@@ -74,7 +74,7 @@ public:
      * Adds a continent with the name given to the map
      * @param name of the continent
      */
-    void addContinent(std::string name);
+    void addContinent(std::string name, int controlValue);
 
     /**
      * Adds a country with the information given to the map

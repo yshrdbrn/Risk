@@ -54,11 +54,11 @@ void Map::checkIfMapIsValid() {
     if (!areAllContinentsConnected()) throw RiskException("One of the continents not connected.");
 }
 
-void Map::addContinent(std::string name) {
+void Map::addContinent(std::string name, int controlValue) {
     if (findContinent(name) != nullptr)
         throw RiskException("Continent already exists");
 
-    continents.push_back(std::make_shared<Continent>(name));
+    continents.push_back(std::make_shared<Continent>(name, controlValue));
 }
 
 void Map::addCountry(std::string name, std::string continent, std::vector<std::string> adj) {

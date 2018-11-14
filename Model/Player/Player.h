@@ -4,14 +4,14 @@
 #include <vector>
 #include <string>
 #include "../Map/country.h"
-#include "../Map/continent.h"
 #include "../Cards/Hand.h"
 #include "../Dice/Dice_Roll.h"
+
+typedef std::shared_ptr<Country> country_ptr;
 
 class Player{
     private:
 
-        std::vector<Continent*> continents;
         std::vector<country_ptr> countries;
         Hand hand;
 
@@ -36,9 +36,6 @@ class Player{
 		void removeArmies(int armies);
 
         std::vector<country_ptr> getCountries();
-
-        void setContinents(std::vector<Continent*>&);
-        std::vector<Continent*> getContinents();
 
         void reinforce();
         void attack();
