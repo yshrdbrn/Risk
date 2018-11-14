@@ -3,11 +3,11 @@
 #include <vector>
 #include "random"
 #include "startup.h"
-#include "../Player/Player.h"
-#include "../Map/country.h"
-#include "../Map/continent.h"
-#include "../Cards/Hand.h"
-#include "../Dice/Dice_Roll.h"
+#include "../../Model/Player/Player.h"
+#include "../../Model/Map/country.h"
+#include "../../Model/Map/continent.h"
+#include "../../Model/Cards/Hand.h"
+#include "../../Model/Dice/Dice_Roll.h"
 #include <chrono>
 
 

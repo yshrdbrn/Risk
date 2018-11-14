@@ -9,7 +9,8 @@
 #include "../View/GameSetupView.h"
 #include "../View/GameFinishView.h"
 #include "../Model/Map/riskException.h"
-#include "../Model/start_up_phase/startup.h"
+#include "./start_up_phase/startup.h"
+#include "../Model/Player/HumanStrategy.h"
 
 void GameEngine::startGame() {
     initGame();
@@ -58,7 +59,7 @@ void GameEngine::initGame() {
     int numberOfPlayers = gameSetupView.promptUserToChooseNumberOfPlayers(MIN_PLAYERS, MAX_PLAYERS);
 
     for (int i = 0; i < numberOfPlayers; i++)
-        players.push_back(new Player(i + 1));
+        players.push_back(new Player(i + 1, new HumanStrategy()));
 }
 
 void GameEngine::startUpPhase() {

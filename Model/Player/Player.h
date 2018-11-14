@@ -6,6 +6,7 @@
 #include "../Map/country.h"
 #include "../Cards/Hand.h"
 #include "../Dice/Dice_Roll.h"
+#include "Strategy.h"
 
 typedef std::shared_ptr<Country> country_ptr;
 
@@ -14,14 +15,14 @@ class Player{
 
         std::vector<country_ptr> countries;
         Hand hand;
-
         Dice * dice;
         string name;
         int id;
+        Strategy *strategy;
 
     public:
         Player();
-        Player(int playerId);
+        Player(int playerId, Strategy *strategy1);
         Hand getHand();
         void setHand(Hand&);
 

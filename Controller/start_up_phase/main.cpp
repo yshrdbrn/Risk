@@ -1,9 +1,9 @@
 #include "startup.h"
 #include <iostream>
 #include <string>
-#include "../Player/Player.h"
+#include "../../Model/Player/Player.h"
 #include <vector>
-#include "../Maploader/mapLoader.h"
+#include "../../Model/Maploader/mapLoader.h"
 #include <random>
 #include <algorithm>
 #include <chrono>
