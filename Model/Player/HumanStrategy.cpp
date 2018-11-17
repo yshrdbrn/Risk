@@ -6,9 +6,16 @@
 #include "Player.h"
 #include "../Map/continent.h"
 
+<<<<<<< HEAD
 std::string HumanStrategy::performAttack(Player* player) {
     std::vector<country_ptr> countries = player->getCountries();
     std::string m = "Player attacking phase.. ";
+=======
+void HumanStrategy::performAttack(Player *player) {
+    auto countries = player->getCountries();
+
+    std::cout << "Player attacking phase.. " << endl ;
+>>>>>>> f9f1e930e70cdc96045ddea0c43b41dc19eab019
     bool isAttacking = true;
     string answer;
     country_ptr refAttCountry ;
@@ -156,9 +163,16 @@ std::string HumanStrategy::performAttack(Player* player) {
     return m;
 }
 
+<<<<<<< HEAD
 std::string HumanStrategy::performFortify(Player * player) {
     std::string m ="";
     std::vector<country_ptr> countries = player->getCountries();
+=======
+void HumanStrategy::performFortify(Player *player) {
+    auto countries = player->getCountries();
+
+    std::cout << "Beginning Fortify Phase... " << endl;
+>>>>>>> f9f1e930e70cdc96045ddea0c43b41dc19eab019
     bool isFortifying = true;
     std::string answer;
     country_ptr refSourceCountry;
@@ -232,6 +246,7 @@ std::string HumanStrategy::performFortify(Player * player) {
     return m;
 }
 
+<<<<<<< HEAD
 std::string HumanStrategy::performReinforce(Player * player) {
     std::vector<country_ptr> countries = player->getCountries();
     Hand hand= player->getHand();
@@ -243,24 +258,17 @@ std::string HumanStrategy::performReinforce(Player * player) {
     if(countries.size()/3 > 3)
         armies = (countries.size()/3);
 
+=======
+>>>>>>> f9f1e930e70cdc96045ddea0c43b41dc19eab019
 
-    //// Give Player extra armies if they own a continent
+void HumanStrategy::performReinforce(Player *player) {
+    auto countries = player->getCountries();
+    auto hand = player->getHand();
 
-    // Map to mark which continents we already checked
-    std::vector<std::string> continentMark;
-
-    for (auto &country: countries) {
-        auto continent = country->getContinent();
-        // If we haven't checked this continent yet
-        if (std::find(continentMark.begin(), continentMark.end(), continent->getName()) != continentMark.end()) {
-            continentMark.push_back(continent->getName());
-            if (continent->doesContinentBelongToPlayer(player))
-                armies += continent->getControlValue();
-        }
-    }
+    int armies = giveArmiesToPlayer(player);
 
     //Prompt Player to exchange cards for extra armies
-    hand.exchange(armies);
+    hand->exchange(armies);
 
     while(armies > 0){
         cout<< "You have " << armies << " armies to place " << endl;

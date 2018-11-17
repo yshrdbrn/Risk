@@ -15,8 +15,8 @@ Player::Player(){};
 Player::Player(int playerID, Strategy *strategy1 , Dice * dice) : id(playerID), strategy(strategy1), dice(dice){}
 
 
-Hand Player::getHand(){
-    return hand ;
+Hand *Player::getHand(){
+    return &hand;
 }
 
 void Player::setHand(Hand &h){
@@ -50,6 +50,7 @@ void Player::setId(int id) {
 
 
 
+<<<<<<< HEAD
 std::string Player::attack(){
     return strategy->performAttack(this);
 }
@@ -62,6 +63,20 @@ std::string Player::fortify(){
 
 std::string Player:: reinforce(){
    return strategy->performReinforce(this);
+=======
+void Player::attack(){
+    strategy->performAttack(this);
+}
+
+
+void Player::fortify(){
+    strategy->performFortify(this);
+}
+
+
+void Player:: reinforce(){
+    strategy->performReinforce(this);
+>>>>>>> f9f1e930e70cdc96045ddea0c43b41dc19eab019
 }
 
 

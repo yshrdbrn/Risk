@@ -22,8 +22,13 @@ class Player{
 
     public:
         Player();
+<<<<<<< HEAD
         Player(int playerId, Strategy *strategy1 ,Dice *);
         Hand getHand();
+=======
+        Player(int playerId, Strategy *strategy1);
+        Hand *getHand();
+>>>>>>> f9f1e930e70cdc96045ddea0c43b41dc19eab019
         void setHand(Hand&);
 
         Dice * getDice();
