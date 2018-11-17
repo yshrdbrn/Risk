@@ -15,8 +15,8 @@ Player::Player(){};
 Player::Player(int playerID, Strategy *strategy1) : id(playerID), strategy(strategy1){}
 
 
-Hand Player::getHand(){
-    return hand ;
+Hand *Player::getHand(){
+    return &hand;
 }
 
 void Player::setHand(Hand &h){

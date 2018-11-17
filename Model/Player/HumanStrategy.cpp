@@ -6,7 +6,9 @@
 #include "Player.h"
 #include "../Map/continent.h"
 
-void HumanStrategy::performAttack(std::vector<country_ptr> &countries, Hand &hand) {
+void HumanStrategy::performAttack(Player *player) {
+    auto countries = player->getCountries();
+
     std::cout << "Player attacking phase.. " << endl ;
     bool isAttacking = true;
     string answer;
@@ -154,7 +156,9 @@ void HumanStrategy::performAttack(std::vector<country_ptr> &countries, Hand &han
     std::cout<<"Exiting attack phase..." <<endl;
 }
 
-void HumanStrategy::performFortify(std::vector<country_ptr> &countries, Hand &hand) {
+void HumanStrategy::performFortify(Player *player) {
+    auto countries = player->getCountries();
+
     std::cout << "Beginning Fortify Phase... " << endl;
     bool isFortifying = true;
     std::string answer;
@@ -227,7 +231,11 @@ void HumanStrategy::performFortify(std::vector<country_ptr> &countries, Hand &ha
     std::cout << refSourceCountry->getName() << " now has " << refSourceCountry->getNumOfArmies() << " armies." << endl;
 }
 
-void HumanStrategy::performReinforce(std::vector<country_ptr> &countries, Hand &hand, Player *player) {
+
+void HumanStrategy::performReinforce(Player *player) {
+    auto countries = player->getCountries();
+    auto hand = player->getHand();
+
     std::cout << "begin reinforcing phase... " << endl;
     int armies = 3 ;
 
@@ -252,7 +260,7 @@ void HumanStrategy::performReinforce(std::vector<country_ptr> &countries, Hand &
     }
 
     //Prompt Player to exchange cards for extra armies
-    hand.exchange(armies);
+    hand->exchange(armies);
 
     while(armies > 0){
         cout<< "You have " << armies << " armies to place " << endl;
