@@ -7,12 +7,12 @@
 
 #include <vector>
 #include "../Map/country.h"
-#include "../Cards/Hand.h"
-#include "../Dice/Dice_Roll.h"
 
 typedef std::shared_ptr<Country> country_ptr;
 
 class Strategy {
+protected:
+    int giveArmiesToPlayer(Player *player);
 public:
     virtual void performAttack(Player *player) = 0;
     virtual void performFortify(Player *player) = 0;

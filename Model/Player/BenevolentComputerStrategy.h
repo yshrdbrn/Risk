@@ -9,11 +9,11 @@
 
 class BenevolentComputerStrategy: public Strategy {
 public:
-    void performAttack(std::vector<country_ptr> &countries, Hand &hand) override;
+    void performAttack(Player *player) override;
 
-    void performFortify(std::vector<country_ptr> &countries, Hand &hand) override;
+    void performFortify(Player *player) override;
 
-    void performReinforce(std::vector<country_ptr> &countries, Hand &hand, Player *player) override;
+    void performReinforce(Player *player) override;
 };
 
 

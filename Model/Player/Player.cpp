@@ -51,17 +51,17 @@ void Player::setId(int id) {
 
 
 void Player::attack(){
-    strategy->performAttack(countries, hand);
+    strategy->performAttack(this);
 }
 
 
 void Player::fortify(){
-    strategy->performFortify(countries, hand);
+    strategy->performFortify(this);
 }
 
 
 void Player:: reinforce(){
-    strategy->performReinforce(countries, hand, this);
+    strategy->performReinforce(this);
 }
 
 
