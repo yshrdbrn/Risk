@@ -8,6 +8,11 @@
 #include "Strategy.h"
 
 class AggressiveComputerStrategy: public Strategy {
+private:
+    void attackNeighborCountry(country_ptr country);
+
+    void attackFromCountryToCountry(country_ptr attackingCountry, country_ptr defendingCountry);
+
 public:
     void performAttack(Player *player) override;
 
