@@ -1,5 +1,4 @@
 #pragma once
-class GameState;
 /**
  * Interface for the Observer
  */
@@ -12,7 +11,7 @@ public:
      * 
      * 
      */
-    virtual void update(GameState*) = 0;
+    virtual void update() = 0;
 
 };
 

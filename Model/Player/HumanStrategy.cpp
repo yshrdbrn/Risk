@@ -225,9 +225,10 @@ std::string HumanStrategy::performFortify(Player * player) {
         m =+ "proceeding to move " + to_string(armiesToMove) + " armies from " + sourceCountry + " to " + targetCountry ;
         refTargetCountry->addNumOfArmies(armiesToMove);
         refSourceCountry->removeNumOfArmies(armiesToMove);
+        m += targetCountry + " now has " + to_string(refTargetCountry->getNumOfArmies()) + " armies.";
+        m += sourceCountry+ " now has " +to_string(refSourceCountry->getNumOfArmies()) + " armies.";
     }
-    m += refTargetCountry->getName() + " now has " + to_string(refTargetCountry->getNumOfArmies()) + " armies.";
-    m += refSourceCountry->getName() + " now has " +to_string(refSourceCountry->getNumOfArmies()) + " armies.";
+   
     return m;
 }
 

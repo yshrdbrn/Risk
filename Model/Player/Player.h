@@ -22,7 +22,7 @@ class Player{
 
     public:
         Player();
-        Player(int playerId, Strategy *strategy1);
+        Player(int playerId, Strategy *strategy1 ,Dice *);
         Hand getHand();
         void setHand(Hand&);
 

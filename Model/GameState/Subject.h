@@ -2,6 +2,7 @@
 #define OBSERVER_PATTERN_SUBJECT_HPP
 
 #include "../../View/Observer.h"
+#include <list>
 
 
 /**
@@ -11,24 +12,21 @@ class Subject {
 
 public:
 
-    /**
-     * Register an observer
-     * @param observer the observer object to be registered
-     */
-    virtual void registerObserver(Observer *observer) = 0;
 
-    /**
-     * Unregister an observer
-     * @param observer the observer object to be unregistered
-     */
-    //virtual void removeObserver(Observer *observer) = 0;
+    void registerObserver(Observer *observer);
 
-    /**
-     * Notify all the registered observers when a change happens
-     */
-    virtual void notifyObservers() = 0;
+  
+    void removeObserver(Observer *observer);
+
+
+    void notifyObservers();
 
     ~Subject();
+
+    Subject();
+
+    private:
+    std::list<Observer *> * observers;
 
 };
 

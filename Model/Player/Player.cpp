@@ -12,7 +12,7 @@
 Player::Player(){};
 
 
-Player::Player(int playerID, Strategy *strategy1) : id(playerID), strategy(strategy1){}
+Player::Player(int playerID, Strategy *strategy1 , Dice * dice) : id(playerID), strategy(strategy1), dice(dice){}
 
 
 Hand Player::getHand(){

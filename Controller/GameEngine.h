@@ -9,7 +9,6 @@
 #include "../Model/Maploader/mapLoader.h"
 #include "../Model/Player/Player.h"
 #include "../Model/Cards/Deck.h"
-#include "../Model/GameState/GameState.h"
 
 const int MIN_PLAYERS = 2;
 const int MAX_PLAYERS = 6;
@@ -19,8 +18,7 @@ private:
     map_ptr map;
     std::vector<Player *> players;
     Deck *deck;
-    GameState * gs;
-    void startUpPhase();
+   
 
 public:
     ~GameEngine();
@@ -57,14 +55,16 @@ public:
      */
     void setOwnershipOfCountriesToRandomPlayers();
 
+    void startUpPhase();
 
-
-    GameState* getGameState();
+  
 
     static vector<Player*> order_play(vector <Player*> array);       // determining the order of play
 	static void distributing_countries(vector <country_ptr> array, vector<Player*> ordered_turns); //distibuting the countries to the players
 	static void distributing_armies(vector<Player*> ordered_turns); //distributing the armies to the players
 	static void placing_armies(vector<Player*> ordered_turns);
+
+    void autoPlaceArmies(std::vector<Player*>);
 
 
 };
