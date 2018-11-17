@@ -1,13 +1,14 @@
 //
 // Created by Yashar Dabiran on 2018-11-14.
 //
-
+#include<algorithm>
 #include "HumanStrategy.h"
 #include "Player.h"
 #include "../Map/continent.h"
 
-void HumanStrategy::performAttack(std::vector<country_ptr> &countries, Hand &hand) {
-    std::cout << "Player attacking phase.. " << endl ;
+std::string HumanStrategy::performAttack(Player* player) {
+    std::vector<country_ptr> countries = player->getCountries();
+    std::string m = "Player attacking phase.. ";
     bool isAttacking = true;
     string answer;
     country_ptr refAttCountry ;
@@ -152,10 +153,12 @@ void HumanStrategy::performAttack(std::vector<country_ptr> &countries, Hand &han
 
     }
     std::cout<<"Exiting attack phase..." <<endl;
+    return m;
 }
 
-void HumanStrategy::performFortify(std::vector<country_ptr> &countries, Hand &hand) {
-    std::cout << "Beginning Fortify Phase... " << endl;
+std::string HumanStrategy::performFortify(Player * player) {
+    std::string m ="";
+    std::vector<country_ptr> countries = player->getCountries();
     bool isFortifying = true;
     std::string answer;
     country_ptr refSourceCountry;
@@ -219,17 +222,21 @@ void HumanStrategy::performFortify(std::vector<country_ptr> &countries, Hand &ha
 
         }while(!isValidTarget);
 
-        std::cout<< "proceeding to move " << armiesToMove << " armies from " << sourceCountry << " to " << targetCountry << endl;
+        m =+ "proceeding to move " + to_string(armiesToMove) + " armies from " + sourceCountry + " to " + targetCountry ;
         refTargetCountry->addNumOfArmies(armiesToMove);
         refSourceCountry->removeNumOfArmies(armiesToMove);
     }
-    std::cout << refTargetCountry->getName() << " now has " << refTargetCountry->getNumOfArmies() << " armies." << endl;
-    std::cout << refSourceCountry->getName() << " now has " << refSourceCountry->getNumOfArmies() << " armies." << endl;
+    m += refTargetCountry->getName() + " now has " + to_string(refTargetCountry->getNumOfArmies()) + " armies.";
+    m += refSourceCountry->getName() + " now has " +to_string(refSourceCountry->getNumOfArmies()) + " armies.";
+    return m;
 }
 
-void HumanStrategy::performReinforce(std::vector<country_ptr> &countries, Hand &hand, Player *player) {
-    std::cout << "begin reinforcing phase... " << endl;
+std::string HumanStrategy::performReinforce(Player * player) {
+    std::vector<country_ptr> countries = player->getCountries();
+    Hand hand= player->getHand();
+    std::string m = "";
     int armies = 3 ;
+    
 
     //add number of armies based on number of countries owned
     if(countries.size()/3 > 3)
@@ -281,7 +288,7 @@ void HumanStrategy::performReinforce(std::vector<country_ptr> &countries, Hand &
                     }
                 }
                 if(countryIsOwned){
-                    cout << "Placed " << armiesToPlace << " armies on " << country_input << "." <<endl;
+                m = "Placed " + to_string(armiesToPlace) + " armies on " + country_input + ".";
                 }
                 else{
                     cout << "Country name in not valid..." << endl;
@@ -292,4 +299,5 @@ void HumanStrategy::performReinforce(std::vector<country_ptr> &countries, Hand &
 
         }
     }
+    return m;
 }

@@ -6,9 +6,12 @@
 #include <string>
 #include "../Model/Maploader/mapLoader.h"
 #include "GameEngine.h"
+#include "../View/View1.h"
+
 
 int main() {
     GameEngine gameEngine;
 
     gameEngine.startGame();
+    
 }

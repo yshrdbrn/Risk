@@ -10,8 +10,8 @@ int main() {
     // Invalid map
     // One country is in two continents
     Map map1;
-    map1.addContinent("America");
-    map1.addContinent("Europe");
+    //map1.addContinent("America");
+    //map1.addContinent("Europe");
     std::vector<std::string> x, y;
     map1.addCountry("sample", "America", x);
     map1.addCountry("sample", "Europe", y);
@@ -28,8 +28,8 @@ int main() {
     // Map is not connected
     std::cout << std::endl;
     Map map2;
-    map2.addContinent("America");
-    map2.addContinent("Europe");
+    //map2.addContinent("America");
+    //map2.addContinent("Europe");
     x.emplace_back("city2");
     y.emplace_back("city1");
     std::vector<std::string> z;
@@ -49,8 +49,8 @@ int main() {
     // Component is not connected
     std::cout << std::endl;
     Map map3;
-    map3.addContinent("America");
-    map3.addContinent("Europe");
+    //map3.addContinent("America");
+    //map3.addContinent("Europe");
     x.clear();
     y.clear();
     z.clear();
@@ -73,8 +73,8 @@ int main() {
     // Valid map
     std::cout << std::endl;
     Map map4;
-    map4.addContinent("America");
-    map4.addContinent("Europe");
+    //map4.addContinent("America");
+    //map4.addContinent("Europe");
     x.clear();
     y.clear();
     z.clear();

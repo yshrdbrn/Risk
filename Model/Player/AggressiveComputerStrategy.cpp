@@ -4,14 +4,20 @@
 
 #include "AggressiveComputerStrategy.h"
 
-void AggressiveComputerStrategy::performAttack(std::vector<country_ptr> &countries, Hand &hand) {
+std::string AggressiveComputerStrategy::performAttack(Player*) {
+     std::string m = "";
+    return m;
 
 }
 
-void AggressiveComputerStrategy::performFortify(std::vector<country_ptr> &countries, Hand &hand) {
+std::string AggressiveComputerStrategy::performFortify(Player*){
+     std::string m = "";
+    return m;
 
 }
 
-void AggressiveComputerStrategy::performReinforce(std::vector<country_ptr> &countries, Hand &hand, Player *player) {
+std::string AggressiveComputerStrategy::performReinforce(Player*) {
+     std::string m = "";
+    return m;
 
 }

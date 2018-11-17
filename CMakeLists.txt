@@ -8,9 +8,10 @@ set(MAPLOADER Model/Maploader/mapLoader.cpp Model/Maploader/mapLoader.h)
 set(PLAYER Model/Player/Player.cpp Model/Player/Player.h Model/Player/Strategy.h Model/Player/HumanStrategy.cpp Model/Player/HumanStrategy.h Model/Player/AggressiveComputerStrategy.cpp Model/Player/AggressiveComputerStrategy.h Model/Player/BenevolentComputerStrategy.cpp Model/Player/BenevolentComputerStrategy.h)
 set(DICE Model/Dice/Dice_Roll.cpp Model/Dice/Dice_Roll.h)
 set(CARDS Model/Cards/Deck.h Model/Cards/Deck.cpp Model/Cards/Hand.cpp Model/Cards/Hand.h)
+set(GAMESTATE Model/GameState/Subject.h Model/GameState/GameState.h Model/GameState/GameState.cpp)
 
-set(MODEL ${MAP} ${MAPLOADER} ${PLAYER} ${DICE} ${CARDS})
-set(VIEW View/GameSetupView.cpp View/GameSetupView.h View/GameFinishView.cpp View/GameFinishView.h)
+set(MODEL ${MAP} ${MAPLOADER} ${PLAYER} ${DICE} ${CARDS} ${GAMESTATE})
+set(VIEW View/GameSetupView.cpp View/GameSetupView.h View/GameFinishView.cpp View/GameFinishView.h View/View1.h View/View1.cpp View/Observer.h)
 set(CONTROLLER Controller/GameEngine.cpp Controller/GameEngine.h Controller/start_up_phase/startup.cpp Controller/start_up_phase/startup.h)
 set(STARTUP Controller/start_up_phase/startup.cpp Controller/start_up_phase/startup.h)
 
@@ -21,4 +22,3 @@ add_executable(a2_part1 Controller/DriverA2Part1.cpp ${MODEL} ${VIEW} ${CONTROLL
 add_executable(a2_part3 Controller/DriverA2Part3.cpp ${MODEL} ${VIEW} ${CONTROLLER})
 
 add_executable(a3part1 ${MODEL} ${VIEW} ${CONTROLLER} Model/Player/Strategy.h Model/Player/HumanStrategy.cpp Model/Player/HumanStrategy.h)
-

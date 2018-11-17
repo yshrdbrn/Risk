@@ -4,14 +4,21 @@
 
 #include "BenevolentComputerStrategy.h"
 
-void BenevolentComputerStrategy::performAttack(std::vector<country_ptr> &countries, Hand &hand) {
+std::string BenevolentComputerStrategy::performAttack(Player*) {
+    std::string m = "";
+    return m;
+
 
 }
 
-void BenevolentComputerStrategy::performFortify(std::vector<country_ptr> &countries, Hand &hand) {
+std::string BenevolentComputerStrategy::performFortify(Player*) {
+     std::string m = "";
+    return m;
 
 }
 
-void BenevolentComputerStrategy::performReinforce(std::vector<country_ptr> &countries, Hand &hand, Player *player) {
+std::string BenevolentComputerStrategy::performReinforce(Player*) {
+     std::string m = "";
+    return m;
 
 }

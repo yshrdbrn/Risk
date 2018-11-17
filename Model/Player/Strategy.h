@@ -14,9 +14,9 @@ typedef std::shared_ptr<Country> country_ptr;
 
 class Strategy {
 public:
-    virtual void performAttack(std::vector<country_ptr> &countries, Hand &hand) = 0;
-    virtual void performFortify(std::vector<country_ptr> &countries, Hand &hand) = 0;
-    virtual void performReinforce(std::vector<country_ptr> &countries, Hand &hand, Player *player) = 0;
+    virtual std::string performAttack(Player*) = 0;
+    virtual std::string performFortify(Player*) = 0;
+    virtual std::string performReinforce(Player*) = 0;
 };
 
 #endif //RISKGAME_STRATEGY_H

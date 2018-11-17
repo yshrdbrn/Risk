@@ -9,11 +9,11 @@
 
 class AggressiveComputerStrategy: public Strategy {
 public:
-    void performAttack(std::vector<country_ptr> &countries, Hand &hand) override;
+    std::string performAttack(Player*) override;
 
-    void performFortify(std::vector<country_ptr> &countries, Hand &hand) override;
+    std::string performFortify(Player*) override;
 
-    void performReinforce(std::vector<country_ptr> &countries, Hand &hand, Player *player) override;
+    std::string performReinforce(Player*) override;
 };
 
 

@@ -38,10 +38,9 @@ class Player{
 
         std::vector<country_ptr> getCountries();
 
-        void reinforce();
-        void attack();
-        void fortify();
-
+        std::string reinforce();
+        std::string attack();
+        std::string fortify();
 
 		string getName();
 		void  setName(string name);

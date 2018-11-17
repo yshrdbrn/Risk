@@ -50,18 +50,18 @@ void Player::setId(int id) {
 
 
 
-void Player::attack(){
-    strategy->performAttack(countries, hand);
+std::string Player::attack(){
+    return strategy->performAttack(this);
 }
 
 
-void Player::fortify(){
-    strategy->performFortify(countries, hand);
+std::string Player::fortify(){
+     return strategy->performFortify(this);
 }
 
 
-void Player:: reinforce(){
-    strategy->performReinforce(countries, hand, this);
+std::string Player:: reinforce(){
+   return strategy->performReinforce(this);
 }
 
 

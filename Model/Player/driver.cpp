@@ -7,37 +7,10 @@
 
 int main()
 {
-   /*GameEngine gameEngine;
-    gameEngine.initGame();
+   
 
-    // Each player will get their turn:
-    gameEngine.setOwnershipOfCountriesToRandomPlayers();
-    gameEngine.mainLoop(1);*/
-
-
-   /* Player * p1 = new Player();
-    Player * p2 = new Player();
-    typedef std::unique_ptr<Map> map_ptr;
-    MapLoader maploader;
-    const std::string path = "../Model//Maploader/Maps/World.map";
-    map_ptr map = maploader.createMapWithFileName(path);
-    map->checkIfMapIsValid();
-    std::vector<country_ptr>::iterator iter;
-    std::vector<country_ptr> countries = map->getCountries();
-    for(iter=countries.begin(); iter != countries.end() ; iter++){
-       int  randomInt = (int)((4 * rand() / (RAND_MAX + 1.0)) + 1);
-        (*iter)->setOwner(p1);
-        (*iter)->addNumOfArmies(randomInt);
-    }
-
-    cout << countries[5]->getName() << endl;
-    */
-
-
-
-
-    Player * p1 = new Player(1);
-    Player* p2 = new Player(2);
+    Player * p1 = new Player();
+    Player* p2 = new Player();
     Dice * d1 = new Dice();
     Dice * d2 = new Dice();
     p1->setDice(d1);
@@ -93,9 +66,7 @@ int main()
     england->setOwner(p2);
     alaska->setOwner(p1);
 
-    //p1->reinforce();
-    p1->attack();
-    //p1->fortify();
+   
 
 
 
