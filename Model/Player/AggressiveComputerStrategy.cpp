@@ -5,6 +5,7 @@
 #include <cmath>
 #include <vector>
 #include <algorithm>
+#include <unordered_map>
 #include "AggressiveComputerStrategy.h"
 #include "Player.h"
 #include "../Map/continent.h"
@@ -59,10 +60,42 @@ void AggressiveComputerStrategy::attackFromCountryToCountry(country_ptr attackin
 
 
 void AggressiveComputerStrategy::performFortify(Player *player) {
+    auto countries = player->getCountries();
+    // mark map for DFS
+    std::unordered_map<std::string, bool> mark;
+    for (const country_ptr &countryPtr: countries)
+        mark[countryPtr->getName()] = false;
 
+    std::vector<country_ptr> nodesInComponent;
+    // DFS on all of the countries owned by player
+    for (int i = 0; i < countries.size(); i++) {
+        if (!mark[countries[i]->getName()]) {
+            // For every component in the graph of countries owned by player
+            nodesInComponent.clear();
+            dfs(countries[i], mark, nodesInComponent);
+
+            // Add all of armies in the component to one country
+            for (int i = 1; i < nodesInComponent.size(); i++) {
+                int remainder = nodesInComponent[i]->getNumOfArmies() - 1;
+                nodesInComponent[0]->addNumOfArmies(remainder);
+                nodesInComponent[i]->removeNumOfArmies(remainder);
+            }
+        }
+    }
 }
 
+void AggressiveComputerStrategy::dfs(country_ptr node, std::unordered_map<std::string, bool> &mark,
+                                     std::vector<country_ptr> &nodesInComponent) {
+    mark[node->getName()] = true;
+    // Add country to the list of countries in the component
+    nodesInComponent.push_back(node);
 
+    // Check its neighbors
+    for (const auto &t: node->getNeighbors()) {
+        if (t->getOwner()->getId() == node->getOwner()->getId() && !mark[t->getName()])
+            dfs(t, mark, nodesInComponent);
+    }
+}
 
 
 
