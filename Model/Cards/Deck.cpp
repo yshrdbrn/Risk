@@ -9,68 +9,68 @@ Deck::Deck() {};
 
 Deck::Deck(int totalCards) {
 	if (totalCards % 3 == 0) {
-		 artillery=(totalCards / 3);
-		 cavalery=(totalCards / 3);
-		 infantry=(totalCards / 3);
+		artillery=(totalCards / 3);
+		cavalery=(totalCards / 3);
+		infantry=(totalCards / 3);
 	}
 	else
-		if (totalCards % 3 == 1) {
-			int storage = (totalCards - 1);
-			artillery=(storage / 3);
-			cavalery=(storage / 3);
-			infantry=(storage / 3);
+	if (totalCards % 3 == 1) {
+		int storage = (totalCards - 1);
+		artillery=(storage / 3);
+		cavalery=(storage / 3);
+		infantry=(storage / 3);
 
-			std::random_device rd;     // only used once to initialise (seed) engine
-			std::mt19937 rng(rd());    // random-number engine used (Mersenne-Twister in this case)
-			std::uniform_int_distribution<int> uni(1, 3); // guaranteed unbiased
+		std::random_device rd;     // only used once to initialise (seed) engine
+		std::mt19937 rng(rd());    // random-number engine used (Mersenne-Twister in this case)
+		std::uniform_int_distribution<int> uni(1, 3); // guaranteed unbiased
 
-			auto random_integer = uni(rng);
+		auto random_integer = uni(rng);
 
-			if (random_integer == 1) {        //---->if the random integer is 1, then the additional 1 goes to Artillery
-				artillery++;  //---->if it is 2, then the additional 1 goes to Cavalery
-			}                                 //---->if it is 3, then the additional 1 goes to Infantry
+		if (random_integer == 1) {        //---->if the random integer is 1, then the additional 1 goes to Artillery
+			artillery++;  //---->if it is 2, then the additional 1 goes to Cavalery
+		}                                 //---->if it is 3, then the additional 1 goes to Infantry
 
-			else
-				if (random_integer == 2) {
-					cavalery++;
-				}
-				else
-					if (random_integer == 3) {
-						infantry++;
-					}
-
+		else
+		if (random_integer == 2) {
+			cavalery++;
 		}
 		else
-			if (totalCards % 3 == 2) {
-				int storage = (totalCards - 2);
-				artillery=(storage / 3);
-				cavalery=(storage / 3);
-				infantry=(storage / 3);
+		if (random_integer == 3) {
+			infantry++;
+		}
 
-				std::random_device rd;     // only used once to initialise (seed) engine
-				std::mt19937 rng(rd());    // random-number engine used (Mersenne-Twister in this case)
-				std::uniform_int_distribution<int> uni(1, 3); // guaranteed unbiased
+	}
+	else
+	if (totalCards % 3 == 2) {
+		int storage = (totalCards - 2);
+		artillery=(storage / 3);
+		cavalery=(storage / 3);
+		infantry=(storage / 3);
 
-				auto random_integer = uni(rng);
+		std::random_device rd;     // only used once to initialise (seed) engine
+		std::mt19937 rng(rd());    // random-number engine used (Mersenne-Twister in this case)
+		std::uniform_int_distribution<int> uni(1, 3); // guaranteed unbiased
 
-				if (random_integer == 1) {        //Here, we randomly choose a number, if that number is 1, then Artillery
-					cavalery++;         //remains at (storage/3) and we add 1 to both cavalery and Infantry
-					infantry++;         
-				}                                 
+		auto random_integer = uni(rng);
 
-				else
-					if (random_integer == 2) {     //if the number is 2--> Cavalery remains at (storage/3), we add to the two others
-						artillery++;
-						infantry++;
-					}
-					else
-   						if (random_integer == 3) {  //if number is 3--> infantry remains at (storage/3), we add to the two others.
-							artillery++;
-							cavalery++;
-						}
-				
+		if (random_integer == 1) {        //Here, we randomly choose a number, if that number is 1, then Artillery
+			cavalery++;         //remains at (storage/3) and we add 1 to both cavalery and Infantry
+			infantry++;
+		}
 
-			}
+		else
+		if (random_integer == 2) {     //if the number is 2--> Cavalery remains at (storage/3), we add to the two others
+			artillery++;
+			infantry++;
+		}
+		else
+		if (random_integer == 3) {  //if number is 3--> infantry remains at (storage/3), we add to the two others.
+			artillery++;
+			cavalery++;
+		}
+
+
+	}
 	this->totalCards = totalCards; //-->variable keeping track of how much cards total there is in the deck.
 }
 
@@ -125,19 +125,19 @@ void Deck::Draw(Hand& myHand) {
 	if (this->totalCards == 0) {
 		cout << "The deck is empty" << endl;
 	}
-	
+
 	std::random_device rd;     // only used once to initialise (seed) engine
 	std::mt19937 rng(rd());    // random-number engine used (Mersenne-Twister in this case)
 	std::uniform_int_distribution<int> uni(1, 3); // guaranteed unbiased
 
-	auto random_integer = uni(rng); 
-	
+	auto random_integer = uni(rng);
+
 	if (this->totalCards == 0) {
-		 cout << "The deck is empty" << endl;   //1= Artillery__ 2=cavalery__3=infantry
-}
+		cout << "The deck is empty" << endl;   //1= Artillery__ 2=cavalery__3=infantry
+	}
 	else {
 		while ((random_integer == 1 && this->artillery == 0) || (random_integer == 2 && this->cavalery == 0)
-			|| (random_integer == 3 && this->infantry == 0))
+			   || (random_integer == 3 && this->infantry == 0))
 		{
 			if (random_integer == 1 && this->artillery == 0) {  //if random int=1 but artillery is 0, reroll
 				while (random_integer == 1) {
@@ -145,41 +145,41 @@ void Deck::Draw(Hand& myHand) {
 				}
 			}
 			else
-				if (random_integer == 2 && this->cavalery == 0) {  //if random in=2 but cavalery=0, reroll
-					while (random_integer == 2) {
-						random_integer = uni(rng);
-					}
+			if (random_integer == 2 && this->cavalery == 0) {  //if random in=2 but cavalery=0, reroll
+				while (random_integer == 2) {
+					random_integer = uni(rng);
 				}
-				else
-					if (random_integer == 3 && this->infantry == 0) { //if random int=3 but infantry= 0, reroll
-						while (random_integer == 3) {
-							random_integer = uni(rng);
-						}
-
-					}
-		}
-		if (random_integer == 1 & this->artillery != 0) {     
-				this->artillery -= 1;
-				this->totalCards -= 1;
-				myHand.ArtilleryIncrement(1);
-				myHand.totalCardsIncrement(1);
-				cout << "Drawing one artillery" << endl;
 			}
 			else
-				if (random_integer == 2 & this->cavalery != 0) {
-					this->cavalery -= 1;
-					this->totalCards -= 1;
-					myHand.CavaleryIncrement(1);
-					myHand.totalCardsIncrement(1);
-					cout << "Drawing one Cavalery" << endl;
+			if (random_integer == 3 && this->infantry == 0) { //if random int=3 but infantry= 0, reroll
+				while (random_integer == 3) {
+					random_integer = uni(rng);
 				}
-				else
-					if (random_integer == 3 & this->infantry != 0) {
-						this->infantry -= 1;
-						this->totalCards -= 1;
-						myHand.InfantryIncrement(1);
-						myHand.totalCardsIncrement(1);
-						cout << "Drawing one Infantry" << endl;
-					}
+
+			}
+		}
+		if (random_integer == 1 & this->artillery != 0) {
+			this->artillery -= 1;
+			this->totalCards -= 1;
+			myHand.ArtilleryIncrement(1);
+			myHand.totalCardsIncrement(1);
+			cout << "Drawing one artillery" << endl;
+		}
+		else
+		if (random_integer == 2 & this->cavalery != 0) {
+			this->cavalery -= 1;
+			this->totalCards -= 1;
+			myHand.CavaleryIncrement(1);
+			myHand.totalCardsIncrement(1);
+			cout << "Drawing one Cavalery" << endl;
+		}
+		else
+		if (random_integer == 3 & this->infantry != 0) {
+			this->infantry -= 1;
+			this->totalCards -= 1;
+			myHand.InfantryIncrement(1);
+			myHand.totalCardsIncrement(1);
+			cout << "Drawing one Infantry" << endl;
 		}
 	}
+}

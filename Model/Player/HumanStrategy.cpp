@@ -119,7 +119,10 @@ void HumanStrategy::performAttack(Player *player) {
         if(refDefCountry->getNumOfArmies() == 0){
             std::cout << "Player " << refAttCountry->getOwner()->getId() << " won the battle" << endl;
             std::cout << refDefCountry->getName() << " has no more armies on it!" << endl;
+            refDefCountry->getOwner()->removeCountry(refDefCountry);
+            refAttCountry->getOwner()->addCountry(refDefCountry);
             refDefCountry->setOwner(refAttCountry->getOwner());
+
             std::cout << refDefCountry->getName() << " now belongs to Player" << refAttCountry->getOwner()->getId() << "!" << endl;
             int armiesToMove;
             //Validate the number of armies to move
@@ -131,22 +134,6 @@ void HumanStrategy::performAttack(Player *player) {
                     isValidNumber=true;
                 }
                 else std::cout << "You can not move this amout of armies" << endl;
-            }while(!isValidNumber);
-
-        }
-        if(refAttCountry->getNumOfArmies() == 0){
-            std::cout << "Player " << refDefCountry->getOwner()->getId() << " won the battle" << endl;
-            refAttCountry->setOwner(refDefCountry->getOwner());
-            int armiesToMove;
-            bool isValidNumber=false;
-            do{
-                //Asking the winner to Move Armies to new territory
-                std::cout << "How many armies would you like to move to "<< refDefCountry->getName() << " ?" <<endl;
-                std::cin >> armiesToMove;
-                if(armiesToMove>=1 && armiesToMove <= refDefCountry->getNumOfArmies()-1){
-                    isValidNumber=true;
-                }
-                else std::cout << armiesToMove<< " is not a valid number of armies" << endl;
             }while(!isValidNumber);
 
         }

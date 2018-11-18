@@ -105,3 +105,15 @@ string Player::getName() {
 void Player::setName(string name) {
     this->name = name;
 }
+
+void Player::addCountry(country_ptr countryPtr) {
+    countries.push_back(countryPtr);
+}
+
+void Player::removeCountry(country_ptr countryPtr) {
+    for (auto it = countries.begin(); it != countries.end(); it++)
+        if ((*it)->getName() == countryPtr->getName()) {
+            countries.erase(it);
+            break;
+        }
+}

@@ -37,6 +37,8 @@ class Player{
 		void removeArmies(int armies);
 
         std::vector<country_ptr> getCountries();
+        void addCountry(country_ptr countryPtr);
+        void removeCountry(country_ptr countryPtr);
 
         void reinforce();
         void attack();

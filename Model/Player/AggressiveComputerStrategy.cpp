@@ -54,6 +54,13 @@ void AggressiveComputerStrategy::attackFromCountryToCountry(country_ptr attackin
         else
             attackingCountry->removeNumOfArmies(1);
     }
+
+    // If conquered the enemy country
+    if (defendingCountry->getNumOfArmies() == 0) {
+        defendingCountry->getOwner()->removeCountry(defendingCountry);
+        attackingCountry->getOwner()->addCountry(defendingCountry);
+        defendingCountry->setOwner(attackingCountry->getOwner());
+    }
 }
 
 
