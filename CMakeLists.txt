@@ -8,7 +8,7 @@ set(MAPLOADER Model/Maploader/mapLoader.cpp Model/Maploader/mapLoader.h)
 set(PLAYER Model/Player/Player.cpp Model/Player/Player.h Model/Player/Strategy.h Model/Player/HumanStrategy.cpp Model/Player/HumanStrategy.h Model/Player/AggressiveComputerStrategy.cpp Model/Player/AggressiveComputerStrategy.h Model/Player/BenevolentComputerStrategy.cpp Model/Player/BenevolentComputerStrategy.h Model/Player/Strategy.cpp)
 set(DICE Model/Dice/Dice_Roll.cpp Model/Dice/Dice_Roll.h)
 set(CARDS Model/Cards/Deck.h Model/Cards/Deck.cpp Model/Cards/Hand.cpp Model/Cards/Hand.h)
-set(GAMESTATE Model/GameState/Subject.h Model/GameState/Subject.cpp Model/GameState/PhaseState.h Model/GameState/PhaseState.cpp)
+set(GAMESTATE Model/GameState/Subject.h Model/GameState/Subject.cpp)
 
 set(MODEL ${MAP} ${MAPLOADER} ${PLAYER} ${DICE} ${CARDS} ${GAMESTATE})
 set(VIEW View/GameSetupView.cpp View/GameSetupView.h View/GameFinishView.cpp View/GameFinishView.h View/PhaseView.h View/PhaseView.cpp View/Observer.h)

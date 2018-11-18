@@ -8,29 +8,34 @@
 
 
 
-
+//Default constructor
 Player::Player(){};
 
-
-Player::Player(int playerID, Strategy *strategy1 , Dice * dice) : id(playerID), strategy(strategy1), dice(dice){}
-
-
-Hand *Player::getHand(){
-    return &hand;
+//Constructor
+Player::Player(int playerID, Strategy *strategy1 , Dice * dice , Hand * hand, PhaseView * view) : id(playerID), strategy(strategy1), dice(dice) , hand(hand) , view(view){
+    registerObserver(view);
 }
 
-void Player::setHand(Hand &h){
+//HAnd getter
+Hand *Player::getHand(){
+    return hand;
+}
+//HAnd setter
+void Player::setHand(Hand *h){
     hand = h;
 }
 
+//Dice getter 
 Dice * Player::getDice(){
     return dice;
 }
 
+//Dice setter
 void Player::setDice(Dice * d){
     dice = d;
 }
 
+//countries getter
 std::vector<country_ptr> Player::getCountries(){
     return countries;
 }
@@ -48,35 +53,37 @@ void Player::setId(int id) {
 }
 
 
+//Method to start turn
+void Player::startturn(){
+notifyObservers();
+reinforce();
+attack();
+fortify();
 
-
-<<<<<<< HEAD
-std::string Player::attack(){
-    return strategy->performAttack(this);
 }
 
-
-std::string Player::fortify(){
-     return strategy->performFortify(this);
-}
-
-
-std::string Player:: reinforce(){
-   return strategy->performReinforce(this);
-=======
+//Attack method
 void Player::attack(){
+    message ="Player" + to_string(id)+ "'s attack phase";
+   notifyObservers();
     strategy->performAttack(this);
+    view->clear();
 }
 
-
+//fortify method
 void Player::fortify(){
+    message = "Player" + to_string(id) + "'s fortifying phase";
+   notifyObservers();
     strategy->performFortify(this);
+    view->clear();
 }
 
-
-void Player:: reinforce(){
+//reinforce method
+void Player::reinforce(){
+    message= "Player" + to_string(id) +"'s reinforcing phase";
+    notifyObservers();
     strategy->performReinforce(this);
->>>>>>> f9f1e930e70cdc96045ddea0c43b41dc19eab019
+    view->clear();
 }
 
 
@@ -101,15 +108,15 @@ void Player::countryNames() {
 }
 
 void Player::setArmies(int armies) {
-    this->hand.setArmies(armies);
+    this->hand->setArmies(armies);
 }
 
 int Player::getArmies() {
-    return this->hand.getArmies();
+    return this->hand->getArmies();
 }
 
 void Player::removeArmies(int armies) {
-    this->hand.setArmies(this->hand.getArmies() - armies);
+    this->hand->setArmies(this->hand->getArmies() - armies);
 }
 
 
@@ -119,4 +126,15 @@ string Player::getName() {
 
 void Player::setName(string name) {
     this->name = name;
+}
+
+//Notifying the view of events
+void Player::notifyObservers(){
+    view->update(message);
+}
+
+//setting the event message
+void Player::setMessage(std::string m){
+    message = m;
+    notifyObservers();
 }

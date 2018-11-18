@@ -1,19 +1,20 @@
 #pragma once
 #include "Observer.h"
-#include "../Model/GameState/PhaseState.h"
+#include <iostream>
+#include<fstream>
 
 class PhaseView : public Observer {
 
 public:
 
-void update() override; 
+void update(std::string m) override; 
 PhaseView();
-PhaseView(PhaseState*);
 ~PhaseView();
-void display();
+void openLog();
+void clear();
 
 private:
-PhaseState * _subject;
+std::ofstream viewStream ;
 
 
 };

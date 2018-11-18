@@ -7,29 +7,31 @@
 #include "../Cards/Hand.h"
 #include "../Dice/Dice_Roll.h"
 #include "Strategy.h"
+#include "../GameState/Subject.h"
+#include "../../View/PhaseView.h"
 
 typedef std::shared_ptr<Country> country_ptr;
 
-class Player{
+class Player : Subject{
     private:
 
         std::vector<country_ptr> countries;
-        Hand hand;
+        Hand * hand;
         Dice * dice;
         string name;
         int id;
         Strategy *strategy;
+        std::string message;
+        PhaseView * view;
 
     public:
         Player();
-<<<<<<< HEAD
-        Player(int playerId, Strategy *strategy1 ,Dice *);
-        Hand getHand();
-=======
-        Player(int playerId, Strategy *strategy1);
+        Player(int playerId, Strategy *strategy1 ,Dice *, Hand* ,PhaseView*);
+
+        
+
         Hand *getHand();
->>>>>>> f9f1e930e70cdc96045ddea0c43b41dc19eab019
-        void setHand(Hand&);
+        void setHand(Hand*);
 
         Dice * getDice();
         void setDice(Dice *);
@@ -43,16 +45,22 @@ class Player{
 
         std::vector<country_ptr> getCountries();
 
-        std::string reinforce();
-        std::string attack();
-        std::string fortify();
+        void reinforce();
+        void attack();
+        void fortify();
 
 		string getName();
 		void  setName(string name);
 
+        void startturn();
+
+        void setMessage(std::string);
+
 
         int getId() const;
         void setId(int id);
+
+        void notifyObservers() override;
 
 
 };

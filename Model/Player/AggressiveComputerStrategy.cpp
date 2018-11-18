@@ -10,14 +10,9 @@
 #include "Player.h"
 #include "../Map/continent.h"
 
-<<<<<<< HEAD
-std::string AggressiveComputerStrategy::performAttack(Player*) {
+void AggressiveComputerStrategy::performAttack(Player* player) {
      std::string m = "";
-    return m;
-=======
-void AggressiveComputerStrategy::performAttack(Player *player) {
     auto countries = player->getCountries();
->>>>>>> f9f1e930e70cdc96045ddea0c43b41dc19eab019
 
     // Finding the country if the maximum number of armies
     country_ptr maxCountry = countries[0];
@@ -41,13 +36,15 @@ void AggressiveComputerStrategy::attackNeighborCountry(country_ptr country) {
     }
 }
 
-<<<<<<< HEAD
-std::string AggressiveComputerStrategy::performFortify(Player*){
-     std::string m = "";
-    return m;
-=======
+
 void AggressiveComputerStrategy::attackFromCountryToCountry(country_ptr attackingCountry, country_ptr defendingCountry) {
+    
+   
+    
+  
+
     int attackMaxDice = std::min(3, attackingCountry->getNumOfArmies() - 1);
+
     int defenceMaxDice = std::min(2, defendingCountry->getNumOfArmies());
 
     // Get the dice results
@@ -57,27 +54,22 @@ void AggressiveComputerStrategy::attackFromCountryToCountry(country_ptr attackin
     // Sort the dice for each player
     std::sort(attackingDiceResult.begin(), attackingDiceResult.end());
     std::sort(defendingDiceResult.begin(), defendingDiceResult.end());
->>>>>>> f9f1e930e70cdc96045ddea0c43b41dc19eab019
 
     // Comparing dice Pair-wise
     for (int i = attackMaxDice - 1, j = defenceMaxDice - 1; i >= 0 && j >= 0; i--, j--) {
         if (attackingDiceResult[i] > defendingDiceResult[j])
             defendingCountry->removeNumOfArmies(1);
+            //event;
         else
             attackingCountry->removeNumOfArmies(1);
     }
 }
 
-<<<<<<< HEAD
-std::string AggressiveComputerStrategy::performReinforce(Player*) {
-     std::string m = "";
-    return m;
-=======
->>>>>>> f9f1e930e70cdc96045ddea0c43b41dc19eab019
 
 
 
 void AggressiveComputerStrategy::performFortify(Player *player) {
+    std::string m = "";
     auto countries = player->getCountries();
     // mark map for DFS
     std::unordered_map<std::string, bool> mark;
@@ -118,6 +110,7 @@ void AggressiveComputerStrategy::dfs(country_ptr node, std::unordered_map<std::s
 
 
 void AggressiveComputerStrategy::performReinforce(Player *player) {
+    std::string m = "";
     int armies = giveArmiesToPlayer(player);
     auto countries = player->getCountries();
 
@@ -132,4 +125,6 @@ void AggressiveComputerStrategy::performReinforce(Player *player) {
 
     // Give all of the new armies to the found country
     maxCountry->addNumOfArmies(armies);
+
+
 }

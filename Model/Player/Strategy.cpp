@@ -5,6 +5,7 @@
 #include "Strategy.h"
 #include "Player.h"
 #include "../Map/continent.h"
+#include <algorithm>
 
 int Strategy::giveArmiesToPlayer(Player *player) {
     auto countries = player->getCountries();

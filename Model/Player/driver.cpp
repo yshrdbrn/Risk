@@ -16,7 +16,6 @@ int main()
     p1->setDice(d1);
     p2->setDice(d2);
     Hand hand(2,2,2);
-    p1->setHand(hand);
     country_ptr usa = std::make_shared<Country>(Country("USA"));
     country_ptr canada =std::make_shared<Country>(Country("Canada"));
     country_ptr alaska =std::make_shared<Country>(Country("Alaska"));

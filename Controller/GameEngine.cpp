@@ -10,7 +10,6 @@
 #include "../Model/Map/continent.h"
 #include "../Model/Map/country.h"
 #include "../View/PhaseView.h"
-#include "../Model/GameState/PhaseState.h"
 #include <chrono>
 #include <algorithm>
 #include "random"
@@ -46,6 +45,7 @@ int GameEngine::getNumberOfCountriesInMap() {
 void GameEngine::initGame() {
     MapLoader mapLoader;
     GameSetupView gameSetupView;
+	PhaseView* phaseView = new PhaseView();
     std::vector<std::string> mapNames = mapLoader.getListOfAllMapFiles();
 
     // Check if the chosen map is valid
@@ -65,7 +65,7 @@ void GameEngine::initGame() {
     int numberOfPlayers = gameSetupView.promptUserToChooseNumberOfPlayers(MIN_PLAYERS, MAX_PLAYERS);
 
     for (int i = 0; i < numberOfPlayers; i++)
-        players.push_back(new Player(i + 1, new HumanStrategy(), new Dice()));
+        players.push_back(new Player(i + 1, new HumanStrategy(), new Dice() , new Hand() , phaseView));
 }
 
 void GameEngine::startUpPhase() {
@@ -79,7 +79,7 @@ void GameEngine::startUpPhase() {
 void GameEngine::mainLoop() {
     while(map->ownerOfAllCountries() == nullptr) {
         for(Player* &player: players) {
-			PhaseState* ps = new PhaseState();
+			/*PhaseState* ps = new PhaseState();
 			PhaseView * view = new PhaseView(ps);
             ps->setPlayer(player);
             ps->setPhase("reinforcing");
@@ -90,7 +90,8 @@ void GameEngine::mainLoop() {
 			ps->clear();
             ps->setPhase("fortifying");
             ps->setDescription(player->fortify());
-            ps->clear();
+            ps->clear();*/
+			player->startturn();
         }
 
     }

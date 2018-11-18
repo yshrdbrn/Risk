@@ -19,7 +19,7 @@ public:
     void removeObserver(Observer *observer);
 
 
-    void notifyObservers();
+    virtual void notifyObservers() = 0;
 
     ~Subject();
 

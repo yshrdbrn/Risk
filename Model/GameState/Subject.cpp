@@ -10,12 +10,6 @@ void Subject::removeObserver(Observer *observer){
     observers->remove(observer);
 }
 
-void Subject::notifyObservers(){
-     std::list<Observer*>::iterator i;
-        for(i=observers->begin() ; i != observers->end() ; i++){
-            (*i)->update();
-        }
-}
 
 Subject::Subject(){
     observers = new std::list<Observer*>;

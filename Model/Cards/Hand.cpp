@@ -12,60 +12,60 @@ Hand::Hand() {
 Hand::Hand(int artillery , int cavalery , int infantry) : cavalery(cavalery) , artillery(artillery) , infantry(infantry){}
 //--------------------------------------------------------Getters
 int Hand::getArtillery() {
-	return this->artillery;
+	return artillery;
 }
 
 int Hand::getCavalery() {
-	return this->cavalery;
+	return cavalery;
 }
 
 int Hand::getInfantry() {
-	return this->infantry;
+	return infantry;
 }
 
 int Hand::getTotalCards() {
-	return this->totalCards;
+	return totalCards;
 }
 
 int Hand::getArmies() {
-	return this->armies;
+	return armies;
 }
 //-------------------------------------------------------Mutators
 void Hand::setArtillery(int Artillery) {
-	this->artillery = Artillery;
+	artillery = Artillery;
 }
 
 void Hand::setCavalery(int Cavalery) {
-	this->cavalery = Cavalery;
+	cavalery = Cavalery;
 }
 
 void Hand::setInfantry(int Infantry) {
-	this->infantry = Infantry;
+	infantry = Infantry;
 }
 
 void Hand::setTotalCards(int totalCards) {
-	this->totalCards = totalCards;
+	totalCards = totalCards;
 }
 
 void Hand::setArmies(int armies) {
-	this->armies = armies;
+	armies = armies;
 }
 
 //----------------------------------------------------Increment methods
 void Hand::ArtilleryIncrement(int increment) {
-	this->artillery += increment;
+	artillery += increment;
 }
 
 void Hand::InfantryIncrement(int increment) {
-	this->infantry += increment;
+	infantry += increment;
 }
 
 void Hand::CavaleryIncrement(int increment) {
-	this->cavalery += increment;
+	cavalery += increment;
 }
 
 void Hand::totalCardsIncrement(int totalCards) {
-	this->totalCards += totalCards;
+	totalCards += totalCards;
 }
 //-------------------------------------------------------exchange_method
 void Hand::exchange(int& numOfArmies) {
@@ -105,10 +105,10 @@ void Hand::exchange(int& numOfArmies) {
 		}
 
 		if (type == "infantry" || type == "Infantry") {       //if the type is infantry
-			if (this->infantry >= 3) {                      //if there is at least 3 infantries in the deck
-				this->infantry -= 3;
-				this->exchangeCounter += 5;
-				numOfArmies += this->exchangeCounter;
+			if (infantry >= 3) {                      //if there is at least 3 infantries in the deck
+				infantry -= 3;
+				exchangeCounter += 5;
+				numOfArmies += exchangeCounter;
 
 
 			}
@@ -117,10 +117,10 @@ void Hand::exchange(int& numOfArmies) {
 		}
 		else
 		if (type == "artillery" || type == "Artillery") {    //if the type is artillery
-			if (this->artillery >= 3) {                       //if there is at least 3 artillery in the deck
-				this->artillery -= 3;
-				this->exchangeCounter += 5;
-				numOfArmies += this->exchangeCounter;
+			if (artillery >= 3) {                       //if there is at least 3 artillery in the deck
+				artillery -= 3;
+				exchangeCounter += 5;
+				numOfArmies += exchangeCounter;
 
 
 			}
@@ -129,10 +129,10 @@ void Hand::exchange(int& numOfArmies) {
 		}
 		else
 		if (type == "cavalery" || type == "Cavalery") {     //if type is cavalery
-			if (this->cavalery >= 3) {                      //if there is at least 3 cavalery in the deck
-				this->cavalery -= 3;
-				this->exchangeCounter += 5;
-				this->armies += this->exchangeCounter;
+			if (cavalery >= 3) {                      //if there is at least 3 cavalery in the deck
+				cavalery -= 3;
+				exchangeCounter += 5;
+				armies += exchangeCounter;
 
 
 			}
@@ -143,12 +143,12 @@ void Hand::exchange(int& numOfArmies) {
 
 	else {
 		cout << "\nproceeding to exchange one card of each type" << endl;  //if the answer to the initial question was "no"
-		if (this->infantry>=1 &&this->artillery>=1 &&this->cavalery>=1) {
-			this->infantry--;
-			this->artillery--;
-			this->cavalery--;
-			this->exchangeCounter += 5;
-			numOfArmies+= this->exchangeCounter;
+		if (infantry>=1 &&artillery>=1 &&cavalery>=1) {
+			infantry--;
+			artillery--;
+			cavalery--;
+			exchangeCounter += 5;
+			numOfArmies+= exchangeCounter;
 
 
 

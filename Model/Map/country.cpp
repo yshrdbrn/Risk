@@ -4,6 +4,7 @@
 
 #include "country.h"
 #include "../Player/Player.h"
+#include <vector>
 
 Country::Country(const std::string &name) : name(name) ,numOfArmies(0) {}
 

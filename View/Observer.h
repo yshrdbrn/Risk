@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 /**
  * Interface for the Observer
  */
@@ -11,7 +12,7 @@ public:
      * 
      * 
      */
-    virtual void update() = 0;
+    virtual void update(std::string) = 0;
 
 };
 
