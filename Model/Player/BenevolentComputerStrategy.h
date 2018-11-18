@@ -5,9 +5,12 @@
 #ifndef RISKGAME_BENEVOLENTCOMPUTERSTRATEGY_H
 #define RISKGAME_BENEVOLENTCOMPUTERSTRATEGY_H
 
+#include <unordered_map>
 #include "Strategy.h"
 
 class BenevolentComputerStrategy: public Strategy {
+private:
+    void dfs(country_ptr node, std::unordered_map<std::string, bool> &mark, std::vector<country_ptr> &nodesInComponent);
 public:
     void performAttack(Player *player) override;
 
