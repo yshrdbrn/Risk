@@ -267,3 +267,28 @@ void HumanStrategy::performReinforce(Player *player) {
         }
     }
 }
+
+int HumanStrategy::whichCountryToPlaceOneArmyOn(Player *player) {
+    auto countries = player->getCountries();
+
+    cout << endl;
+    cout << "Player " << player->getId() << ", you have "<< player->getArmies()<<" armies and" <<
+         " your countries are : " << endl;           //informs the user of the amount of armies they have left and the countries
+    //they own.
+    for (int c = 0;c < countries.size();c++) {
+        cout << c << " " << countries[c]->getName() << " : " <<
+             countries[c]->getNumOfArmies() << " armies" << endl;
+    }
+
+    int index;
+    cout << "\nPlease enter the number of the country you would like to place an army on : ";
+    cin >> index;                                  //prompts the user to select one of his countries to place an army on
+
+    while (index > countries.size() - 1 || index < 0) {
+        cout << "Invalid input, please try again: ";  //If the user enters non valid input (a country he does not own),
+        cin >> index;                               // error message is displayed until he enters a valid country
+    }
+    cout << endl;
+
+    return index;
+}

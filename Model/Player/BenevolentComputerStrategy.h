@@ -17,6 +17,8 @@ public:
     void performFortify(Player *player) override;
 
     void performReinforce(Player *player) override;
+
+    int whichCountryToPlaceOneArmyOn(Player *player) override;
 };
 
 

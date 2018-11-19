@@ -17,6 +17,7 @@ public:
     virtual void performAttack(Player *player) = 0;
     virtual void performFortify(Player *player) = 0;
     virtual void performReinforce(Player *player) = 0;
+    virtual int whichCountryToPlaceOneArmyOn(Player *player) = 0;
 };
 
 #endif //RISKGAME_STRATEGY_H

@@ -122,3 +122,25 @@ void AggressiveComputerStrategy::performReinforce(Player *player) {
     // Give all of the new armies to the found country
     maxCountry->addNumOfArmies(armies);
 }
+
+int AggressiveComputerStrategy::whichCountryToPlaceOneArmyOn(Player *player) {
+    auto countries = player->getCountries();
+
+    // Return the index of the country with 0 armies
+    for (int i = 0; i < countries.size(); i++) {
+        if (countries[i]->getNumOfArmies() == 0)
+            return i;
+    }
+
+    // Find the index of the country with the maximum number of armies
+    int maxCountryArmies = countries[0]->getNumOfArmies();
+    int maxCountryIndex = 0;
+    for(int i = 1; i < countries.size(); i++) {
+        if (countries[i]->getNumOfArmies() > maxCountryArmies) {
+            maxCountryArmies = countries[i]->getNumOfArmies();
+            maxCountryIndex = i;
+        }
+    }
+
+    return maxCountryIndex;
+}

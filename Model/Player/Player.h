@@ -44,6 +44,12 @@ class Player{
         void attack();
         void fortify();
 
+        /**
+         * This method will return the index of which country to place one army on
+         * @return
+         */
+        int whichCountryToPlaceOneArmyOn();
+
 
 		string getName();
 		void  setName(string name);

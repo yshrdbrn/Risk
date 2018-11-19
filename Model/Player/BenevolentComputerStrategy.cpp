@@ -30,7 +30,7 @@ void BenevolentComputerStrategy::performFortify(Player *player) {
             //// Normalize armies in the countries of the component
 
             // Sort the countries using their army size
-            std::vector<pair<int, country_ptr>> minArmyCountries(nodesInComponent.size());
+            std::vector<pair<int, country_ptr>> minArmyCountries;
             for (auto &country : nodesInComponent)
                 minArmyCountries.push_back(std::make_pair(country->getNumOfArmies(), country));
             std::sort(minArmyCountries.begin(), minArmyCountries.end());
@@ -67,7 +67,7 @@ void BenevolentComputerStrategy::performReinforce(Player *player) {
     // TODO: Get armies from exchanging armies in hand
 
     // Sort the countries using their army size
-    std::vector<pair<int, country_ptr>> minArmyCountries(countries.size());
+    std::vector<pair<int, country_ptr>> minArmyCountries;
     for (auto &country : countries)
         minArmyCountries.push_back(std::make_pair(country->getNumOfArmies(), country));
     std::sort(minArmyCountries.begin(), minArmyCountries.end());
@@ -79,4 +79,20 @@ void BenevolentComputerStrategy::performReinforce(Player *player) {
         minArmyCountries[0].first++;
         std::sort(minArmyCountries.begin(), minArmyCountries.end());
     }
+}
+
+int BenevolentComputerStrategy::whichCountryToPlaceOneArmyOn(Player *player) {
+    auto countries = player->getCountries();
+
+    // Find the country with minimum number of armies
+    int minCountryArmies = countries[0]->getNumOfArmies();
+    int minCountryIndex = 0;
+    for(int i = 1; i < countries.size(); i++) {
+        if (countries[i]->getNumOfArmies() < minCountryArmies) {
+            minCountryArmies = countries[i]->getNumOfArmies();
+            minCountryIndex = i;
+        }
+    }
+
+    return minCountryIndex;
 }

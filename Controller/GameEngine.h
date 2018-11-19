@@ -43,18 +43,6 @@ public:
     int getNumberOfPlayers();
     int getNumberOfCardsInDeck();
     int getNumberOfCountriesInMap();
-
-    /**
-     * TEST ONLY
-     * Gives all of the countries to player 1
-     */
-    void setOwnershipOfCountriesToOnePlayer();
-
-    /**
-     * TEST ONLY
-     * Gives all the countries to random players
-     */
-    void setOwnershipOfCountriesToRandomPlayers();
 };
 
 

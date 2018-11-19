@@ -4,6 +4,8 @@
 
 #include <fstream>
 #include <sstream>
+#include <iostream>
+#include <string>
 #include <sys/types.h>
 #include <dirent.h>
 #include "mapLoader.h"
@@ -19,7 +21,7 @@ map_ptr MapLoader::createMapWithFileName(const std::string &fileName) {
 
     // Reading the file content
     for (const std::string line: fileContent) {
-        if (line.size() == 0)
+        if (line.find_first_not_of(" \t\n\v\f\r") == std::string::npos)
             continue;
 
         // Changing the state
@@ -57,7 +59,10 @@ std::vector<std::string> MapLoader::loadFileWithName(const std::string &fileName
     std::ifstream file(fileName);
     std::string line;
     while(std::getline(file, line)) {
-        fileContent.push_back(line.substr(0, line.size()));
+        std::string tmp = line.substr(0, line.size());
+        if (tmp[tmp.size() - 1] == '\r')
+            tmp.erase(tmp.size() - 1);
+        fileContent.push_back(tmp);
     }
 
     return fileContent;
@@ -77,8 +82,9 @@ void MapLoader::addCountryToMap(map_ptr &mapPtr, std::string info) {
     // Separate each string using delimiter ','
     std::istringstream ss(info);
     std::string token;
-    while (std::getline(ss, token, ','))
-        dividedInfo.push_back(token);
+    while (std::getline(ss, token, ',')) {
+        dividedInfo.emplace_back(token);
+    }
 
     if (dividedInfo.size() <= 4)
         throw RiskException("One of the countries does not have the correct format.");
