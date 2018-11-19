@@ -6,6 +6,7 @@
 #include <vector>
 #include <algorithm>
 #include <unordered_map>
+#include <iostream>
 #include "AggressiveComputerStrategy.h"
 #include "Player.h"
 #include "../Map/continent.h"
@@ -20,9 +21,21 @@ void AggressiveComputerStrategy::performAttack(Player *player) {
             maxCountry = countries[i];
     }
 
-    while (maxCountry->getNumOfArmies() > 1) {
+    while (isThereACountryLeftToAttack(maxCountry) && maxCountry->getNumOfArmies() > 1) {
         attackNeighborCountry(maxCountry);
     }
+}
+
+bool AggressiveComputerStrategy::isThereACountryLeftToAttack(country_ptr countryPtr) {
+    auto neighbors = countryPtr->getNeighbors();
+    // Find an enemy neighbor
+    for (int i = 0; i < neighbors.size(); i++) {
+        if (countryPtr->getOwner()->getId() != neighbors[i]->getOwner()->getId()) {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 void AggressiveComputerStrategy::attackNeighborCountry(country_ptr country) {
@@ -31,6 +44,7 @@ void AggressiveComputerStrategy::attackNeighborCountry(country_ptr country) {
     for (int i = 0; i < neighbors.size(); i++) {
         if (country->getOwner()->getId() != neighbors[i]->getOwner()->getId()) {
             attackFromCountryToCountry(country, neighbors[i]);
+            break;
         }
     }
 }
@@ -60,6 +74,8 @@ void AggressiveComputerStrategy::attackFromCountryToCountry(country_ptr attackin
         defendingCountry->getOwner()->removeCountry(defendingCountry);
         attackingCountry->getOwner()->addCountry(defendingCountry);
         defendingCountry->setOwner(attackingCountry->getOwner());
+        attackingCountry->removeNumOfArmies(1);
+        defendingCountry->incrementArmies(1);
     }
 }
 
@@ -81,10 +97,19 @@ void AggressiveComputerStrategy::performFortify(Player *player) {
             nodesInComponent.clear();
             dfs(countries[i], mark, nodesInComponent);
 
+            // Find the country with an enemy neighbor
+            country_ptr countryWithAnEnemyNeighbor = nodesInComponent[0];
+            for (int i = 0; i < nodesInComponent.size(); i++) {
+                if (isThereACountryLeftToAttack(nodesInComponent[i])) {
+                    countryWithAnEnemyNeighbor = nodesInComponent[i];
+                    break;
+                }
+            }
+
             // Add all of armies in the component to one country
-            for (int i = 1; i < nodesInComponent.size(); i++) {
+            for (int i = 0; i < nodesInComponent.size(); i++) {
                 int remainder = nodesInComponent[i]->getNumOfArmies() - 1;
-                nodesInComponent[0]->addNumOfArmies(remainder);
+                countryWithAnEnemyNeighbor->addNumOfArmies(remainder);
                 nodesInComponent[i]->removeNumOfArmies(remainder);
             }
         }

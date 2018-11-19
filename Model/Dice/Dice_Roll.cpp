@@ -39,7 +39,7 @@ std::vector<int> Dice::diceRoll(int numberOfDice){
 	for (int i = 0; i < numberOfDice; i++) {
 		diceValue = valueOfDice();
 		arr.push_back(diceValue);
-		cout << "The number rolled for dice number " << i + 1 << " is " << diceValue << endl;
+//		cout << "The number rolled for dice number " << i + 1 << " is " << diceValue << endl;
 	}
 	return arr;
 }
@@ -57,7 +57,7 @@ void Dice::distributionStatistics(){
 
 	for (int i = 0; i <= 5; i++) {
 		double percentageOfEachValue = ((double)distributionDiceRoll[i] / diceRollTotal) * 100;
-		cout << "The number " << i + 1 << " was rolled " << percentageOfEachValue << "% of the time." << endl;
+//		cout << "The number " << i + 1 << " was rolled " << percentageOfEachValue << "% of the time." << endl;
 		
 	};
 }

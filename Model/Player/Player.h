@@ -22,7 +22,10 @@ class Player{
 
     public:
         Player();
-        Player(int playerId, Strategy *strategy1);
+
+    virtual ~Player();
+
+    Player(int playerId, Strategy *strategy1);
         Hand *getHand();
         void setHand(Hand&);
 

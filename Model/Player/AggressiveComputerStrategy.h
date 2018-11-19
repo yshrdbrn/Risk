@@ -16,6 +16,8 @@ private:
 
     void dfs(country_ptr node, std::unordered_map<std::string, bool> &mark, std::vector<country_ptr> &nodesInComponent);
 
+    bool isThereACountryLeftToAttack(country_ptr countryPtr);
+
 public:
     void performAttack(Player *player) override;
 

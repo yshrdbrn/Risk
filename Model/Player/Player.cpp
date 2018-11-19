@@ -12,7 +12,13 @@
 Player::Player(){};
 
 
-Player::Player(int playerID, Strategy *strategy1) : id(playerID), strategy(strategy1){}
+Player::Player(int playerID, Strategy *strategy1) : id(playerID), strategy(strategy1){
+    dice = new Dice();
+}
+
+Player::~Player() {
+    delete dice;
+}
 
 
 Hand *Player::getHand(){
