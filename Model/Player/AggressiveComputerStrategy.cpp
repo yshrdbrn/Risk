@@ -10,6 +10,7 @@
 #include "AggressiveComputerStrategy.h"
 #include "Player.h"
 #include "../Map/continent.h"
+#include "../../Controller/State.h"
 
 void AggressiveComputerStrategy::performAttack(Player *player, State *state) {
     auto countries = player->getCountries();
@@ -22,7 +23,7 @@ void AggressiveComputerStrategy::performAttack(Player *player, State *state) {
     }
 
     while (isThereACountryLeftToAttack(maxCountry) && maxCountry->getNumOfArmies() > 1) {
-        attackNeighborCountry(maxCountry);
+        attackNeighborCountry(maxCountry, state);
     }
 }
 
@@ -38,18 +39,18 @@ bool AggressiveComputerStrategy::isThereACountryLeftToAttack(country_ptr country
     return false;
 }
 
-void AggressiveComputerStrategy::attackNeighborCountry(country_ptr country) {
+void AggressiveComputerStrategy::attackNeighborCountry(country_ptr country, State *state) {
     auto neighbors = country->getNeighbors();
     // Find an enemy neighbor
     for (int i = 0; i < neighbors.size(); i++) {
         if (country->getOwner()->getId() != neighbors[i]->getOwner()->getId()) {
-            attackFromCountryToCountry(country, neighbors[i]);
+            attackFromCountryToCountry(country, neighbors[i], state);
             break;
         }
     }
 }
 
-void AggressiveComputerStrategy::attackFromCountryToCountry(country_ptr attackingCountry, country_ptr defendingCountry) {
+void AggressiveComputerStrategy::attackFromCountryToCountry(country_ptr attackingCountry, country_ptr defendingCountry, State *state) {
     int attackMaxDice = std::min(3, attackingCountry->getNumOfArmies() - 1);
     int defenceMaxDice = std::min(2, defendingCountry->getNumOfArmies());
 
@@ -63,14 +64,19 @@ void AggressiveComputerStrategy::attackFromCountryToCountry(country_ptr attackin
 
     // Comparing dice Pair-wise
     for (int i = attackMaxDice - 1, j = defenceMaxDice - 1; i >= 0 && j >= 0; i--, j--) {
-        if (attackingDiceResult[i] > defendingDiceResult[j])
+        if (attackingDiceResult[i] > defendingDiceResult[j]) {
             defendingCountry->removeNumOfArmies(1);
-        else
+            state->setPhaseState(defendingCountry->getName() + " lost one army.");
+        }
+        else {
             attackingCountry->removeNumOfArmies(1);
+            state->setPhaseState(attackingCountry->getName() + " lost one army.");
+        }
     }
 
     // If conquered the enemy country
     if (defendingCountry->getNumOfArmies() == 0) {
+        state->setPhaseState("Player " + std::to_string(attackingCountry->getOwner()->getId()) + " got the country " + defendingCountry->getName());
         defendingCountry->getOwner()->removeCountry(defendingCountry);
         attackingCountry->getOwner()->addCountry(defendingCountry);
         defendingCountry->setOwner(attackingCountry->getOwner());
@@ -111,6 +117,9 @@ void AggressiveComputerStrategy::performFortify(Player *player, State *state) {
                 int remainder = nodesInComponent[i]->getNumOfArmies() - 1;
                 countryWithAnEnemyNeighbor->addNumOfArmies(remainder);
                 nodesInComponent[i]->removeNumOfArmies(remainder);
+
+                state->setPhaseState("Moved " + std::to_string(remainder) + " armies from " +
+                          nodesInComponent[i]->getName() + " to " + countryWithAnEnemyNeighbor->getName());
             }
         }
     }
@@ -137,6 +146,8 @@ void AggressiveComputerStrategy::performReinforce(Player *player, State *state) 
 
     // TODO: Get armies from exchanging armies in hand
 
+    state->setPhaseState("Player " + std::to_string(player->getId()) + " has " + std::to_string(armies) + " new armies to place.");
+
     // Finding the country with the maximum number of armies
     country_ptr maxCountry = countries[0];
     for (int i = 1; i < countries.size(); i++) {
@@ -146,6 +157,7 @@ void AggressiveComputerStrategy::performReinforce(Player *player, State *state) 
 
     // Give all of the new armies to the found country
     maxCountry->addNumOfArmies(armies);
+    state->setPhaseState("Added " + std::to_string(armies) + " armies to " + maxCountry->getName());
 }
 
 int AggressiveComputerStrategy::whichCountryToPlaceOneArmyOn(Player *player) {

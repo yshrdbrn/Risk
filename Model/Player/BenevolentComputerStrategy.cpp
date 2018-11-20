@@ -5,6 +5,7 @@
 #include <algorithm>
 #include "Player.h"
 #include "../Map/country.h"
+#include "../../Controller/State.h"
 
 #include "BenevolentComputerStrategy.h"
 
@@ -38,6 +39,9 @@ void BenevolentComputerStrategy::performFortify(Player *player, State *state) {
             // while difference of armies in min country and max country is bigger than 1
             // move an army from the max country to the min country
             while (minArmyCountries[minArmyCountries.size() - 1].first -  minArmyCountries[0].first > 1) {
+                state->setPhaseState("Moved one army from " + minArmyCountries[minArmyCountries.size() - 1].second->getName() +
+                                    " To " + minArmyCountries[0].second->getName());
+
                 minArmyCountries[0].second->addNumOfArmies(1);
                 minArmyCountries[0].first++;
                 minArmyCountries[minArmyCountries.size() - 1].second->removeNumOfArmies(1);
@@ -66,6 +70,8 @@ void BenevolentComputerStrategy::performReinforce(Player *player, State *state) 
     auto countries = player->getCountries();
     // TODO: Get armies from exchanging armies in hand
 
+    state->setPhaseState("Player " + std::to_string(player->getId()) + " has " + std::to_string(armies) + " new armies to place.");
+
     // Sort the countries using their army size
     std::vector<pair<int, country_ptr>> minArmyCountries;
     for (auto &country : countries)
@@ -74,6 +80,8 @@ void BenevolentComputerStrategy::performReinforce(Player *player, State *state) 
 
     // Add army to the minimum country, then sort the array again
     while (armies > 0) {
+        state->setPhaseState("Added one army to " + minArmyCountries[0].second->getName());
+
         minArmyCountries[0].second->addNumOfArmies(1);
         armies--;
         minArmyCountries[0].first++;

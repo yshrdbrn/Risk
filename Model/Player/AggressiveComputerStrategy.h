@@ -10,9 +10,9 @@
 
 class AggressiveComputerStrategy: public Strategy {
 private:
-    void attackNeighborCountry(country_ptr country);
+    void attackNeighborCountry(country_ptr country, State *state);
 
-    void attackFromCountryToCountry(country_ptr attackingCountry, country_ptr defendingCountry);
+    void attackFromCountryToCountry(country_ptr attackingCountry, country_ptr defendingCountry, State *state);
 
     void dfs(country_ptr node, std::unordered_map<std::string, bool> &mark, std::vector<country_ptr> &nodesInComponent);
 
