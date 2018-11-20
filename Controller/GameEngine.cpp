@@ -14,6 +14,7 @@
 #include "../Model/Player/AggressiveComputerStrategy.h"
 #include "../Model/Player/BenevolentComputerStrategy.h"
 #include "../View/PhaseObserver.h"
+#include "../View/StatisticsObserver.h"
 
 void GameEngine::startGame() {
     initGame();
@@ -38,6 +39,7 @@ int GameEngine::getNumberOfCountriesInMap() {
 void GameEngine::initGame() {
     // Set the observers
     state.attach(new PhaseObserver(&state));
+    state.attach(new StatisticsObserver(&state));
 
     MapLoader mapLoader;
     GameSetupView gameSetupView;
@@ -83,9 +85,13 @@ void GameEngine::startUpPhase() {
 void GameEngine::mainLoop() {
     map_ptr map = state.getMap();
     auto players = state.getPlayers();
+    state.calculateNewPercentage();
 
     while(map->ownerOfAllCountries() == nullptr) {
         for(Player* &player: players) {
+            if (playerDoesNotOwnAnyCountries(player))
+                continue;
+
             state.setPhaseState("Player " + to_string(player->getId()) + "'s turn.");
 //            std::cout << "Player " << to_string(player->getId()) << "'s turn." << std::endl;
 //            std::cout << "The countries you own:" << std::endl;
@@ -106,4 +112,10 @@ void GameEngine::mainLoop() {
     GameFinishView gameFinishView;
     if (map->ownerOfAllCountries() != nullptr)
         gameFinishView.announceWinner(map->ownerOfAllCountries());
+}
+
+bool GameEngine::playerDoesNotOwnAnyCountries(Player *player) {
+    if (player->getCountries().size() == 0)
+        return true;
+    return false;
 }

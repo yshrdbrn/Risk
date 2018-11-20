@@ -19,6 +19,7 @@ private:
     Deck *deck;
 
     std::string phaseState;
+    std::vector<int> dominationPercentage;
 
 public:
     ~State();
@@ -41,6 +42,15 @@ public:
     void setPhaseState(std::string state);
 
     const string &getPhaseState() const;
+
+    void transferCountryOwnership(country_ptr country, Player *prevOwner, Player *newOwner);
+
+    const vector<int> &getDominationPercentage() const;
+
+
+    //// Helper methods
+
+    void calculateNewPercentage();
 };
 
 

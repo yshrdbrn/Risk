@@ -79,9 +79,10 @@ void AggressiveComputerStrategy::attackFromCountryToCountry(country_ptr attackin
     // If conquered the enemy country
     if (defendingCountry->getNumOfArmies() == 0) {
         state->setPhaseState("Player " + std::to_string(attackingCountry->getOwner()->getId()) + " got the country " + defendingCountry->getName());
-        defendingCountry->getOwner()->removeCountry(defendingCountry);
-        attackingCountry->getOwner()->addCountry(defendingCountry);
-        defendingCountry->setOwner(attackingCountry->getOwner());
+        state->transferCountryOwnership(defendingCountry, defendingCountry->getOwner(), attackingCountry->getOwner());
+//        defendingCountry->getOwner()->removeCountry(defendingCountry);
+//        attackingCountry->getOwner()->addCountry(defendingCountry);
+//        defendingCountry->setOwner(attackingCountry->getOwner());
         attackingCountry->removeNumOfArmies(1);
         defendingCountry->incrementArmies(1);
     }

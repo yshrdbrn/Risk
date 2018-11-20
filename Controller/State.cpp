@@ -46,3 +46,26 @@ void State::setPhaseState(std::string state) {
 const string &State::getPhaseState() const {
     return phaseState;
 }
+
+void State::transferCountryOwnership(country_ptr country, Player *prevOwner, Player *newOwner) {
+    prevOwner->removeCountry(country);
+    newOwner->addCountry(country);
+    country->setOwner(newOwner);
+    calculateNewPercentage();
+}
+
+void State::calculateNewPercentage() {
+    double totalCountries = map->numberOfCountries();
+
+    dominationPercentage.clear();
+    for (auto &player : players) {
+        double playerPercentage = player->getCountries().size() * 100.0 / totalCountries;
+        dominationPercentage.push_back((int)playerPercentage);
+    }
+
+    notify();
+}
+
+const vector<int> &State::getDominationPercentage() const {
+    return dominationPercentage;
+}

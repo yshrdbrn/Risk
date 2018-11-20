@@ -129,9 +129,10 @@ void HumanStrategy::performAttack(Player *player, State *state) {
 
 //            std::cout << "Player " << refAttCountry->getOwner()->getId() << " won the battle" << endl;
 //            std::cout << refDefCountry->getName() << " has no more armies on it!" << endl;
-            refDefCountry->getOwner()->removeCountry(refDefCountry);
-            refAttCountry->getOwner()->addCountry(refDefCountry);
-            refDefCountry->setOwner(refAttCountry->getOwner());
+            state->transferCountryOwnership(refDefCountry, refDefCountry->getOwner(), refAttCountry->getOwner());
+//            refDefCountry->getOwner()->removeCountry(refDefCountry);
+//            refAttCountry->getOwner()->addCountry(refDefCountry);
+//            refDefCountry->setOwner(refAttCountry->getOwner());
 
 //            std::cout << refDefCountry->getName() << " now belongs to Player" << refAttCountry->getOwner()->getId() << "!" << endl;
             int armiesToMove;
@@ -146,10 +147,7 @@ void HumanStrategy::performAttack(Player *player, State *state) {
                 else std::cout << "You can not move this amout of armies" << endl;
             }while(!isValidNumber);
 
-        } else {
-
         }
-
 
     }
 //    std::cout<<"Exiting attack phase..." <<endl;

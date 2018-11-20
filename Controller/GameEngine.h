@@ -6,9 +6,7 @@
 #define RISKGAME_GAMEENGINE_H
 
 #include <vector>
-#include "../Model/Maploader/mapLoader.h"
 #include "../Model/Player/Player.h"
-#include "../Model/Cards/Deck.h"
 #include "State.h"
 
 const int MIN_PLAYERS = 2;
@@ -35,6 +33,8 @@ private:
     * Initializes the game:
     */
     void initGame();
+
+    bool playerDoesNotOwnAnyCountries(Player *player);
 
 public:
     /**
