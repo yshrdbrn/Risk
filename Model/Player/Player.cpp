@@ -56,18 +56,18 @@ void Player::setId(int id) {
 
 
 
-void Player::attack(){
-    strategy->performAttack(this);
+void Player::attack(State *state){
+    strategy->performAttack(this, state);
 }
 
 
-void Player::fortify(){
-    strategy->performFortify(this);
+void Player::fortify(State *state){
+    strategy->performFortify(this, state);
 }
 
 
-void Player:: reinforce(){
-    strategy->performReinforce(this);
+void Player:: reinforce(State *state){
+    strategy->performReinforce(this, state);
 }
 
 

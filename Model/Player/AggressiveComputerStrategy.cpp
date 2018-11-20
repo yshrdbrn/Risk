@@ -11,7 +11,7 @@
 #include "Player.h"
 #include "../Map/continent.h"
 
-void AggressiveComputerStrategy::performAttack(Player *player) {
+void AggressiveComputerStrategy::performAttack(Player *player, State *state) {
     auto countries = player->getCountries();
 
     // Finding the country if the maximum number of armies
@@ -82,7 +82,7 @@ void AggressiveComputerStrategy::attackFromCountryToCountry(country_ptr attackin
 
 
 
-void AggressiveComputerStrategy::performFortify(Player *player) {
+void AggressiveComputerStrategy::performFortify(Player *player, State *state) {
     auto countries = player->getCountries();
     // mark map for DFS
     std::unordered_map<std::string, bool> mark;
@@ -131,7 +131,7 @@ void AggressiveComputerStrategy::dfs(country_ptr node, std::unordered_map<std::s
 
 
 
-void AggressiveComputerStrategy::performReinforce(Player *player) {
+void AggressiveComputerStrategy::performReinforce(Player *player, State *state) {
     int armies = giveArmiesToPlayer(player);
     auto countries = player->getCountries();
 

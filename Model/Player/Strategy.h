@@ -10,13 +10,15 @@
 
 typedef std::shared_ptr<Country> country_ptr;
 
+class State;
+
 class Strategy {
 protected:
     int giveArmiesToPlayer(Player *player);
 public:
-    virtual void performAttack(Player *player) = 0;
-    virtual void performFortify(Player *player) = 0;
-    virtual void performReinforce(Player *player) = 0;
+    virtual void performAttack(Player *player, State *state) = 0;
+    virtual void performFortify(Player *player, State *state) = 0;
+    virtual void performReinforce(Player *player, State *state) = 0;
     virtual int whichCountryToPlaceOneArmyOn(Player *player) = 0;
 };
 

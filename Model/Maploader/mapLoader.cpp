@@ -14,7 +14,7 @@
 map_ptr MapLoader::createMapWithFileName(const std::string &fileName) {
     auto fileContent = loadFileWithName(MapsDirPath + fileName);
 
-    map_ptr mapPtr = std::make_unique<Map>();
+    map_ptr mapPtr = std::make_shared<Map>();
 
     // Different states: mapInfo, continents, countries
     std::string state = "none";
@@ -49,7 +49,7 @@ map_ptr MapLoader::createMapWithFileName(const std::string &fileName) {
         throw RiskException("There are no countries in the map file.");
     mapPtr->checkIfMapIsValid();
 
-    return std::move(mapPtr);
+    return mapPtr;
 }
 
 std::vector<std::string> MapLoader::loadFileWithName(const std::string &fileName) {

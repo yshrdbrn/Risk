@@ -22,21 +22,16 @@ void GameEngine::startGame() {
     mainLoop();
 }
 
-GameEngine::~GameEngine() {
-    for (auto &player : players)
-        delete player;
-}
-
 int GameEngine::getNumberOfPlayers() {
-    return players.size();
+    return state.getPlayers().size();
 }
 
 int GameEngine::getNumberOfCardsInDeck() {
-    return deck->getTotalCards();
+    return state.getDeck()->getTotalCards();
 }
 
 int GameEngine::getNumberOfCountriesInMap() {
-    return map->numberOfCountries();
+    return state.getMap()->numberOfCountries();
 }
 
 void GameEngine::initGame() {
@@ -48,7 +43,7 @@ void GameEngine::initGame() {
     while(true) {
         try {
             int mapNumber = gameSetupView.promptUserToChooseMapFile(mapNames);
-            map = mapLoader.createMapWithFileName(mapNames[mapNumber]);
+            state.setMap(mapLoader.createMapWithFileName(mapNames[mapNumber]));
             break;
         } catch (RiskException &e) {
             gameSetupView.showError(e.what());
@@ -56,10 +51,11 @@ void GameEngine::initGame() {
     }
 
     // Create the Deck
-    deck = new Deck(map->numberOfCountries());
+    state.setDeck(new Deck(state.getMap()->numberOfCountries()));
 
     int numberOfPlayers = gameSetupView.promptUserToChooseNumberOfPlayers(MIN_PLAYERS, MAX_PLAYERS);
 
+    std::vector<Player *> players;
 //    players.push_back(new Player(1, new HumanStrategy()));
     for (int i = 0; i < numberOfPlayers; i++) {
         if (i % 2 == 1)
@@ -67,33 +63,39 @@ void GameEngine::initGame() {
         else
             players.push_back(new Player(i + 1, new BenevolentComputerStrategy()));
     }
+
+    state.setPlayers(players);
 }
 
 void GameEngine::startUpPhase() {
 
-    auto temp = startup::order_play(players);
+    auto temp = startup::order_play(state.getPlayers());
 
-    startup::distributing_countries(map->getCountries(), temp);
+    startup::distributing_countries(state.getMap()->getCountries(), temp);
     startup::distributing_armies(temp);
     startup::placing_armies(temp);
 }
 
 void GameEngine::mainLoop() {
+    map_ptr map = state.getMap();
+    auto players = state.getPlayers();
+
     while(map->ownerOfAllCountries() == nullptr) {
         for(Player* &player: players) {
-            std::cout << "Player " << to_string(player->getId()) << "'s turn." << std::endl;
-            std::cout << "The countries you own:" << std::endl;
-            auto countries = player->getCountries();
-            for(int i = 0; i < countries.size(); i++)
-                std::cout << countries[i]->getName() << ", armies: " << countries[i]->getNumOfArmies() << std::endl;
-            player->reinforce();
-            player->attack();
-            player->fortify();
+            state.setPhaseState("Player " + to_string(player->getId()) + "'s turn.");
+//            std::cout << "Player " << to_string(player->getId()) << "'s turn." << std::endl;
+//            std::cout << "The countries you own:" << std::endl;
+//            auto countries = player->getCountries();
+//            for(int i = 0; i < countries.size(); i++)
+//                std::cout << countries[i]->getName() << ", armies: " << countries[i]->getNumOfArmies() << std::endl;
+            player->reinforce(&state);
+            player->attack(&state);
+            player->fortify(&state);
 
-            std::cout << "The countries you own now:" << std::endl;
-            countries = player->getCountries();
-            for(int i = 0; i < countries.size(); i++)
-                std::cout << countries[i]->getName() << ", armies: " << countries[i]->getNumOfArmies() << std::endl;
+//            std::cout << "The countries you own now:" << std::endl;
+//            countries = player->getCountries();
+//            for(int i = 0; i < countries.size(); i++)
+//                std::cout << countries[i]->getName() << ", armies: " << countries[i]->getNumOfArmies() << std::endl;
         }
     }
 

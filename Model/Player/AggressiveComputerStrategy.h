@@ -19,11 +19,11 @@ private:
     bool isThereACountryLeftToAttack(country_ptr countryPtr);
 
 public:
-    void performAttack(Player *player) override;
+    void performAttack(Player *player, State *state) override;
 
-    void performFortify(Player *player) override;
+    void performFortify(Player *player, State *state) override;
 
-    void performReinforce(Player *player) override;
+    void performReinforce(Player *player, State *state) override;
 
     int whichCountryToPlaceOneArmyOn(Player *player) override;
 };

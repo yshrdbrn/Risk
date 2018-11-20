@@ -9,7 +9,7 @@
 #include <string>
 #include "../Map/map.h"
 
-typedef std::unique_ptr<Map> map_ptr;
+typedef std::shared_ptr<Map> map_ptr;
 
 class MapLoader {
 private:

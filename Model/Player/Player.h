@@ -10,6 +10,8 @@
 
 typedef std::shared_ptr<Country> country_ptr;
 
+class State;
+
 class Player{
     private:
 
@@ -43,9 +45,9 @@ class Player{
         void addCountry(country_ptr countryPtr);
         void removeCountry(country_ptr countryPtr);
 
-        void reinforce();
-        void attack();
-        void fortify();
+        void reinforce(State *);
+        void attack(State *);
+        void fortify(State *);
 
         /**
          * This method will return the index of which country to place one army on

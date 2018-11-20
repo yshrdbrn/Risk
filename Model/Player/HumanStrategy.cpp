@@ -2,14 +2,17 @@
 // Created by Yashar Dabiran on 2018-11-14.
 //
 
+#include <string>
 #include "HumanStrategy.h"
 #include "Player.h"
 #include "../Map/continent.h"
+#include "../../Controller/State.h"
 
-void HumanStrategy::performAttack(Player *player) {
+void HumanStrategy::performAttack(Player *player, State *state) {
     auto countries = player->getCountries();
 
-    std::cout << "Player attacking phase.. " << endl ;
+    state->setPhaseState("Player attacking phase... ");
+
     bool isAttacking = true;
     string answer;
     country_ptr refAttCountry ;
@@ -57,7 +60,9 @@ void HumanStrategy::performAttack(Player *player) {
             std::vector<shared_ptr<Country>> ::iterator iter2;
             for (iter2= neighbors.begin(); iter2 != neighbors.end(); iter2++) {
                 if ((*iter2)->getName() == defCountry && (*iter2)->getOwner()->getId() != refAttCountry->getOwner()->getId()) {
-                    cout << "Attacking " << defCountry << "..." << endl;
+
+                    state->setPhaseState(refAttCountry->getName() + " Attacking " + defCountry + "...");
+
                     refDefCountry = (*iter2);
                     isValidDef = true;
                     break;
@@ -104,26 +109,31 @@ void HumanStrategy::performAttack(Player *player) {
             int maxDef = arrDef.back();
             cout<<"max dice for Player"<<refDefCountry->getOwner()->getId()<<" is "<<maxDef<<endl;
             if(maxAtt>maxDef){
-                cout << refDefCountry->getName() << " lost one army!" <<endl;
+                state->setPhaseState(refDefCountry->getName() + " lost one army!");
+//                cout << refDefCountry->getName() << " lost one army!" <<endl;
                 refDefCountry->removeNumOfArmies(1);
 
             }
             else{
                 refAttCountry->removeNumOfArmies(1);
-                cout<<refAttCountry->getName() << " lost one army" <<endl;
+                state->setPhaseState(refAttCountry->getName() + " lost one army!");
+//                cout<<refAttCountry->getName() << " lost one army" <<endl;
             }
             arrDef.pop_back();
             arrAtt.pop_back();
         }
 
         if(refDefCountry->getNumOfArmies() == 0){
-            std::cout << "Player " << refAttCountry->getOwner()->getId() << " won the battle" << endl;
-            std::cout << refDefCountry->getName() << " has no more armies on it!" << endl;
+            state->setPhaseState("Player " + std::to_string(refAttCountry->getOwner()->getId()) + " won the battle");
+            state->setPhaseState(refDefCountry->getName() + " now belongs to Player" + std::to_string(refAttCountry->getOwner()->getId()) + "!");
+
+//            std::cout << "Player " << refAttCountry->getOwner()->getId() << " won the battle" << endl;
+//            std::cout << refDefCountry->getName() << " has no more armies on it!" << endl;
             refDefCountry->getOwner()->removeCountry(refDefCountry);
             refAttCountry->getOwner()->addCountry(refDefCountry);
             refDefCountry->setOwner(refAttCountry->getOwner());
 
-            std::cout << refDefCountry->getName() << " now belongs to Player" << refAttCountry->getOwner()->getId() << "!" << endl;
+//            std::cout << refDefCountry->getName() << " now belongs to Player" << refAttCountry->getOwner()->getId() << "!" << endl;
             int armiesToMove;
             //Validate the number of armies to move
             bool isValidNumber=false;
@@ -136,17 +146,20 @@ void HumanStrategy::performAttack(Player *player) {
                 else std::cout << "You can not move this amout of armies" << endl;
             }while(!isValidNumber);
 
+        } else {
+
         }
 
 
     }
-    std::cout<<"Exiting attack phase..." <<endl;
+//    std::cout<<"Exiting attack phase..." <<endl;
 }
 
-void HumanStrategy::performFortify(Player *player) {
+void HumanStrategy::performFortify(Player *player, State *state) {
     auto countries = player->getCountries();
 
-    std::cout << "Beginning Fortify Phase... " << endl;
+    state->setPhaseState("Beginning Fortify Phase... ");
+//    std::cout << "Beginning Fortify Phase... " << endl;
     bool isFortifying = true;
     std::string answer;
     country_ptr refSourceCountry;
@@ -206,11 +219,15 @@ void HumanStrategy::performFortify(Player *player) {
                 }
             }
             if (!isValidTarget)
-                std::cout<< targetCountry << " is not a valid taget country! Please make sure that the target country is neighboring to the source country and are both owned by you!" << endl;
+                std::cout<< targetCountry << " is not a valid taget country! Please make sure that the target "
+                                             "country is neighboring to the source country "
+                                             "and are both owned by you!" << endl;
 
         }while(!isValidTarget);
 
-        std::cout<< "proceeding to move " << armiesToMove << " armies from " << sourceCountry << " to " << targetCountry << endl;
+//        std::cout<< "proceeding to move " << armiesToMove << " armies from " << sourceCountry << " to " << targetCountry << endl;
+        state->setPhaseState("moving " + std::to_string(armiesToMove) +
+                                " armies from " + sourceCountry + " to " + targetCountry);
         refTargetCountry->addNumOfArmies(armiesToMove);
         refSourceCountry->removeNumOfArmies(armiesToMove);
     }
@@ -219,7 +236,9 @@ void HumanStrategy::performFortify(Player *player) {
 }
 
 
-void HumanStrategy::performReinforce(Player *player) {
+void HumanStrategy::performReinforce(Player *player, State *state) {
+    state->setPhaseState("Beginning Reinforce Phase... ");
+
     auto countries = player->getCountries();
     auto hand = player->getHand();
 
@@ -227,6 +246,8 @@ void HumanStrategy::performReinforce(Player *player) {
 
     //Prompt Player to exchange cards for extra armies
     hand->exchange(armies);
+
+    state->setPhaseState("Player now has " + std::to_string(armies) + " new armies.");
 
     while(armies > 0){
         cout<< "You have " << armies << " armies to place " << endl;
@@ -255,14 +276,15 @@ void HumanStrategy::performReinforce(Player *player) {
                     }
                 }
                 if(countryIsOwned){
-                    cout << "Placed " << armiesToPlace << " armies on " << country_input << "." <<endl;
+//                    cout << "Placed " << armiesToPlace << " armies on " << country_input << "." <<endl;
+                    state->setPhaseState("Placed " + std::to_string(armiesToPlace) + " armies on " + country_input + ".");
                 }
                 else{
                     cout << "Country name in not valid..." << endl;
                     continue;
                 }
             } while(!countryIsOwned);
-            std::cout<<"You have no more armies to place! Ending reinforcement phase..."<<endl;
+//            std::cout<<"You have no more armies to place! Ending reinforcement phase..."<<endl;
 
         }
     }

@@ -8,11 +8,11 @@
 
 #include "BenevolentComputerStrategy.h"
 
-void BenevolentComputerStrategy::performAttack(Player *player) {
+void BenevolentComputerStrategy::performAttack(Player *player, State *state) {
     // Do nothing here
 }
 
-void BenevolentComputerStrategy::performFortify(Player *player) {
+void BenevolentComputerStrategy::performFortify(Player *player, State *state) {
     auto countries = player->getCountries();
     // mark map for DFS
     std::unordered_map<std::string, bool> mark;
@@ -61,7 +61,7 @@ void BenevolentComputerStrategy::dfs(country_ptr node, std::unordered_map<std::s
     }
 }
 
-void BenevolentComputerStrategy::performReinforce(Player *player) {
+void BenevolentComputerStrategy::performReinforce(Player *player, State *state) {
     int armies = giveArmiesToPlayer(player);
     auto countries = player->getCountries();
     // TODO: Get armies from exchanging armies in hand
