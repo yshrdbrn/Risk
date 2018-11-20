@@ -13,6 +13,7 @@
 #include "../Model/Player/HumanStrategy.h"
 #include "../Model/Player/AggressiveComputerStrategy.h"
 #include "../Model/Player/BenevolentComputerStrategy.h"
+#include "../View/PhaseObserver.h"
 
 void GameEngine::startGame() {
     initGame();
@@ -35,6 +36,9 @@ int GameEngine::getNumberOfCountriesInMap() {
 }
 
 void GameEngine::initGame() {
+    // Set the observers
+    state.attach(new PhaseObserver(&state));
+
     MapLoader mapLoader;
     GameSetupView gameSetupView;
     std::vector<std::string> mapNames = mapLoader.getListOfAllMapFiles();

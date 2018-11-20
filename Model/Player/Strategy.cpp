@@ -9,7 +9,6 @@
 int Strategy::giveArmiesToPlayer(Player *player) {
     auto countries = player->getCountries();
 
-    std::cout << "begin reinforcing phase... " << endl;
     int armies = 3 ;
 
     //add number of armies based on number of countries owned

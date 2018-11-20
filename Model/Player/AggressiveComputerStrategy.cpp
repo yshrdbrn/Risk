@@ -13,6 +13,8 @@
 #include "../../Controller/State.h"
 
 void AggressiveComputerStrategy::performAttack(Player *player, State *state) {
+    state->setPhaseState("Beginning attacking phase... ");
+
     auto countries = player->getCountries();
 
     // Finding the country if the maximum number of armies
@@ -89,6 +91,8 @@ void AggressiveComputerStrategy::attackFromCountryToCountry(country_ptr attackin
 
 
 void AggressiveComputerStrategy::performFortify(Player *player, State *state) {
+    state->setPhaseState("Beginning Fortify Phase... ");
+
     auto countries = player->getCountries();
     // mark map for DFS
     std::unordered_map<std::string, bool> mark;
@@ -118,7 +122,8 @@ void AggressiveComputerStrategy::performFortify(Player *player, State *state) {
                 countryWithAnEnemyNeighbor->addNumOfArmies(remainder);
                 nodesInComponent[i]->removeNumOfArmies(remainder);
 
-                state->setPhaseState("Moved " + std::to_string(remainder) + " armies from " +
+                if (remainder != 0)
+                    state->setPhaseState("Moved " + std::to_string(remainder) + " armies from " +
                           nodesInComponent[i]->getName() + " to " + countryWithAnEnemyNeighbor->getName());
             }
         }
@@ -141,6 +146,8 @@ void AggressiveComputerStrategy::dfs(country_ptr node, std::unordered_map<std::s
 
 
 void AggressiveComputerStrategy::performReinforce(Player *player, State *state) {
+    state->setPhaseState("Beginning Reinforce Phase... ");
+
     int armies = giveArmiesToPlayer(player);
     auto countries = player->getCountries();
 

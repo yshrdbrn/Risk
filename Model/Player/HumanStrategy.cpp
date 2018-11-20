@@ -11,7 +11,7 @@
 void HumanStrategy::performAttack(Player *player, State *state) {
     auto countries = player->getCountries();
 
-    state->setPhaseState("Player attacking phase... ");
+    state->setPhaseState("Beginning attacking phase... ");
 
     bool isAttacking = true;
     string answer;

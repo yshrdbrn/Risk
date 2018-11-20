@@ -10,10 +10,13 @@
 #include "BenevolentComputerStrategy.h"
 
 void BenevolentComputerStrategy::performAttack(Player *player, State *state) {
+    state->setPhaseState("Beginning attacking phase... ");
     // Do nothing here
 }
 
 void BenevolentComputerStrategy::performFortify(Player *player, State *state) {
+    state->setPhaseState("Beginning Fortify Phase... ");
+
     auto countries = player->getCountries();
     // mark map for DFS
     std::unordered_map<std::string, bool> mark;
@@ -66,6 +69,8 @@ void BenevolentComputerStrategy::dfs(country_ptr node, std::unordered_map<std::s
 }
 
 void BenevolentComputerStrategy::performReinforce(Player *player, State *state) {
+    state->setPhaseState("Beginning Reinforce Phase... ");
+    
     int armies = giveArmiesToPlayer(player);
     auto countries = player->getCountries();
     // TODO: Get armies from exchanging armies in hand

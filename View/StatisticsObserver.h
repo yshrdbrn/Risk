@@ -6,9 +6,11 @@
 #define RISKGAME_STATISTICSOBSERVER_H
 
 #include "Observer.h"
+#include "../Controller/State.h"
 
 class StatisticsObserver: public Observer {
-
+private:
+    State *state;
 };
 
 
