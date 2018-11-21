@@ -127,3 +127,7 @@ void Player::removeCountry(country_ptr countryPtr) {
 int Player::whichCountryToPlaceOneArmyOn() {
     return strategy->whichCountryToPlaceOneArmyOn(this);
 }
+
+void Player::setStrategy(Strategy *strategy) {
+    Player::strategy = strategy;
+}

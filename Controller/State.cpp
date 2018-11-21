@@ -40,7 +40,6 @@ State::~State() {
  */
 void State::setPhaseState(std::string state) {
     phaseState = state;
-    notify();
 }
 
 const string &State::getPhaseState() const {
@@ -70,3 +69,13 @@ void State::calculateNewPercentage() {
 const vector<int> &State::getDominationPercentage() const {
     return dominationPercentage;
 }
+
+void State::addToPhaseState(std::string state) {
+    phaseState += '\n';
+    phaseState += state;
+}
+
+void State::finishCurrentState() {
+    notify();
+}
+

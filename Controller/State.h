@@ -43,6 +43,10 @@ public:
     //// State Change Methods
     void setPhaseState(std::string state);
 
+    void addToPhaseState(std::string state);
+
+    void finishCurrentState();
+
     const string &getPhaseState() const;
 
     /**

@@ -60,7 +60,7 @@ void HumanStrategy::performAttack(Player *player, State *state) {
             for (iter2= neighbors.begin(); iter2 != neighbors.end(); iter2++) {
                 if ((*iter2)->getName() == defCountry && (*iter2)->getOwner()->getId() != refAttCountry->getOwner()->getId()) {
 
-                    state->setPhaseState(refAttCountry->getName() + " Attacking " + defCountry + "...");
+                    state->addToPhaseState(refAttCountry->getName() + " Attacking " + defCountry + "...");
 
                     refDefCountry = (*iter2);
                     isValidDef = true;
@@ -108,21 +108,21 @@ void HumanStrategy::performAttack(Player *player, State *state) {
             int maxDef = arrDef.back();
             cout<<"max dice for Player"<<refDefCountry->getOwner()->getId()<<" is "<<maxDef<<endl;
             if(maxAtt>maxDef){
-                state->setPhaseState(refDefCountry->getName() + " lost one army!");
+                state->addToPhaseState(refDefCountry->getName() + " lost one army!");
                 refDefCountry->removeNumOfArmies(1);
 
             }
             else{
                 refAttCountry->removeNumOfArmies(1);
-                state->setPhaseState(refAttCountry->getName() + " lost one army!");
+                state->addToPhaseState(refAttCountry->getName() + " lost one army!");
             }
             arrDef.pop_back();
             arrAtt.pop_back();
         }
 
         if(refDefCountry->getNumOfArmies() == 0){
-            state->setPhaseState("Player " + std::to_string(refAttCountry->getOwner()->getId()) + " won the battle");
-            state->setPhaseState(refDefCountry->getName() + " now belongs to Player" + std::to_string(refAttCountry->getOwner()->getId()) + "!");
+            state->addToPhaseState("Player " + std::to_string(refAttCountry->getOwner()->getId()) + " won the battle");
+            state->addToPhaseState(refDefCountry->getName() + " now belongs to Player" + std::to_string(refAttCountry->getOwner()->getId()) + "!");
 
             state->transferCountryOwnership(refDefCountry, refDefCountry->getOwner(), refAttCountry->getOwner());
 
@@ -141,6 +141,8 @@ void HumanStrategy::performAttack(Player *player, State *state) {
         }
 
     }
+
+    state->finishCurrentState();
 }
 
 void HumanStrategy::performFortify(Player *player, State *state) {
@@ -213,11 +215,13 @@ void HumanStrategy::performFortify(Player *player, State *state) {
 
         }while(!isValidTarget);
 
-        state->setPhaseState("moving " + std::to_string(armiesToMove) +
+        state->addToPhaseState("moving " + std::to_string(armiesToMove) +
                                 " armies from " + sourceCountry + " to " + targetCountry);
         refTargetCountry->addNumOfArmies(armiesToMove);
         refSourceCountry->removeNumOfArmies(armiesToMove);
     }
+
+    state->finishCurrentState();
 }
 
 
@@ -232,7 +236,7 @@ void HumanStrategy::performReinforce(Player *player, State *state) {
     //Prompt Player to exchange cards for extra armies
     hand->exchange(armies);
 
-    state->setPhaseState("Player now has " + std::to_string(armies) + " new armies.");
+    state->addToPhaseState("Player now has " + std::to_string(armies) + " new armies.");
 
     while(armies > 0){
         cout<< "You have " << armies << " armies to place " << endl;
@@ -261,7 +265,7 @@ void HumanStrategy::performReinforce(Player *player, State *state) {
                     }
                 }
                 if(countryIsOwned){
-                    state->setPhaseState("Placed " + std::to_string(armiesToPlace) + " armies on " + country_input + ".");
+                    state->addToPhaseState("Placed " + std::to_string(armiesToPlace) + " armies on " + country_input + ".");
                 }
                 else{
                     cout << "Country name in not valid..." << endl;
@@ -271,6 +275,8 @@ void HumanStrategy::performReinforce(Player *player, State *state) {
 
         }
     }
+
+    state->finishCurrentState();
 }
 
 int HumanStrategy::whichCountryToPlaceOneArmyOn(Player *player) {

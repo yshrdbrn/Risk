@@ -39,6 +39,8 @@ void StatisticsObserver::printBarGraph() {
     std::cout << "\033[1;31mWorld domination graph:" << std::endl;
     for (int i = 0; i < dominationPercentage.size(); i++) {
         // Each 4% represents one *
+        if (dominationPercentage[i] == 0)
+            continue;
         int numberOfStars = (dominationPercentage[i] / 4) + 1;
         std::cout << "Player " << (i + 1) << ": ";
         for (int j = 0; j < numberOfStars; j++)

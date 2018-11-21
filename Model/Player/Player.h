@@ -63,7 +63,7 @@ class Player{
         int getId() const;
         void setId(int id);
 
-
+	void setStrategy(Strategy *strategy);
 };
 
 #endif

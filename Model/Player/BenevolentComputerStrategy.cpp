@@ -12,6 +12,7 @@
 void BenevolentComputerStrategy::performAttack(Player *player, State *state) {
     state->setPhaseState("Beginning attacking phase... ");
     // Do nothing here
+    state->finishCurrentState();
 }
 
 void BenevolentComputerStrategy::performFortify(Player *player, State *state) {
@@ -42,7 +43,7 @@ void BenevolentComputerStrategy::performFortify(Player *player, State *state) {
             // while difference of armies in min country and max country is bigger than 1
             // move an army from the max country to the min country
             while (minArmyCountries[minArmyCountries.size() - 1].first -  minArmyCountries[0].first > 1) {
-                state->setPhaseState("Moved one army from " + minArmyCountries[minArmyCountries.size() - 1].second->getName() +
+                state->addToPhaseState("Moved one army from " + minArmyCountries[minArmyCountries.size() - 1].second->getName() +
                                     " To " + minArmyCountries[0].second->getName());
 
                 minArmyCountries[0].second->addNumOfArmies(1);
@@ -53,6 +54,8 @@ void BenevolentComputerStrategy::performFortify(Player *player, State *state) {
             }
         }
     }
+
+    state->finishCurrentState();
 }
 
 void BenevolentComputerStrategy::dfs(country_ptr node, std::unordered_map<std::string, bool> &mark,
@@ -73,9 +76,8 @@ void BenevolentComputerStrategy::performReinforce(Player *player, State *state) 
 
     int armies = giveArmiesToPlayer(player);
     auto countries = player->getCountries();
-    // TODO: Get armies from exchanging armies in hand
 
-    state->setPhaseState("Player " + std::to_string(player->getId()) + " has " + std::to_string(armies) + " new armies to place.");
+    state->addToPhaseState("Player " + std::to_string(player->getId()) + " has " + std::to_string(armies) + " new armies to place.");
 
     // Sort the countries using their army size
     std::vector<pair<int, country_ptr>> minArmyCountries;
@@ -85,13 +87,15 @@ void BenevolentComputerStrategy::performReinforce(Player *player, State *state) 
 
     // Add army to the minimum country, then sort the array again
     while (armies > 0) {
-        state->setPhaseState("Added one army to " + minArmyCountries[0].second->getName());
+        state->addToPhaseState("Added one army to " + minArmyCountries[0].second->getName());
 
         minArmyCountries[0].second->addNumOfArmies(1);
         armies--;
         minArmyCountries[0].first++;
         std::sort(minArmyCountries.begin(), minArmyCountries.end());
     }
+
+    state->finishCurrentState();
 }
 
 int BenevolentComputerStrategy::whichCountryToPlaceOneArmyOn(Player *player) {

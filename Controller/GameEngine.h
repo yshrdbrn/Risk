@@ -41,6 +41,9 @@ private:
      */
     bool playerDoesNotOwnAnyCountries(Player *player);
 
+    // Asks console if the user wants to change strategy
+    void askIfWantToChangeStrategy(Player *player);
+
 public:
     /**
      * Call this function if you want to start the game

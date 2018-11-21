@@ -94,6 +94,9 @@ void GameEngine::mainLoop() {
                 continue;
 
             state.setPhaseState("Player " + to_string(player->getId()) + "'s turn.");
+            state.finishCurrentState();
+
+            askIfWantToChangeStrategy(player);
 
             player->reinforce(&state);
             player->attack(&state);
@@ -116,4 +119,22 @@ void GameEngine::mainLoop() {
 
 bool GameEngine::playerDoesNotOwnAnyCountries(Player *player) {
     return player->getCountries().size() == 0;
+}
+
+void GameEngine::askIfWantToChangeStrategy(Player *player) {
+    std::cout << "Do you want to change strategy? (yes/no)" << std::endl;
+    std::string input;
+    std::cin >> input;
+
+    if (input == "yes") {
+        std::cout << "which type? (human, attack, defence)" << std::endl;
+        std::cin >> input;
+
+        if (input == "human")
+            player->setStrategy(new HumanStrategy());
+        else if (input == "attack")
+            player->setStrategy(new AggressiveComputerStrategy());
+        else
+            player->setStrategy(new BenevolentComputerStrategy());
+    }
 }

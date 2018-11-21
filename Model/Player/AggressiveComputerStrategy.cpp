@@ -28,6 +28,8 @@ void AggressiveComputerStrategy::performAttack(Player *player, State *state) {
     while (isThereACountryLeftToAttack(maxCountry) && maxCountry->getNumOfArmies() > 1) {
         attackANeighborCountry(maxCountry, state);
     }
+
+    state->finishCurrentState();
 }
 
 bool AggressiveComputerStrategy::isThereACountryLeftToAttack(country_ptr countryPtr) {
@@ -80,7 +82,7 @@ void AggressiveComputerStrategy::attackFromCountryToCountry(country_ptr attackin
 
     // If conquered the enemy country
     if (defendingCountry->getNumOfArmies() == 0) {
-        state->setPhaseState("Player " + std::to_string(attackingCountry->getOwner()->getId()) + " got the country " + defendingCountry->getName());
+        state->addToPhaseState("Player " + std::to_string(attackingCountry->getOwner()->getId()) + " got the country " + defendingCountry->getName());
         state->transferCountryOwnership(defendingCountry, defendingCountry->getOwner(), attackingCountry->getOwner());
         // Move one army to the conquered country
         attackingCountry->removeNumOfArmies(1);
@@ -124,11 +126,13 @@ void AggressiveComputerStrategy::performFortify(Player *player, State *state) {
                 nodesInComponent[i]->removeNumOfArmies(remainder);
 
                 if (remainder != 0)
-                    state->setPhaseState("Moved " + std::to_string(remainder) + " armies from " +
+                    state->addToPhaseState("Moved " + std::to_string(remainder) + " armies from " +
                           nodesInComponent[i]->getName() + " to " + countryWithAnEnemyNeighbor->getName());
             }
         }
     }
+
+    state->finishCurrentState();
 }
 
 void AggressiveComputerStrategy::dfs(country_ptr node, std::unordered_map<std::string, bool> &mark,
@@ -152,9 +156,7 @@ void AggressiveComputerStrategy::performReinforce(Player *player, State *state) 
     int armies = giveArmiesToPlayer(player);
     auto countries = player->getCountries();
 
-    // TODO: Get armies from exchanging armies in hand
-
-    state->setPhaseState("Player " + std::to_string(player->getId()) + " has " + std::to_string(armies) + " new armies to place.");
+    state->addToPhaseState("Player " + std::to_string(player->getId()) + " has " + std::to_string(armies) + " new armies to place.");
 
     // Finding the country with the maximum number of armies
     country_ptr maxCountry = countries[0];
@@ -165,7 +167,9 @@ void AggressiveComputerStrategy::performReinforce(Player *player, State *state) 
 
     // Give all of the new armies to the found country
     maxCountry->addNumOfArmies(armies);
-    state->setPhaseState("Added " + std::to_string(armies) + " armies to " + maxCountry->getName());
+    state->addToPhaseState("Added " + std::to_string(armies) + " armies to " + maxCountry->getName());
+
+    state->finishCurrentState();
 }
 
 int AggressiveComputerStrategy::whichCountryToPlaceOneArmyOn(Player *player) {
