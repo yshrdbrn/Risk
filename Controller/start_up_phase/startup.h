@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
-#include "../Player/Player.h"
+#include "../../Model/Player/Player.h"
 
 
 using namespace std;

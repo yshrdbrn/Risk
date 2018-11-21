@@ -2,7 +2,9 @@
 // Created by Yashar Dabiran on 2018-10-04.
 //
 
+#include <iostream>
 #include <unordered_map>
+#include "country.h"
 #include "map.h"
 
 bool Map::isEachCountryInOneContinent() {
@@ -12,8 +14,10 @@ bool Map::isEachCountryInOneContinent() {
             counter += continentPtr->numberOfCountriesWithName(countryPtr->getName());
 
         // This country either not exists in any continent or exists in more than one continent
-        if (counter != 1)
+        if (counter != 1) {
+            std::cout << countryPtr->getName() << " " << counter << std::endl;
             return false;
+        }
     }
 
     return true;

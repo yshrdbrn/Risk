@@ -9,7 +9,12 @@
 #include "../View/GameSetupView.h"
 #include "../View/GameFinishView.h"
 #include "../Model/Map/riskException.h"
-#include "../Model/start_up_phase/startup.h"
+#include "./start_up_phase/startup.h"
+#include "../Model/Player/HumanStrategy.h"
+#include "../Model/Player/AggressiveComputerStrategy.h"
+#include "../Model/Player/BenevolentComputerStrategy.h"
+#include "../View/PhaseObserver.h"
+#include "../View/StatisticsObserver.h"
 
 void GameEngine::startGame() {
     initGame();
@@ -19,24 +24,23 @@ void GameEngine::startGame() {
     mainLoop();
 }
 
-GameEngine::~GameEngine() {
-    for (auto &player : players)
-        delete player;
-}
-
 int GameEngine::getNumberOfPlayers() {
-    return players.size();
+    return state.getPlayers().size();
 }
 
 int GameEngine::getNumberOfCardsInDeck() {
-    return deck->getTotalCards();
+    return state.getDeck()->getTotalCards();
 }
 
 int GameEngine::getNumberOfCountriesInMap() {
-    return map->numberOfCountries();
+    return state.getMap()->numberOfCountries();
 }
 
 void GameEngine::initGame() {
+    // Set the observers
+    state.attach(new PhaseObserver(&state));
+    state.attach(new StatisticsObserver(&state));
+
     MapLoader mapLoader;
     GameSetupView gameSetupView;
     std::vector<std::string> mapNames = mapLoader.getListOfAllMapFiles();
@@ -45,7 +49,7 @@ void GameEngine::initGame() {
     while(true) {
         try {
             int mapNumber = gameSetupView.promptUserToChooseMapFile(mapNames);
-            map = mapLoader.createMapWithFileName(mapNames[mapNumber]);
+            state.setMap(mapLoader.createMapWithFileName(mapNames[mapNumber]));
             break;
         } catch (RiskException &e) {
             gameSetupView.showError(e.what());
@@ -53,30 +57,55 @@ void GameEngine::initGame() {
     }
 
     // Create the Deck
-    deck = new Deck(map->numberOfCountries());
+    state.setDeck(new Deck(state.getMap()->numberOfCountries()));
 
     int numberOfPlayers = gameSetupView.promptUserToChooseNumberOfPlayers(MIN_PLAYERS, MAX_PLAYERS);
 
-    for (int i = 0; i < numberOfPlayers; i++)
-        players.push_back(new Player(i + 1));
+    std::vector<Player *> players;
+//    players.push_back(new Player(1, new HumanStrategy()));
+    for (int i = 0; i < numberOfPlayers; i++) {
+        if (i % 2 == 1)
+            players.push_back(new Player(i + 1, new AggressiveComputerStrategy()));
+        else
+            players.push_back(new Player(i + 1, new BenevolentComputerStrategy()));
+    }
+
+    state.setPlayers(players);
 }
 
 void GameEngine::startUpPhase() {
 
-    auto temp = startup::order_play(players);
+    auto temp = startup::order_play(state.getPlayers());
 
-    startup::distributing_countries(map->getCountries(), temp);
+    startup::distributing_countries(state.getMap()->getCountries(), temp);
     startup::distributing_armies(temp);
     startup::placing_armies(temp);
 }
 
 void GameEngine::mainLoop() {
-    while(map->ownerOfAllCountries() == nullptr) {
+    map_ptr map = state.getMap();
+    auto players = state.getPlayers();
+    state.calculateNewPercentage();
+
+    bool isFinished = false;
+    while(!isFinished) {
         for(Player* &player: players) {
-            std::cout << "Player " << to_string(player->getId()) << "'s turn." << std::endl;
-            player->reinforce();
-            player->attack();
-            player->fortify();
+            if (playerDoesNotOwnAnyCountries(player))
+                continue;
+
+            state.setPhaseState("Player " + to_string(player->getId()) + "'s turn.");
+
+            player->reinforce(&state);
+            player->attack(&state);
+
+            // Check if someone won the game
+            // It can only happen after an attack phase
+            if(map->ownerOfAllCountries() != nullptr) {
+                isFinished = true;
+                break;
+            }
+
+            player->fortify(&state);
         }
     }
 
@@ -85,15 +114,6 @@ void GameEngine::mainLoop() {
         gameFinishView.announceWinner(map->ownerOfAllCountries());
 }
 
-void GameEngine::setOwnershipOfCountriesToOnePlayer() {
-    for(auto &country: map->getCountries()) {
-        country->setOwner(players[0]);
-    }
-}
-
-void GameEngine::setOwnershipOfCountriesToRandomPlayers() {
-    std::vector<country_ptr> countries = map->getCountries();
-    for (int i = 0; i < countries.size() - 1; i++)
-        countries[i]->setOwner(players[0]);
-    countries[countries.size() - 1]->setOwner(players[1]);
+bool GameEngine::playerDoesNotOwnAnyCountries(Player *player) {
+    return player->getCountries().size() == 0;
 }
