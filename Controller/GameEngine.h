@@ -34,6 +34,11 @@ private:
     */
     void initGame();
 
+    /**
+     * Checks if player has lost
+     * @param player the person to check
+     * @return if the player does not own any countries (has lost)
+     */
     bool playerDoesNotOwnAnyCountries(Player *player);
 
 public:

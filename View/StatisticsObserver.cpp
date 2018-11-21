@@ -12,7 +12,7 @@ void StatisticsObserver::update() {
 
     // Check if the domination percentage is changed
     bool isChanged = false;
-    if (dominationPercentage.size() != currentDominationPercentage.size()) {
+    if (dominationPercentage.size() != currentDominationPercentage.size()) { // Checks if the current percentage vector is empty
         isChanged = true;
     } else {
         for (int i = 0; i < dominationPercentage.size(); i++) {
@@ -35,8 +35,10 @@ void StatisticsObserver::update() {
 }
 
 void StatisticsObserver::printBarGraph() {
+    // Change the color of the text to RED
     std::cout << "\033[1;31mWorld domination graph:" << std::endl;
     for (int i = 0; i < dominationPercentage.size(); i++) {
+        // Each 4% represents one *
         int numberOfStars = (dominationPercentage[i] / 4) + 1;
         std::cout << "Player " << (i + 1) << ": ";
         for (int j = 0; j < numberOfStars; j++)

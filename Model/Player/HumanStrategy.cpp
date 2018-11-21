@@ -48,7 +48,6 @@ void HumanStrategy::performAttack(Player *player, State *state) {
 
         }while(!isValidAtt);
         std::vector<country_ptr> n = refAttCountry->getNeighbors();
-        //country_ptr l = make_shared<Country>(*(n[1]));
         //Player chooses country to attack
         bool isValidDef = false;
         do{
@@ -110,14 +109,12 @@ void HumanStrategy::performAttack(Player *player, State *state) {
             cout<<"max dice for Player"<<refDefCountry->getOwner()->getId()<<" is "<<maxDef<<endl;
             if(maxAtt>maxDef){
                 state->setPhaseState(refDefCountry->getName() + " lost one army!");
-//                cout << refDefCountry->getName() << " lost one army!" <<endl;
                 refDefCountry->removeNumOfArmies(1);
 
             }
             else{
                 refAttCountry->removeNumOfArmies(1);
                 state->setPhaseState(refAttCountry->getName() + " lost one army!");
-//                cout<<refAttCountry->getName() << " lost one army" <<endl;
             }
             arrDef.pop_back();
             arrAtt.pop_back();
@@ -127,14 +124,8 @@ void HumanStrategy::performAttack(Player *player, State *state) {
             state->setPhaseState("Player " + std::to_string(refAttCountry->getOwner()->getId()) + " won the battle");
             state->setPhaseState(refDefCountry->getName() + " now belongs to Player" + std::to_string(refAttCountry->getOwner()->getId()) + "!");
 
-//            std::cout << "Player " << refAttCountry->getOwner()->getId() << " won the battle" << endl;
-//            std::cout << refDefCountry->getName() << " has no more armies on it!" << endl;
             state->transferCountryOwnership(refDefCountry, refDefCountry->getOwner(), refAttCountry->getOwner());
-//            refDefCountry->getOwner()->removeCountry(refDefCountry);
-//            refAttCountry->getOwner()->addCountry(refDefCountry);
-//            refDefCountry->setOwner(refAttCountry->getOwner());
 
-//            std::cout << refDefCountry->getName() << " now belongs to Player" << refAttCountry->getOwner()->getId() << "!" << endl;
             int armiesToMove;
             //Validate the number of armies to move
             bool isValidNumber=false;
@@ -150,14 +141,13 @@ void HumanStrategy::performAttack(Player *player, State *state) {
         }
 
     }
-//    std::cout<<"Exiting attack phase..." <<endl;
 }
 
 void HumanStrategy::performFortify(Player *player, State *state) {
     auto countries = player->getCountries();
 
     state->setPhaseState("Beginning Fortify Phase... ");
-//    std::cout << "Beginning Fortify Phase... " << endl;
+
     bool isFortifying = true;
     std::string answer;
     country_ptr refSourceCountry;
@@ -223,14 +213,11 @@ void HumanStrategy::performFortify(Player *player, State *state) {
 
         }while(!isValidTarget);
 
-//        std::cout<< "proceeding to move " << armiesToMove << " armies from " << sourceCountry << " to " << targetCountry << endl;
         state->setPhaseState("moving " + std::to_string(armiesToMove) +
                                 " armies from " + sourceCountry + " to " + targetCountry);
         refTargetCountry->addNumOfArmies(armiesToMove);
         refSourceCountry->removeNumOfArmies(armiesToMove);
     }
-    std::cout << refTargetCountry->getName() << " now has " << refTargetCountry->getNumOfArmies() << " armies." << endl;
-    std::cout << refSourceCountry->getName() << " now has " << refSourceCountry->getNumOfArmies() << " armies." << endl;
 }
 
 
@@ -274,7 +261,6 @@ void HumanStrategy::performReinforce(Player *player, State *state) {
                     }
                 }
                 if(countryIsOwned){
-//                    cout << "Placed " << armiesToPlace << " armies on " << country_input << "." <<endl;
                     state->setPhaseState("Placed " + std::to_string(armiesToPlace) + " armies on " + country_input + ".");
                 }
                 else{
@@ -282,7 +268,6 @@ void HumanStrategy::performReinforce(Player *player, State *state) {
                     continue;
                 }
             } while(!countryIsOwned);
-//            std::cout<<"You have no more armies to place! Ending reinforcement phase..."<<endl;
 
         }
     }

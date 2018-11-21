@@ -48,7 +48,7 @@ void BenevolentComputerStrategy::performFortify(Player *player, State *state) {
                 minArmyCountries[0].second->addNumOfArmies(1);
                 minArmyCountries[0].first++;
                 minArmyCountries[minArmyCountries.size() - 1].second->removeNumOfArmies(1);
-                minArmyCountries[minArmyCountries.size() - 1].first++;
+                minArmyCountries[minArmyCountries.size() - 1].first--;
                 std::sort(minArmyCountries.begin(), minArmyCountries.end());
             }
         }
@@ -70,7 +70,7 @@ void BenevolentComputerStrategy::dfs(country_ptr node, std::unordered_map<std::s
 
 void BenevolentComputerStrategy::performReinforce(Player *player, State *state) {
     state->setPhaseState("Beginning Reinforce Phase... ");
-    
+
     int armies = giveArmiesToPlayer(player);
     auto countries = player->getCountries();
     // TODO: Get armies from exchanging armies in hand

@@ -24,8 +24,9 @@ void AggressiveComputerStrategy::performAttack(Player *player, State *state) {
             maxCountry = countries[i];
     }
 
+    // While there is a country to attack and the attacking country has more than one army
     while (isThereACountryLeftToAttack(maxCountry) && maxCountry->getNumOfArmies() > 1) {
-        attackNeighborCountry(maxCountry, state);
+        attackANeighborCountry(maxCountry, state);
     }
 }
 
@@ -41,7 +42,7 @@ bool AggressiveComputerStrategy::isThereACountryLeftToAttack(country_ptr country
     return false;
 }
 
-void AggressiveComputerStrategy::attackNeighborCountry(country_ptr country, State *state) {
+void AggressiveComputerStrategy::attackANeighborCountry(country_ptr country, State *state) {
     auto neighbors = country->getNeighbors();
     // Find an enemy neighbor
     for (int i = 0; i < neighbors.size(); i++) {
@@ -53,6 +54,7 @@ void AggressiveComputerStrategy::attackNeighborCountry(country_ptr country, Stat
 }
 
 void AggressiveComputerStrategy::attackFromCountryToCountry(country_ptr attackingCountry, country_ptr defendingCountry, State *state) {
+    // Maximum number of dice each player can roll
     int attackMaxDice = std::min(3, attackingCountry->getNumOfArmies() - 1);
     int defenceMaxDice = std::min(2, defendingCountry->getNumOfArmies());
 
@@ -80,9 +82,7 @@ void AggressiveComputerStrategy::attackFromCountryToCountry(country_ptr attackin
     if (defendingCountry->getNumOfArmies() == 0) {
         state->setPhaseState("Player " + std::to_string(attackingCountry->getOwner()->getId()) + " got the country " + defendingCountry->getName());
         state->transferCountryOwnership(defendingCountry, defendingCountry->getOwner(), attackingCountry->getOwner());
-//        defendingCountry->getOwner()->removeCountry(defendingCountry);
-//        attackingCountry->getOwner()->addCountry(defendingCountry);
-//        defendingCountry->setOwner(attackingCountry->getOwner());
+        // Move one army to the conquered country
         attackingCountry->removeNumOfArmies(1);
         defendingCountry->incrementArmies(1);
     }
@@ -117,7 +117,7 @@ void AggressiveComputerStrategy::performFortify(Player *player, State *state) {
                 }
             }
 
-            // Add all of armies in the component to one country
+            // Add all of armies in the component to one country with an enemy neighbor
             for (int i = 0; i < nodesInComponent.size(); i++) {
                 int remainder = nodesInComponent[i]->getNumOfArmies() - 1;
                 countryWithAnEnemyNeighbor->addNumOfArmies(remainder);
@@ -177,6 +177,7 @@ int AggressiveComputerStrategy::whichCountryToPlaceOneArmyOn(Player *player) {
             return i;
     }
 
+    // STRATEGY:
     // Find the index of the country with the maximum number of armies
     int maxCountryArmies = countries[0]->getNumOfArmies();
     int maxCountryIndex = 0;

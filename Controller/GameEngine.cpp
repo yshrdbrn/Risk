@@ -87,25 +87,25 @@ void GameEngine::mainLoop() {
     auto players = state.getPlayers();
     state.calculateNewPercentage();
 
-    while(map->ownerOfAllCountries() == nullptr) {
+    bool isFinished = false;
+    while(!isFinished) {
         for(Player* &player: players) {
             if (playerDoesNotOwnAnyCountries(player))
                 continue;
 
             state.setPhaseState("Player " + to_string(player->getId()) + "'s turn.");
-//            std::cout << "Player " << to_string(player->getId()) << "'s turn." << std::endl;
-//            std::cout << "The countries you own:" << std::endl;
-//            auto countries = player->getCountries();
-//            for(int i = 0; i < countries.size(); i++)
-//                std::cout << countries[i]->getName() << ", armies: " << countries[i]->getNumOfArmies() << std::endl;
+
             player->reinforce(&state);
             player->attack(&state);
-            player->fortify(&state);
 
-//            std::cout << "The countries you own now:" << std::endl;
-//            countries = player->getCountries();
-//            for(int i = 0; i < countries.size(); i++)
-//                std::cout << countries[i]->getName() << ", armies: " << countries[i]->getNumOfArmies() << std::endl;
+            // Check if someone won the game
+            // It can only happen after an attack phase
+            if(map->ownerOfAllCountries() != nullptr) {
+                isFinished = true;
+                break;
+            }
+
+            player->fortify(&state);
         }
     }
 
@@ -115,7 +115,5 @@ void GameEngine::mainLoop() {
 }
 
 bool GameEngine::playerDoesNotOwnAnyCountries(Player *player) {
-    if (player->getCountries().size() == 0)
-        return true;
-    return false;
+    return player->getCountries().size() == 0;
 }

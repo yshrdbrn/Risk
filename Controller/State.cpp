@@ -59,6 +59,7 @@ void State::calculateNewPercentage() {
 
     dominationPercentage.clear();
     for (auto &player : players) {
+        // Calculate the percentage owned by every player
         double playerPercentage = player->getCountries().size() * 100.0 / totalCountries;
         dominationPercentage.push_back((int)playerPercentage);
     }

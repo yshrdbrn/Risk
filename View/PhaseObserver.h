@@ -13,9 +13,10 @@
 class PhaseObserver: public Observer{
 private:
     State *state;
+    // Current state of the observer
     std::string phaseState;
 public:
-    PhaseObserver(State *state);
+    explicit PhaseObserver(State *state);
 
     void update() override;
 };

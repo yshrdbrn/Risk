@@ -12,11 +12,17 @@
 class StatisticsObserver: public Observer {
 private:
     State *state;
+    // Current state of the observer
     std::vector<int> dominationPercentage;
 
+    /**
+     * Prints the bar graph based on the percentages in the dominationPercentage vector
+     * It will print one * for each 4%
+     * It prints the numbers in RED
+     */
     void printBarGraph();
 public:
-    StatisticsObserver(State *state);
+    explicit StatisticsObserver(State *state);
 
     void update() override;
 };

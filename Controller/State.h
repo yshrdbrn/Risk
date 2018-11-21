@@ -18,7 +18,9 @@ private:
     std::vector<Player *> players;
     Deck *deck;
 
+    // State of the phase is kept in here
     std::string phaseState;
+    // a vector showing the percentage of map owned by each player
     std::vector<int> dominationPercentage;
 
 public:
@@ -43,6 +45,12 @@ public:
 
     const string &getPhaseState() const;
 
+    /**
+     * Changes the owner of the country from one to another and calls calculateNewPercentage()
+     * @param country the country to change the owner of
+     * @param prevOwner the previous owner of the country
+     * @param newOwner  the new owner of the country
+     */
     void transferCountryOwnership(country_ptr country, Player *prevOwner, Player *newOwner);
 
     const vector<int> &getDominationPercentage() const;
@@ -50,6 +58,9 @@ public:
 
     //// Helper methods
 
+    /**
+     * Calculates percentage of the map every player owns and notifies the observers
+     */
     void calculateNewPercentage();
 };
 
