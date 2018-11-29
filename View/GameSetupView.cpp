@@ -44,3 +44,23 @@ int GameSetupView::promptUserToChooseNumberOfPlayers(int minPlayers, int maxPlay
 void GameSetupView::showError(std::string error) {
     std::cout << "Error: " + error << std::endl;
 }
+
+int GameSetupView::chooseNumberOfMaps() {
+    // TODO
+    return 0;
+}
+
+int GameSetupView::chooseNumberOfGames() {
+    // TODO
+    return 0;
+}
+
+int GameSetupView::chooseMaximumNumberOfTurns() {
+    // TODO
+    return 0;
+}
+
+std::vector<std::string> GameSetupView::getPlayerTypes() {
+    // TODO
+    return std::vector<std::string>();
+}

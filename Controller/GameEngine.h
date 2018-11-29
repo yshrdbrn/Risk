@@ -19,17 +19,12 @@ protected:
     /**
      * Gives countries to players and distribute armies
      */
-    virtual void startUpPhase() = 0;
+    void startUpPhase();
 
     /**
      * It will execute the main loop of the game
      */
     virtual void mainLoop() = 0;
-
-    /**
-    * Initializes the game:
-    */
-    virtual void initGame() = 0;
 
     /**
      * Checks if player has lost

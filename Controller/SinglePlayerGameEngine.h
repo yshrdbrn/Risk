@@ -13,11 +13,9 @@ private:
     void askIfWantToChangeStrategy(Player *player);
 
 protected:
-    void startUpPhase() override;
-
     void mainLoop() override;
 
-    void initGame() override;
+    void initGame();
 
 public:
     void startGame() override;

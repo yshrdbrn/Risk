@@ -64,15 +64,6 @@ void SinglePlayerGameEngine::initGame() {
     state.setPlayers(players);
 }
 
-void SinglePlayerGameEngine::startUpPhase() {
-
-    auto temp = startup::order_play(state.getPlayers());
-
-    startup::distributing_countries(state.getMap()->getCountries(), temp);
-    startup::distributing_armies(temp);
-    startup::placing_armies(temp);
-}
-
 void SinglePlayerGameEngine::mainLoop() {
     map_ptr map = state.getMap();
     auto players = state.getPlayers();
@@ -114,12 +105,12 @@ void SinglePlayerGameEngine::askIfWantToChangeStrategy(Player *player) {
     std::cin >> input;
 
     if (input == "yes") {
-        std::cout << "which type? (human, attack, defence)" << std::endl;
+        std::cout << "which type? (human, attacker, defender)" << std::endl;
         std::cin >> input;
 
         if (input == "human")
             player->setStrategy(new HumanStrategy());
-        else if (input == "attack")
+        else if (input == "attacker")
             player->setStrategy(new AggressiveComputerStrategy());
         else if (input == "cheater")
             player->setStrategy(new CheaterComputerStrategy());

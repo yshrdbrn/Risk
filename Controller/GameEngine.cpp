@@ -19,5 +19,14 @@
 #include "../View/StatisticsObserver.h"
 
 bool GameEngine::playerDoesNotOwnAnyCountries(Player *player) {
-    return player->getCountries().size() == 0;
+    return player->getCountries().empty();
+}
+
+void GameEngine::startUpPhase() {
+
+    auto temp = startup::order_play(state.getPlayers());
+
+    startup::distributing_countries(state.getMap()->getCountries(), temp);
+    startup::distributing_armies(temp);
+    startup::placing_armies(temp);
 }

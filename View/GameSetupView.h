@@ -34,6 +34,14 @@ public:
      * @return number of players
      */
     int promptUserToChooseNumberOfPlayers(int minPlayers, int maxPlayers);
+
+    int chooseNumberOfMaps();
+
+    int chooseNumberOfGames();
+
+    int chooseMaximumNumberOfTurns();
+
+    std::vector<std::string> getPlayerTypes();
 };
 
 
