@@ -141,3 +141,10 @@ std::vector<std::string> GameSetupView::getPlayerTypes() {
 
     return playerTypes;
 }
+
+std::string GameSetupView::chooseGameType(){
+    std::string answer;
+    std::cout << "Would you like to play a tournament or a single game?(tournament/single)"<< std::endl;
+    std::cin >> answer;
+    return answer;
+}

@@ -42,6 +42,8 @@ public:
     int chooseMaximumNumberOfTurns();
 
     std::vector<std::string> getPlayerTypes();
+
+    std::string chooseGameType();
 };
 
 
