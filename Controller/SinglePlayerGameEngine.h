@@ -13,7 +13,7 @@ private:
     void askIfWantToChangeStrategy(Player *player);
 
 protected:
-    void mainLoop() override;
+    void mainLoop();
 
     void initGame();
 

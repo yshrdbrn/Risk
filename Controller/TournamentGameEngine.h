@@ -18,12 +18,20 @@ private:
     int numberOfGames;
     int maxNumberOfTurns;
 
+    /**
+     * This 2D array will have the winners of the tournament games
+     * Each cell will be the index of the winner player, or -1 if it's a draw
+     */
+    std::vector<std::vector<int>> winners;
+
     void getTournamentInfo();
 
     void printTournamentInfo();
 
+    void printResultOfTournament();
+
 protected:
-    void mainLoop() override;
+    int mainLoop();
 
     void initGame(std::string mapName);
 

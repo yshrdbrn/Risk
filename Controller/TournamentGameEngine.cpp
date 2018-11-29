@@ -27,22 +27,63 @@ void TournamentGameEngine::startGame() {
 
     printTournamentInfo();
 
-    for (std::string &map: mapNames) {
-        initGame(map);
+    for (int i = 0; i < numberOfMaps; i++) {
+        std::string map = mapNames[i];
+        winners.emplace_back(vector<int>());
+        for (int j = 0; j < numberOfGames; j++) {
+            initGame(map);
 
-        startUpPhase();
+            startUpPhase();
 
-        mainLoop();
+            int winner = mainLoop();
+            winners[i].push_back(winner);
+        }
     }
+
+    printResultOfTournament();
 }
 
-void TournamentGameEngine::mainLoop() {
+int TournamentGameEngine::mainLoop() {
+    map_ptr map = state.getMap();
+    auto players = state.getPlayers();
+    state.calculateNewPercentage();
 
+    bool isFinished = false;
+    int turn = 0;
+    while(!isFinished && turn < maxNumberOfTurns) {
+        for(Player* &player: players) {
+            if (playerDoesNotOwnAnyCountries(player))
+                continue;
+
+            state.setPhaseState("Player " + to_string(player->getId()) + "'s turn.");
+            state.finishCurrentState();
+
+            player->reinforce(&state);
+            player->attack(&state);
+
+            // Check if someone won the game
+            // It can only happen after an attack phase
+            if(map->ownerOfAllCountries() != nullptr) {
+                isFinished = true;
+                break;
+            }
+
+            player->fortify(&state);
+        }
+
+        turn++;
+    }
+
+    if (map->ownerOfAllCountries() != nullptr)
+        return map->ownerOfAllCountries()->getId() - 1;
+    else
+        return -1;
 }
 
 void TournamentGameEngine::initGame(std::string mapName) {
     MapLoader mapLoader;
 
+    // Set the map
     state.setMap(mapLoader.createMapWithFileName(mapName);
 
     // Create the Deck
@@ -87,5 +128,9 @@ void TournamentGameEngine::getTournamentInfo() {
 }
 
 void TournamentGameEngine::printTournamentInfo() {
+    // TODO
+}
+
+void TournamentGameEngine::printResultOfTournament() {
     // TODO
 }

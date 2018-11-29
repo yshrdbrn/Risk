@@ -22,11 +22,6 @@ protected:
     void startUpPhase();
 
     /**
-     * It will execute the main loop of the game
-     */
-    virtual void mainLoop() = 0;
-
-    /**
      * Checks if player has lost
      * @param player the person to check
      * @return if the player does not own any countries (has lost)
