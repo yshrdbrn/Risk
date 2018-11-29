@@ -25,8 +25,6 @@ void TournamentGameEngine::startGame() {
 
     getTournamentInfo();
 
-    printTournamentInfo();
-
     for (int i = 0; i < numberOfMaps; i++) {
         std::string map = mapNames[i];
         winners.emplace_back(vector<int>());
@@ -40,6 +38,7 @@ void TournamentGameEngine::startGame() {
         }
     }
 
+    printTournamentInfo();
     printResultOfTournament();
 }
 
@@ -84,7 +83,7 @@ void TournamentGameEngine::initGame(std::string mapName) {
     MapLoader mapLoader;
 
     // Set the map
-    state.setMap(mapLoader.createMapWithFileName(mapName);
+    state.setMap(mapLoader.createMapWithFileName(mapName));
 
     // Create the Deck
     state.setDeck(new Deck(state.getMap()->numberOfCountries()));

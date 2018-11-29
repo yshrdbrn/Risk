@@ -24,10 +24,19 @@ private:
      */
     std::vector<std::vector<int>> winners;
 
+    /**
+     * Get the tournament parameters from the user
+     */
     void getTournamentInfo();
 
+    /**
+     * Prints tournament information : M, P, G, D
+     */
     void printTournamentInfo();
 
+    /**
+     * Prints the table showing the results
+     */
     void printResultOfTournament();
 
 protected:
