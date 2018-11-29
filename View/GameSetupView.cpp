@@ -95,7 +95,7 @@ int GameSetupView::chooseMaximumNumberOfTurns() {
 std::vector<std::string> GameSetupView::getPlayerTypes() {
     int numberOfPlayers = 0;
     while (true) {
-        std::cout << "Enter number of maps (between 2 and 4):";
+        std::cout << "Enter number of players (between 2 and 4):";
         std::cin >> numberOfPlayers;
         if (numberOfPlayers >= 2 && numberOfPlayers <= 4)
             break;

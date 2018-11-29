@@ -17,5 +17,4 @@ void PhaseObserver::update() {
 }
 
 PhaseObserver::~PhaseObserver() {
-    std::cout << "hello";
 }

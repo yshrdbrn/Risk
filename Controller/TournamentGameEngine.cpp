@@ -18,6 +18,8 @@
 #include "../View/PhaseObserver.h"
 #include "../View/StatisticsObserver.h"
 
+using namespace std;
+
 void TournamentGameEngine::startGame() {
     // Set the observers
     state.attach(new PhaseObserver(&state));
@@ -112,7 +114,7 @@ void TournamentGameEngine::getTournamentInfo() {
     // Filter out the wrong maps
     for(int i = 0; i < allMaps.size(); i++) {
         try {
-            auto map = mapLoader.createMapWithFileName(mapNames[i]);
+            auto map = mapLoader.createMapWithFileName(allMaps[i]);
             mapNames.push_back(allMaps[i]);
         } catch (RiskException &e) {
             // Just catch the exception
@@ -127,15 +129,17 @@ void TournamentGameEngine::getTournamentInfo() {
 }
 
 void TournamentGameEngine::printTournamentInfo() {
-	for (int i = 0; i < this->mapNames.size(); i++) {
-		cout << "M:" << mapNames[i] << ",";
+    cout << "M: ";
+	for (int i = 0; i < this->mapNames.size() - 1; i++) {
+		cout << mapNames[i] << ", ";
 	}
-	cout << endl;
-	
-	for (int i = 0; i < this->playerTypes.size(); i++) {
-		cout << "P:" << playerTypes[i] << ",";
+	cout << mapNames[mapNames.size() - 1] << endl;
+
+	cout << "P: ";
+	for (int i = 0; i < this->playerTypes.size() - 1; i++) {
+		cout << playerTypes[i] << ", ";
 	}
-	cout << endl;
+    cout << playerTypes[playerTypes.size() - 1] << endl;
 
 	cout << "G:" << this->numberOfGames << endl;
 	cout << "D:" << this->maxNumberOfTurns << endl;
@@ -143,19 +147,28 @@ void TournamentGameEngine::printTournamentInfo() {
 }
 
 void TournamentGameEngine::printResultOfTournament() {
+    cout << "\t\t";
 	for (int i = 0; i < this->numberOfGames; i++) {
-		cout << "Game " << (i+1) << " ";
-   }
+		cout << "Game " << (i+1) << "\t\t";
+    }
+	cout << endl;
 	
 	for (int i = 0; i < this->numberOfMaps; i++) {
-		cout << "Map " << (i + 1) << " ";
+		cout << "Map " << (i + 1) << "\t";
 
 		for (int a = 0; a < this->numberOfGames; a++) {
 
 			if (this->winners[i][a] == -1)
-				cout << " Draw";
-			else
-				cout << this->playerType[winners[i][a]] << " ";
+				cout << "Draw\t\t";
+			else {
+			    string name = this->playerTypes[winners[i][a]];
+			    if (name == "attacker" || name == "defender")
+                    cout << name << "\t";
+                else
+                    cout << name << "\t\t";
+            }
 		}
+
+		cout << endl;
 	}
 }
