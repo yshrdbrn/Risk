@@ -127,9 +127,35 @@ void TournamentGameEngine::getTournamentInfo() {
 }
 
 void TournamentGameEngine::printTournamentInfo() {
-    // TODO
+	for (int i = 0; i < this->mapNames.size(); i++) {
+		cout << "M:" << mapNames[i] << ",";
+	}
+	cout << endl;
+	
+	for (int i = 0; i < this->playerTypes.size(); i++) {
+		cout << "P:" << playerTypes[i] << ",";
+	}
+	cout << endl;
+
+	cout << "G:" << this->numberOfGames << endl;
+	cout << "D:" << this->maxNumberOfTurns << endl;
+	
 }
 
 void TournamentGameEngine::printResultOfTournament() {
-    // TODO
+	for (int i = 0; i < this->numberOfGames; i++) {
+		cout << "Game " << (i+1) << " ";
+   }
+	
+	for (int i = 0; i < this->numberOfMaps; i++) {
+		cout << "Map " << (i + 1) << " ";
+
+		for (int a = 0; a < this->numberOfGames; a++) {
+
+			if (this->winners[i][a] == -1)
+				cout << " Draw";
+			else
+				cout << this->playerType[winners[i][a]] << " ";
+		}
+	}
 }
