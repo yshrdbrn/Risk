@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 14)
 
 set(MAP Model/Map/map.cpp Model/Map/map.h Model/Map/continent.cpp Model/Map/continent.h Model/Map/country.cpp Model/Map/country.h Model/Map/riskException.cpp Model/Map/riskException.h)
 set(MAPLOADER Model/Maploader/mapLoader.cpp Model/Maploader/mapLoader.h)
-set(PLAYER Model/Player/Player.cpp Model/Player/Player.h Model/Player/Strategy.h Model/Player/HumanStrategy.cpp Model/Player/HumanStrategy.h Model/Player/AggressiveComputerStrategy.cpp Model/Player/AggressiveComputerStrategy.h Model/Player/BenevolentComputerStrategy.cpp Model/Player/BenevolentComputerStrategy.h Model/Player/Strategy.cpp)
+set(PLAYER Model/Player/Player.cpp Model/Player/Player.h Model/Player/Strategy.h Model/Player/HumanStrategy.cpp Model/Player/HumanStrategy.h Model/Player/AggressiveComputerStrategy.cpp Model/Player/AggressiveComputerStrategy.h Model/Player/BenevolentComputerStrategy.cpp Model/Player/BenevolentComputerStrategy.h Model/Player/Strategy.cpp Model/Player/RandomComputerStrategy.cpp Model/Player/RandomComputerStrategy.h)
 set(DICE Model/Dice/Dice_Roll.cpp Model/Dice/Dice_Roll.h)
 set(CARDS Model/Cards/Deck.h Model/Cards/Deck.cpp Model/Cards/Hand.cpp Model/Cards/Hand.h)
 

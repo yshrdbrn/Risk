@@ -9,13 +9,6 @@
 #include "Strategy.h"
 
 class BenevolentComputerStrategy: public Strategy {
-private:
-    /**
-     * Checks if there is any neighbor enemy country for the country given
-     * @param countryPtr the country to check the neighbors of
-     * @return if there is an enemy neighbor country
-     */
-    void dfs(country_ptr node, std::unordered_map<std::string, bool> &mark, std::vector<country_ptr> &nodesInComponent);
 public:
     void performAttack(Player *player, State *state) override;
 

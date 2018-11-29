@@ -32,18 +32,6 @@ void AggressiveComputerStrategy::performAttack(Player *player, State *state) {
     state->finishCurrentState();
 }
 
-bool AggressiveComputerStrategy::isThereACountryLeftToAttack(country_ptr countryPtr) {
-    auto neighbors = countryPtr->getNeighbors();
-    // Find an enemy neighbor
-    for (int i = 0; i < neighbors.size(); i++) {
-        if (countryPtr->getOwner()->getId() != neighbors[i]->getOwner()->getId()) {
-            return true;
-        }
-    }
-
-    return false;
-}
-
 void AggressiveComputerStrategy::attackANeighborCountry(country_ptr country, State *state) {
     auto neighbors = country->getNeighbors();
     // Find an enemy neighbor
@@ -52,41 +40,6 @@ void AggressiveComputerStrategy::attackANeighborCountry(country_ptr country, Sta
             attackFromCountryToCountry(country, neighbors[i], state);
             break;
         }
-    }
-}
-
-void AggressiveComputerStrategy::attackFromCountryToCountry(country_ptr attackingCountry, country_ptr defendingCountry, State *state) {
-    // Maximum number of dice each player can roll
-    int attackMaxDice = std::min(3, attackingCountry->getNumOfArmies() - 1);
-    int defenceMaxDice = std::min(2, defendingCountry->getNumOfArmies());
-
-    // Get the dice results
-    std::vector<int> attackingDiceResult = attackingCountry->getOwner()->getDice()->diceRoll(attackMaxDice);
-    std::vector<int> defendingDiceResult = defendingCountry->getOwner()->getDice()->diceRoll(defenceMaxDice);
-
-    // Sort the dice for each player
-    std::sort(attackingDiceResult.begin(), attackingDiceResult.end());
-    std::sort(defendingDiceResult.begin(), defendingDiceResult.end());
-
-    // Comparing dice Pair-wise
-    for (int i = attackMaxDice - 1, j = defenceMaxDice - 1; i >= 0 && j >= 0; i--, j--) {
-        if (attackingDiceResult[i] > defendingDiceResult[j]) {
-            defendingCountry->removeNumOfArmies(1);
-            state->setPhaseState(defendingCountry->getName() + " lost one army.");
-        }
-        else {
-            attackingCountry->removeNumOfArmies(1);
-            state->setPhaseState(attackingCountry->getName() + " lost one army.");
-        }
-    }
-
-    // If conquered the enemy country
-    if (defendingCountry->getNumOfArmies() == 0) {
-        state->addToPhaseState("Player " + std::to_string(attackingCountry->getOwner()->getId()) + " got the country " + defendingCountry->getName());
-        state->transferCountryOwnership(defendingCountry, defendingCountry->getOwner(), attackingCountry->getOwner());
-        // Move one army to the conquered country
-        attackingCountry->removeNumOfArmies(1);
-        defendingCountry->incrementArmies(1);
     }
 }
 
@@ -133,19 +86,6 @@ void AggressiveComputerStrategy::performFortify(Player *player, State *state) {
     }
 
     state->finishCurrentState();
-}
-
-void AggressiveComputerStrategy::dfs(country_ptr node, std::unordered_map<std::string, bool> &mark,
-                                     std::vector<country_ptr> &nodesInComponent) {
-    mark[node->getName()] = true;
-    // Add country to the list of countries in the component
-    nodesInComponent.push_back(node);
-
-    // Check its neighbors
-    for (const auto &t: node->getNeighbors()) {
-        if (t->getOwner()->getId() == node->getOwner()->getId() && !mark[t->getName()])
-            dfs(t, mark, nodesInComponent);
-    }
 }
 
 
