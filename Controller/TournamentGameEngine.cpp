@@ -112,7 +112,7 @@ void TournamentGameEngine::getTournamentInfo() {
     // Filter out the wrong maps
     for(int i = 0; i < allMaps.size(); i++) {
         try {
-            auto map = mapLoader.createMapWithFileName(mapNames[i]);
+            auto map = mapLoader.createMapWithFileName(allMaps[i]);
             mapNames.push_back(allMaps[i]);
         } catch (RiskException &e) {
             // Just catch the exception

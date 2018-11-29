@@ -7,11 +7,23 @@
 #include "../Model/Maploader/mapLoader.h"
 #include "GameEngine.h"
 #include "SinglePlayerGameEngine.h"
+#include "TournamentGameEngine.h"
+#include "../View/GameSetupView.h"
 
 int main() {
-    GameEngine *gameEngine = new SinglePlayerGameEngine();
 
-    gameEngine->startGame();
+    GameSetupView gameSetupView;
+    if(gameSetupView.chooseGameType() == "tournament"){
+        GameEngine *gameEngine = new TournamentGameEngine();
+        gameEngine->startGame();
+        delete gameEngine;
+    }
 
-    delete gameEngine;
+    if(gameSetupView.chooseGameType() == "single"){
+        GameEngine *gameEngine = new SinglePlayerGameEngine();
+        gameEngine->startGame();
+        delete gameEngine;
+    }
+
+    
 }
