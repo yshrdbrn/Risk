@@ -18,12 +18,9 @@ int main() {
         gameEngine->startGame();
         delete gameEngine;
     }
-
-    if(gameSetupView.chooseGameType() == "single"){
+    else {
         GameEngine *gameEngine = new SinglePlayerGameEngine();
         gameEngine->startGame();
         delete gameEngine;
     }
-
-    
 }

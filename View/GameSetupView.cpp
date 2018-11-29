@@ -144,7 +144,13 @@ std::vector<std::string> GameSetupView::getPlayerTypes() {
 
 std::string GameSetupView::chooseGameType(){
     std::string answer;
-    std::cout << "Would you like to play a tournament or a single game?(tournament/single)"<< std::endl;
-    std::cin >> answer;
+    while (true) {
+        std::cout << "Would you like to play a tournament or a single game?(tournament/single)" << std::endl;
+        std::cin >> answer;
+        if (answer == "tournament" || answer == "single")
+            break;
+        std::cout << "Wrong Input." << std::endl;
+    }
+
     return answer;
 }
