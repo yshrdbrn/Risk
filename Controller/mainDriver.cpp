@@ -6,9 +6,12 @@
 #include <string>
 #include "../Model/Maploader/mapLoader.h"
 #include "GameEngine.h"
+#include "SinglePlayerGameEngine.h"
 
 int main() {
-    GameEngine gameEngine;
+    GameEngine *gameEngine = new SinglePlayerGameEngine();
 
-    gameEngine.startGame();
+    gameEngine->startGame();
+
+    delete gameEngine;
 }

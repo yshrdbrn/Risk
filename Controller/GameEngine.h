@@ -13,26 +13,23 @@ const int MIN_PLAYERS = 2;
 const int MAX_PLAYERS = 6;
 
 class GameEngine {
-private:
+protected:
     State state;
-//    map_ptr map;
-//    std::vector<Player *> players;
-//    Deck *deck;
 
     /**
      * Gives countries to players and distribute armies
      */
-    void startUpPhase();
+    virtual void startUpPhase() = 0;
 
     /**
      * It will execute the main loop of the game
      */
-    void mainLoop();
+    virtual void mainLoop() = 0;
 
     /**
     * Initializes the game:
     */
-    void initGame();
+    virtual void initGame() = 0;
 
     /**
      * Checks if player has lost
@@ -41,18 +38,14 @@ private:
      */
     bool playerDoesNotOwnAnyCountries(Player *player);
 
-    // Asks console if the user wants to change strategy
-    void askIfWantToChangeStrategy(Player *player);
 
 public:
     /**
      * Call this function if you want to start the game
      */
-    void startGame();
+    virtual void startGame() = 0;
 
-    int getNumberOfPlayers();
-    int getNumberOfCardsInDeck();
-    int getNumberOfCountriesInMap();
+    virtual ~GameEngine() = default;
 };
 
 
