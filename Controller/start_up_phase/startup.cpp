@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include "random"
+#include <algorithm>
 #include "startup.h"
 #include "../../Model/Player/Player.h"
 #include "../../Model/Map/country.h"
