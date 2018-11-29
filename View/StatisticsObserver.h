@@ -22,6 +22,8 @@ private:
      */
     void printBarGraph();
 public:
+    ~StatisticsObserver();
+
     explicit StatisticsObserver(State *state);
 
     void update() override;

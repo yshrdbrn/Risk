@@ -96,7 +96,7 @@ void GameEngine::mainLoop() {
             state.setPhaseState("Player " + to_string(player->getId()) + "'s turn.");
             state.finishCurrentState();
 
-            askIfWantToChangeStrategy(player);
+//            askIfWantToChangeStrategy(player);
 
             player->reinforce(&state);
             player->attack(&state);

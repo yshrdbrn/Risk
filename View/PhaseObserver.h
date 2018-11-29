@@ -19,6 +19,8 @@ public:
     explicit PhaseObserver(State *state);
 
     void update() override;
+
+    ~PhaseObserver();
 };
 
 

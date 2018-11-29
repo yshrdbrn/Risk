@@ -15,3 +15,7 @@ void PhaseObserver::update() {
         std::cout << "\033[1;32m" + phaseState +"\033[0m" << std::endl;
     }
 }
+
+PhaseObserver::~PhaseObserver() {
+    std::cout << "hello";
+}

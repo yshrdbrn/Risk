@@ -13,6 +13,9 @@ private:
     std::vector<Observer *> observers;
 
 public:
+
+    ~Observable();
+
     void attach(Observer *observer);
 
     void detach(Observer *observer);

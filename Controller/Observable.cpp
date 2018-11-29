@@ -22,3 +22,9 @@ void Observable::notify() {
     for (auto observer: observers)
         observer->update();
 }
+
+Observable::~Observable() {
+    for (int i = 0; i < observers.size(); i++) {
+        delete observers[i];
+    }
+};

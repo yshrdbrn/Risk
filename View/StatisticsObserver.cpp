@@ -49,3 +49,7 @@ void StatisticsObserver::printBarGraph() {
     }
     std::cout << "\033[0m";
 }
+
+StatisticsObserver::~StatisticsObserver() {
+
+}
