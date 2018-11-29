@@ -54,11 +54,12 @@ void SinglePlayerGameEngine::initGame() {
 
     std::vector<Player *> players;
 //    players.push_back(new Player(1, new HumanStrategy()));
+//    numberOfPlayers--;
     for (int i = 0; i < numberOfPlayers; i++) {
         if (i % 2 == 1)
-            players.push_back(new Player(i + 1, new AggressiveComputerStrategy()));
+            players.push_back(new Player(i + 1, new RandomComputerStrategy()));
         else
-            players.push_back(new Player(i + 1, new BenevolentComputerStrategy()));
+            players.push_back(new Player(i + 1, new CheaterComputerStrategy()));
     }
 
     state.setPlayers(players);
@@ -78,7 +79,7 @@ void SinglePlayerGameEngine::mainLoop() {
             state.setPhaseState("Player " + to_string(player->getId()) + "'s turn.");
             state.finishCurrentState();
 
-            askIfWantToChangeStrategy(player);
+//            askIfWantToChangeStrategy(player);
 
             player->reinforce(&state);
             player->attack(&state);
