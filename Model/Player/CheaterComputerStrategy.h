@@ -1,14 +1,13 @@
 //
-// Created by Yashar Dabiran on 2018-11-14.
+// Created by Yashar Dabiran on 2018-11-29.
 //
 
-#ifndef RISKGAME_BENEVOLENTCOMPUTERSTRATEGY_H
-#define RISKGAME_BENEVOLENTCOMPUTERSTRATEGY_H
+#ifndef RISKGAME_CHEATERCOMPUTERSTRATEGY_H
+#define RISKGAME_CHEATERCOMPUTERSTRATEGY_H
 
-#include <unordered_map>
 #include "Strategy.h"
 
-class BenevolentComputerStrategy: public Strategy {
+class CheaterComputerStrategy: public Strategy {
 public:
     void performAttack(Player *player, State *state) override;
 
@@ -20,4 +19,4 @@ public:
 };
 
 
-#endif //RISKGAME_BENEVOLENTCOMPUTERSTRATEGY_H
+#endif //RISKGAME_CHEATERCOMPUTERSTRATEGY_H

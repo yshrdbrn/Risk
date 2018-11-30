@@ -17,7 +17,9 @@ const vector<Player *> &State::getPlayers() const {
 }
 
 void State::setPlayers(vector<Player *> players) {
-    State::players = players;
+    for (Player *player: State::players)
+        delete player;
+    State::players = std::move(players);
 }
 
 Deck *State::getDeck() const {
@@ -25,6 +27,7 @@ Deck *State::getDeck() const {
 }
 
 void State::setDeck(Deck *deck) {
+    delete State::deck;
     State::deck = deck;
 }
 

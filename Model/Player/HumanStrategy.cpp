@@ -5,6 +5,7 @@
 #include <string>
 #include "HumanStrategy.h"
 #include "Player.h"
+#include <algorithm>
 #include "../Map/continent.h"
 #include "../../Controller/State.h"
 

@@ -58,19 +58,6 @@ void BenevolentComputerStrategy::performFortify(Player *player, State *state) {
     state->finishCurrentState();
 }
 
-void BenevolentComputerStrategy::dfs(country_ptr node, std::unordered_map<std::string, bool> &mark,
-                                     std::vector<country_ptr> &nodesInComponent) {
-    mark[node->getName()] = true;
-    // Add country to the list of countries in the component
-    nodesInComponent.push_back(node);
-
-    // Check its neighbors
-    for (const auto &t: node->getNeighbors()) {
-        if (t->getOwner()->getId() == node->getOwner()->getId() && !mark[t->getName()])
-            dfs(t, mark, nodesInComponent);
-    }
-}
-
 void BenevolentComputerStrategy::performReinforce(Player *player, State *state) {
     state->setPhaseState("Beginning Reinforce Phase... ");
 
