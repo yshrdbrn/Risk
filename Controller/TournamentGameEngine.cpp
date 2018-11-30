@@ -130,10 +130,10 @@ void TournamentGameEngine::getTournamentInfo() {
 
 void TournamentGameEngine::printTournamentInfo() {
     cout << "M: ";
-	for (int i = 0; i < this->mapNames.size() - 1; i++) {
+	for (int i = 0; i < numberOfMaps - 1; i++) {
 		cout << mapNames[i] << ", ";
 	}
-	cout << mapNames[mapNames.size() - 1] << endl;
+	cout << mapNames[numberOfMaps - 1] << endl;
 
 	cout << "P: ";
 	for (int i = 0; i < this->playerTypes.size() - 1; i++) {
